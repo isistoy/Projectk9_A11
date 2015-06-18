@@ -50,27 +50,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\HaulAIUtility_Pets.cs" />
-    <Compile Include="AI\JobDriver_EatCorpse.cs" />
-    <Compile Include="AI\JobDriver_HaulForPets.cs" />
-    <Compile Include="AI\JobDriver_KillUnreserved.cs" />
-    <Compile Include="AI\JobDriver_SleepForAnimals.cs" />
-    <Compile Include="AI\JobDriver_Tame.cs" />
-    <Compile Include="AI\JobGiver_DefendColony.cs" />
-    <Compile Include="AI\JobGiver_DefendHerd.cs" />
-    <Compile Include="AI\JobGiver_GetOrHuntFood.cs" />
-    <Compile Include="AI\JobGiver_GetRestForAnimal.cs" />
-    <Compile Include="AI\JobGiver_HaulWithColony.cs" />
-    <Compile Include="AI\JobGiver_HuntWithColony.cs" />
-    <Compile Include="AI\JobGiver_HuntWithHerd.cs" />
-    <Compile Include="AI\ThinkNode_ConditionalTamed.cs" />
-    <Compile Include="AI\ThinkNode_PriorityDebug.cs" />
-    <Compile Include="AI\WorkGiver_TamerTame.cs" />
-    <Compile Include="HerdUtility.cs" />
-    <Compile Include="PetApparelOverride.cs" />
-    <Compile Include="PetBed.cs" />
+    <Compile Include="Source\AI\HaulAIUtility_Pets.cs" />
+    <Compile Include="Source\AI\JobDriver_EatCorpse.cs" />
+    <Compile Include="Source\AI\JobDriver_HaulForPets.cs" />
+    <Compile Include="Source\AI\JobDriver_KillUnreserved.cs" />
+    <Compile Include="Source\AI\JobDriver_SleepForAnimals.cs" />
+    <Compile Include="Source\AI\JobDriver_Tame.cs" />
+    <Compile Include="Source\AI\JobGiver_DefendColony.cs" />
+    <Compile Include="Source\AI\JobGiver_DefendHerd.cs" />
+    <Compile Include="Source\AI\JobGiver_GetOrHuntFood.cs" />
+    <Compile Include="Source\AI\JobGiver_GetRestForAnimal.cs" />
+    <Compile Include="Source\AI\JobGiver_HaulWithColony.cs" />
+    <Compile Include="Source\AI\JobGiver_HuntWithColony.cs" />
+    <Compile Include="Source\AI\JobGiver_HuntWithHerd.cs" />
+    <Compile Include="Source\AI\ThinkNode_ConditionalTamed.cs" />
+    <Compile Include="Source\AI\ThinkNode_PriorityDebug.cs" />
+    <Compile Include="Source\AI\WorkGiver_TamerTame.cs" />
+    <Compile Include="Source\HerdUtility.cs" />
+    <Compile Include="Source\PetApparelOverride.cs" />
+    <Compile Include="Source\PetBed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TameablePawn.cs" />
+    <Compile Include="Source\TameablePawn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="About\About.xml">

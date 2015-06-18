@@ -2,11 +2,12 @@ Dans AI:
 	Vérifier que GetPriority est définie dans les jobgivers GetRestForAnimal et GetOrHuntFood
 
 Pour obtenir le besoin de nourriture:
-	hunter.needs.food.CurCategory == HungerCategory.UrgentlyHungry 
+	pawn.needs.food.CurCategory == HungerCategory.UrgentlyHungry 
 
 health control
+	pawn.health.summaryHealth.summaryHealthPercent < 0.9f par ex.
 
 
 Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonctions, petit à petit
 
-Calm, Docile, Glutton, Playfull, Shady
+types de backstories Calm, Docile, Glutton, Playfull, Shady

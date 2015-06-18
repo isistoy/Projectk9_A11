@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<JobDefs>
+
+	<JobDef>
+		<defName>EatCorpse</defName>
+		<driverClass>ProjectK9.AI.JobDriver_EatCorpse</driverClass>
+		<reportString>Eating TargetA.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>SleepForAnimals</defName>
+		<driverClass>ProjectK9.AI.JobDriver_SleepForAnimals</driverClass>
+		<reportString>Sleeping.</reportString>
+    <canCheckOverrideOnDamage>true</canCheckOverrideOnDamage>
+	</JobDef>
+
+  <JobDef>
+    <defName>HaulForPets</defName>
+    <driverClass>ProjectK9.AI.JobDriver_HaulForPets</driverClass>
+    <reportString>Hauling TargetA.</reportString>
+  </JobDef>
+  
+	<JobDef>
+		<defName>Kill</defName>
+		<driverClass>ProjectK9.AI.JobDriver_KillUnreserved</driverClass>
+		<reportString>Killing TargetA.</reportString>
+	</JobDef>
+
+	<JobDef>
+		<defName>Tame</defName>
+		<driverClass>ProjectK9.AI.JobDriver_Tame</driverClass>
+		<reportString>Taming TargetA.</reportString>
+	</JobDef>
+
+
+</JobDefs>

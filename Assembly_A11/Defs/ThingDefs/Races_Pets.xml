@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ThingDefs>
+
+  <ThingDef Name="BasePawn" Abstract="True">
+    <thingClass>ProjectK9.TameablePawn</thingClass>
+    <category>Pawn</category>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Pawn</altitudeLayer>
+    <useHitPoints>false</useHitPoints>
+    <hasTooltip>true</hasTooltip>
+    <soundImpactDefault>BulletImpactFlesh</soundImpactDefault>
+    <inspectorTabs>
+      <li>ITab_Pawn_Health</li>
+      <li>ITab_Pawn_Needs</li>
+      <!--<li>ITab_Pawn_Character</li>-->
+      <!--<li>ITab_Pawn_Gear</li>
+      <li>ITab_Pawn_Guest</li>
+      <li>ITab_Pawn_Prisoner</li>-->
+    </inspectorTabs>
+    <comps>
+      <li>
+        <compClass>CompAttachBase</compClass>
+      </li>
+    </comps>
+    <drawGUIOverlay>true</drawGUIOverlay>
+  </ThingDef>
+
+  <ThingDef Name="BaseAnimal" ParentName="BasePawn" Abstract="True">
+    <race>
+      <isFlesh>true</isFlesh>
+      <hasGenders>true</hasGenders>
+    </race>
+  </ThingDef>
+
+  <ThingDef Name="BaseDog" ParentName="BaseAnimal" Abstract="True">
+    <selectable>true</selectable>
+    <targetHitChanceFactor>1.0</targetHitChanceFactor>
+    <statBases>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <race>
+      <thinkTree>CarnivoreHerd</thinkTree>
+      <makesFootprints>true</makesFootprints>
+      <herdAnimal>true</herdAnimal>
+      <body>QuadrupedAnimalWithPawsAndTail</body>
+      <diet>Carnivorous</diet>
+      <hasLeather>true</hasLeather>
+      <leatherColor>(128,128,128)</leatherColor>
+      <leatherLabel>dog fur</leatherLabel>
+      <leatherInsulation>1.1</leatherInsulation>
+      <soundWounded>Pawn_Iguana_Wounded</soundWounded>
+      <soundDeath>Pawn_Iguana_Death</soundDeath>
+      <soundCall>Pawn_Iguana_Call</soundCall>
+      <soundAngry>Pawn_Iguana_Angry</soundAngry>
+      <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+      <ageGenerationCurve>
+        <points>
+          <li>
+            <loc>(1,0)</loc>
+          </li>
+          <li>
+            <loc>(3,100)</loc>
+          </li>
+          <li>
+            <loc>(5,100)</loc>
+          </li>
+          <li>
+            <loc>(7,30)</loc>
+          </li>
+          <li>
+            <loc>(8,18)</loc>
+          </li>
+          <li>
+            <loc>(10,10)</loc>
+          </li>
+          <li>
+            <loc>(13,3)</loc>
+          </li>
+          <li>
+            <loc>(16,0)</loc>
+          </li>
+        </points>
+      </ageGenerationCurve>
+    </race>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseDog">
+    <defName>Mutt</defName>
+    <label>Mutt</label>
+    <description>A friendly looking dog. It appears relatively harmless mostly due to it's size. It's quite adorable.</description>
+    <statBases>
+      <MoveSpeed>4.75</MoveSpeed>
+      <Flammability>1.0</Flammability>
+      <ComfyTemperatureMin>-15</ComfyTemperatureMin>
+      <ComfyTemperatureMin>30</ComfyTemperatureMin>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_MeleeAttack</verbClass>
+        <defaultCooldownTicks>75</defaultCooldownTicks>
+        <meleeDamageBaseAmount>6</meleeDamageBaseAmount>
+        <meleeDamageDef>Bite</meleeDamageDef>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+      </li>
+    </verbs>
+    <race>
+      <bodySize>1.5</bodySize>
+      <healthScale>0.7</healthScale>
+      <hungerRate>0.45</hungerRate>
+      <ShadowInfo>
+        <baseWidth>0.2</baseWidth>
+        <baseHeight>0.2</baseHeight>
+        <tallness>0.2</tallness>
+      </ShadowInfo>
+    </race>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseDog">
+    <defName>Shep</defName>
+    <label>Shep</label>
+    <description>A hardy work dog. When tamed, this dog should help the colony with simple jobs.</description>
+    <statBases>
+      <MoveSpeed>4.95</MoveSpeed>
+      <Flammability>1.0</Flammability>
+      <ComfyTemperatureMin>-25</ComfyTemperatureMin>
+      <ComfyTemperatureMax>35</ComfyTemperatureMax>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_MeleeAttack</verbClass>
+        <defaultCooldownTicks>80</defaultCooldownTicks>
+        <meleeDamageBaseAmount>8</meleeDamageBaseAmount>
+        <meleeDamageDef>Bite</meleeDamageDef>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+      </li>
+    </verbs>
+    <race>
+      <bodySize>2</bodySize>
+      <healthScale>0.9</healthScale>
+      <hungerRate>0.5</hungerRate>
+      <ShadowInfo>
+        <baseWidth>0.4</baseWidth>
+        <baseHeight>0.4</baseHeight>
+        <tallness>0.4</tallness>
+      </ShadowInfo>
+    </race>
+  </ThingDef>
+</ThingDefs>

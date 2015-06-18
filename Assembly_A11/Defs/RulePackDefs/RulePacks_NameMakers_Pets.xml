@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NameMakerDefs>
+
+  <RulePackDef>
+    <defName>NamerDogs</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>name->[dogname]</li>
+      </rulesStrings>
+      <rulesRaw>
+        <li Class="Rule_File">
+          <keyword>dogname</keyword>
+          <path>NameBanks/DogNames</path>
+        </li>
+      </rulesRaw>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>NamerFactionPets</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>name->Colony Pet</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+</NameMakerDefs>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ThinkTrees>
+
+  <ThinkTreeDef>
+    <defName>CarnivoreHerd</defName>
+    <thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>BurningResponse</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>BrokenCritical</treeDef>
+        </li>
+
+        <!-- If Carnivore is Wild -->
+        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+          <invertResult>true</invertResult>
+          <subNodes>
+            <li Class="ProjectK9.AI.JobGiver_DefendHerd"/>
+          </subNodes>
+        </li>
+        <!-- Else -->
+        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>SelfDefense</treeDef>
+            </li>
+            <li Class="ProjectK9.AI.JobGiver_DefendColony"/>
+          </subNodes>
+        </li>
+
+        <li Class="ProjectK9.AI.JobGiver_HuntWithHerd"/>
+
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <!--<li Class="ProjectK9.AI.JobGiver_GetOrHuntFood"/>-->
+            <li Class="ProjectK9.AI.JobGiver_GetRestForAnimal"/>
+          </subNodes>
+        </li>
+        <!--<li Class="ProjectK9.AI.ThinkNode_SatisfyCarniverousNeeds"/>-->
+
+        <!-- If Carnivore is Wild -->
+        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+          <invertResult>true</invertResult>
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>Idle</tagToGive>
+              <subNodes>
+                <li Class="JobGiver_WanderHerd">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Else -->
+        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+          <subNodes>
+            <li Class="ProjectK9.AI.JobGiver_HuntWithColony"/>
+            <li Class="ProjectK9.AI.JobGiver_HaultWithColony" />
+            <!--<li Class="JobGiver_Work"/>-->
+            <li Class="JobGiver_WanderColony">
+              <maxDanger>Some</maxDanger>
+            </li>
+          </subNodes>
+        </li>        
+
+        <!--Leave if not tamed and starving-->
+        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+          <invertResult>true</invertResult>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfStarving</treeDef>
+            </li>
+          </subNodes>
+        </li>
+
+        <li Class="JobGiver_IdleError"/>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+
+</ThinkTrees>

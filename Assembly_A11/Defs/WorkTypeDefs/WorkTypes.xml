@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WorkTypeDefs>
+
+	<WorkTypeDef>
+		<defName>Taming</defName>
+    <labelShort>Tame</labelShort>
+		<pawnLabel>Tamer</pawnLabel>
+		<gerundLabel>Taming</gerundLabel>
+		<description>Tamers domesticate animals designated to be tamed.</description>
+		<verb>Tame</verb>
+		<naturalPriority>150</naturalPriority>
+    <requireCapableColonist>true</requireCapableColonist>
+    <relevantSkills>
+      <li>Social</li>
+    </relevantSkills>
+    <workTags>
+      <li>Social</li>
+    </workTags>
+	</WorkTypeDef>
+  
+</WorkTypeDefs>

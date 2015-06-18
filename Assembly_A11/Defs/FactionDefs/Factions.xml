@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FactionDefs>  
+  <!-- Colony Pet faction -->
+  <FactionDef>
+    <defName>ColonyPets</defName>
+    <label>Colonist</label>
+    <requiredCountAtGameStart>1</requiredCountAtGameStart>
+    <description>Domesticated animals</description>
+    <pawnNameMaker>NamerDogs</pawnNameMaker>
+    <factionNameMaker>NamerFactionPets</factionNameMaker>
+    <humanlikeFaction>false</humanlikeFaction>
+    <backStoryCategory>pet</backStoryCategory>
+    <techLevel>Animal</techLevel>  
+    <startingGoodwill>
+      <min>100</min>
+      <max>100</max>
+    </startingGoodwill>
+    <naturalColonyGoodwill>
+      <min>100</min>
+      <max>100</max>
+    </naturalColonyGoodwill>
+    <apparelStuffFilter>
+      <thingDefs>
+        <li>Synthread</li>
+      </thingDefs>
+    </apparelStuffFilter>
+    <homeIconPath>World/FactionHomes/DefaultHome</homeIconPath>
+    <homeIconColor>(255,0,0)</homeIconColor>
+  </FactionDef>
+  
+</FactionDefs>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThoughtDefs>
+
+	<ThoughtDef>
+		<defName>SawCuteDog</defName>
+		<duration>20000</duration>
+		<stackLimit>3</stackLimit>
+		<stages>
+			<li>
+				<label>Saw cute dog</label>
+				<description>I saw a cute little dog. He was so happy. Can I keep him?</description>
+				<baseMoodEffect>8</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>AteMeat</defName>
+		<duration>20000</duration>
+		<stackLimit>3</stackLimit>
+		<stages>
+			<li>
+				<label>Ate meat</label>
+				<description>That meat was quite juicy. Despite what you may have heard, I love raw food.</description>
+				<baseMoodEffect>12</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>AteStraightFromCorpse</defName>
+		<duration>30000</duration>
+		<stackLimit>2</stackLimit>
+		<stages>
+			<li>
+				<label>Ate from corpse</label>
+				<description>I ripped the meat from those bones. It was incredibly satisfying.</description>
+				<baseMoodEffect>20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<ThoughtDef>
+		<defName>HumanMeatIsYummy</defName>
+		<duration>40000</duration>
+		<stackedEffectMultiplier>0.25</stackedEffectMultiplier>
+		<stackLimit>3</stackLimit>
+		<stages>
+			<li>
+				<label>Humans are Yummy</label>
+				<description>Despite what you may have heard, human meat is rather delicious.</description>
+				<baseMoodEffect>20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+	
+	
+</ThoughtDefs>

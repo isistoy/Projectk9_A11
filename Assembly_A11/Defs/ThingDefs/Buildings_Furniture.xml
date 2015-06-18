@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Buildings>
+
+
+	<ThingDef Name="BuildingBase" Abstract="True">
+		<category>Building</category>
+		<thingClass>Building</thingClass>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+	</ThingDef>
+
+
+	<!--============================== Beds ==============================-->
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>PetBed</defName>
+		<label>pet bed</label>
+		<Description>A fluffy pillow for a furry friend. Rest effectiveness: 10/10</Description>
+		<ThingClass>ProjectK9.PetBed</ThingClass>
+    <graphicData>
+      <texPath>Things/Building/PetBed</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,4)</drawSize>
+    </graphicData>
+		<AltitudeLayer>FloorEmplacement</AltitudeLayer>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>15</Beauty>
+			<WorkToMake>580</WorkToMake>
+			<BedRestEffectiveness>1</BedRestEffectiveness>
+		</statBases>
+		<Size>(1,1)</Size>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>25</costStuffCount>
+		<building>
+			<Bed_ShowSleeperBody>False</Bed_ShowSleeperBody>
+			<Bed_HealTickInterval>2100</Bed_HealTickInterval>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+		</building>
+		<fillPercent>0.4</fillPercent>
+		<PathCost>60</PathCost>
+		<StaticSunShadowHeight>0.12</StaticSunShadowHeight>
+		<CastEdgeShadows>True</CastEdgeShadows>
+		<DesignationCategory>Furniture</DesignationCategory>
+		<Passability>PassThroughOnly</Passability>
+		<DrawGUIOverlay>True</DrawGUIOverlay>
+		<!--<designationHotKey>B</designationHotKey>-->
+  </ThingDef>
+</Buildings>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WorkGivers>
+
+  <WorkGiverDef>
+    <defName>TamerTame</defName>
+    <giverClass>ProjectK9.AI.WorkGiver_TamerTame</giverClass>
+    <workType>Taming</workType>
+    <verb>tame</verb>
+    <gerund>taming</gerund>
+  </WorkGiverDef>
+
+</WorkGivers>

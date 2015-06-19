@@ -16,13 +16,15 @@
         </li>
 
         <!-- If Carnivore is Wild -->
-        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+        <!--<li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
           <invertResult>true</invertResult>
           <subNodes>
             <li Class="ProjectK9.AI.JobGiver_DefendHerd"/>
           </subNodes>
         </li>
+        -->
         <!-- Else -->
+        <!--
         <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
           <subNodes>
             <li Class="ThinkNode_Subtree">
@@ -30,9 +32,9 @@
             </li>
             <li Class="ProjectK9.AI.JobGiver_DefendColony"/>
           </subNodes>
-        </li>
+        </li>-->
 
-        <li Class="ProjectK9.AI.JobGiver_HuntWithHerd"/>
+        <!--<li Class="ProjectK9.AI.JobGiver_HuntWithHerd"/>-->
 
         <li Class="ThinkNode_PrioritySorter">
           <subNodes>
@@ -46,13 +48,8 @@
         <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
           <invertResult>true</invertResult>
           <subNodes>
-            <li Class="ThinkNode_Tagger">
-              <tagToGive>Idle</tagToGive>
-              <subNodes>
-                <li Class="JobGiver_WanderHerd">
-                  <maxDanger>Some</maxDanger>
-                </li>
-              </subNodes>
+            <li Class="JobGiver_WanderHerd">
+              <maxDanger>Some</maxDanger>
             </li>
           </subNodes>
         </li>
@@ -66,7 +63,7 @@
               <maxDanger>Some</maxDanger>
             </li>
           </subNodes>
-        </li>        
+        </li>
 
         <!--Leave if not tamed and starving-->
         <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">

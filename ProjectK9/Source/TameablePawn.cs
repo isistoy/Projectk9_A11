@@ -189,6 +189,21 @@ namespace ProjectK9
                 Log.Message("ownership");
                 ownership = new Pawn_Ownership(this);
             }
+            if (needs == null)
+            {
+                Log.Message("needs");
+                needs = new Pawn_NeedsTracker(this);
+            }
+            if (needs.mood == null)
+            {
+                Log.Message("mood");
+                needs.mood = new Need_Mood(this);
+            }
+            if (needs.mood.thoughts == null)
+            {
+                Log.Message("thoughts");
+                needs.mood.thoughts = new ThoughtHandler(this);
+            }
             if (mindState == null)
             {
                 Log.Message("mindstate");
@@ -415,7 +430,12 @@ namespace ProjectK9
 
         public override string ToString()
         {
-            return this.LabelBaseShort.ToString();
+            if (isColonyPet)
+            {
+                return LabelBaseShort;
+            }
+            else
+                return string.Concat("pet",this.thingIDNumber.ToString());
         }
 
         //protected override void ApplyDamage(DamageInfo dinfo)

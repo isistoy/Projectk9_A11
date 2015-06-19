@@ -18,13 +18,16 @@ namespace ProjectK9
             return Find.ListerPawns.AllPawns.Where(herdMember => IsInHerd(pawn, herdMember));
         }
 
-        public static bool IsInHerd(Pawn pawn, Pawn herdMember)
-        { 
-            if ( pawn.Faction == GetColonyPetFaction()
-              || herdMember.def != pawn.def
-              || herdMember == pawn
-              || !WanderUtility.InSameRoom(pawn.Position, herdMember.Position)
-              || (pawn.Position - herdMember.Position).LengthHorizontalSquared > HERD_DISTANCE)
+        public static bool IsInHerd(Pawn pawn, Pawn target)
+        {
+            TameablePawn pet = pawn as TameablePawn;
+            if (pet == null)
+                return false;
+            if ( pet.IsColonyPet
+              || target.def != pawn.def
+              || target == pawn
+              || !WanderUtility.InSameRoom(pawn.Position, target.Position)
+              || (pawn.Position - target.Position).LengthHorizontalSquared > HERD_DISTANCE)
             {
                 return false;
             }

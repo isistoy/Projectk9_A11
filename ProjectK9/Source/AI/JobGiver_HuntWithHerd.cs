@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Verse;
+using RimWorld;
 using Verse.AI;
 
 namespace ProjectK9.AI
@@ -13,13 +14,14 @@ namespace ProjectK9.AI
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            JobDef killJobDef = DefDatabase<JobDef>.GetNamed("Kill"); 
-            IEnumerable<Pawn> herdMembers = HerdUtility.FindHerdMembers(pawn);
+            IEnumerable<Pawn> herdMembers = HerdUtility.FindHerdMembers(pawn as TameablePawn);
             foreach (Pawn herdMember in herdMembers)
             {
-                if (herdMember.jobs.curJob != null && herdMember.jobs.curJob.def == killJobDef)
+                if (herdMember.jobs.curJob != null && herdMember.jobs.curJob.def == JobDefOf.AttackMelee)
                 {
-                    return new Job(killJobDef, herdMember.jobs.curJob.targetA);
+                    Log.Message(string.Concat(pawn," trying to hunt with ", herdMember));
+                    TargetInfo target = herdMember.jobs.curJob.targetA;
+                    return new Job(JobDefOf.AttackMelee, target);
                 }
             }
             return null;

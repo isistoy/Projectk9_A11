@@ -15,12 +15,13 @@ namespace ProjectK9.AI
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
+            TameablePawn pet = pawn as TameablePawn;
             Pawn threat = pawn.mindState.meleeThreat;
             Pawn targetOfThreat = pawn;
 
             if (threat == null)
             {
-                IEnumerable<Pawn> herdMembers = HerdUtility.FindHerdMembers(pawn);
+                IEnumerable<Pawn> herdMembers = HerdUtility.FindHerdMembers(pet);
                 foreach(Pawn herdMember in herdMembers)
                 {
                     if (herdMember.mindState.meleeThreat != null)

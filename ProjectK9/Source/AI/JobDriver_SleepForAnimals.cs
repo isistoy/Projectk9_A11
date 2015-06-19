@@ -157,16 +157,11 @@ namespace ProjectK9.AI
 
                 if (!this.sleepingInt)
                 {
-                    if (bed == null)
+                    if (pawn.needs.food.CurCategory >= HungerCategory.UrgentlyHungry)
                     {
                         return true;
                     }
-                    if (((pawn.needs.food.CurCategory >= HungerCategory.UrgentlyHungry) && !pawn.CurJob.playerForced) && MayGetUpVoluntarily(pawn))
-                    {
-                        return true;
-                    }
-                    if (!pawn.health.hediffSet.HasNaturallyHealingInjuries
-                        && !pawn.health.hediffSet.HasTreatableInjury)
+                    if (!pawn.health.hediffSet.HasNaturallyHealingInjuries)
                     {
                         return true;
                     }

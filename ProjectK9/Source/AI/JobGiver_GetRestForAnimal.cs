@@ -16,7 +16,7 @@ namespace ProjectK9.AI
             Need_Rest rest = pawn.needs.rest;
             if (rest != null)
             {
-                if (rest.CurLevel < 0.65f)
+                if (rest.CurLevel < 0.55f)
                 {
                     return 8f;
                 }

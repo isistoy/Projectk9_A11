@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\AI\FoodAIUtility_Pets.cs" />
     <Compile Include="Source\AI\HaulAIUtility_Pets.cs" />
     <Compile Include="Source\AI\JobDriver_EatCorpse.cs" />
     <Compile Include="Source\AI\JobDriver_HaulForPets.cs" />
@@ -82,7 +83,9 @@
     <Content Include="About\preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Defs\BiomeDefs\Biomes.xml" />
+    <Content Include="Defs\BiomeDefs\Biomes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Defs\DesignationDefs\Designations.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

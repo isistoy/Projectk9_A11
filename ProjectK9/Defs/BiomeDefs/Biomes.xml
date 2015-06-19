@@ -91,8 +91,15 @@
         <animal>Shep</animal>
         <commonality>0.2</commonality>
       </li>
+      <li>
+        <animal>Mutt</animal>
+        <commonality>0.1</commonality>
+      </li>
     </wildAnimals>
   </BiomeDef>
+
+
+
 
   <BiomeDef>
     <defName>AridShrubland</defName>
@@ -234,10 +241,15 @@
       </li>
       <li>
         <animal>Mutt</animal>
-        <commonality>0.3</commonality>
+        <commonality>0.05</commonality>
       </li>
     </wildAnimals>
-  </BiomeDef> 
+  </BiomeDef>
+
+
+  
+  
+  
   
   <BiomeDef>
     <defName>TemperateForest</defName>
@@ -389,15 +401,21 @@
       </li>
       <li>
         <animal>Shep</animal>
-        <commonality>0.2</commonality>
+        <commonality>0.4</commonality>
       </li>
       <li>
         <animal>Mutt</animal>
-        <commonality>0.3</commonality>
+        <commonality>0.4</commonality>
       </li>
     </wildAnimals>
   </BiomeDef>
- 
+
+  
+  
+  
+  
+  
+  
   <BiomeDef>
     <defName>Desert</defName>
     <label>desert</label>
@@ -498,14 +516,16 @@
       </li>
       <li>
         <animal>Shep</animal>
-        <commonality>0.2</commonality>
+        <commonality>0.3</commonality>
       </li>
       <li>
         <animal>Mutt</animal>
-        <commonality>0.3</commonality>
+        <commonality>0.2</commonality>
       </li>
     </wildAnimals>
   </BiomeDef>
+
+
 
   <BiomeDef>
     <defName>TropicalRainforest</defName>
@@ -654,14 +674,15 @@
       </li>
       <li>
         <animal>Shep</animal>
-        <commonality>0.2</commonality>
+        <commonality>0.4</commonality>
       </li>
       <li>
         <animal>Mutt</animal>
-        <commonality>0.3</commonality>
+        <commonality>0.2</commonality>
       </li>
     </wildAnimals>
   </BiomeDef>
+  
 
   <BiomeDef>
     <defName>BorealForest</defName>
@@ -806,7 +827,7 @@
       </li>
       <li>
         <animal>Shep</animal>
-        <commonality>0.2</commonality>
+        <commonality>0.5</commonality>
       </li>
       <li>
         <animal>Mutt</animal>
@@ -950,15 +971,15 @@
         <animal>Hare</animal>
         <commonality>1</commonality>
       </li>
+      <li>
+        <animal>Shep</animal>
+        <commonality>0.3</commonality>
+      </li>
+      <li>
+        <animal>Mutt</animal>
+        <commonality>0.1</commonality>
+      </li>
     </wildAnimals>
-    <li>
-      <animal>Shep</animal>
-      <commonality>0.2</commonality>
-    </li>
-    <li>
-      <animal>Mutt</animal>
-      <commonality>0.3</commonality>
-    </li>
   </BiomeDef>
 
 

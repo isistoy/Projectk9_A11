@@ -24,15 +24,12 @@ namespace ProjectK9.AI
             IEnumerable<Pawn> colonists = Find.ListerPawns.FreeColonists;
             if (isHauler)
             {
-                Log.Message("Starting looking for Haul job");
-                bool hasHauler=false;
                 foreach (Pawn colonist in colonists)
                 {
                     //if (colonist.jobs.curJob != null && colonist.jobs.curJob.def == JobDefOf.HaulToContainer)
                     if (colonist.jobs.curJob != null && ((colonist.jobs.curJob.def == JobDefOf.HaulToContainer)
                         || (colonist.jobs.curJob.def == JobDefOf.HaulToCell)))
                     {
-                        hasHauler = true;
                         Log.Message("Some colonists hauling");
                         ThingRequest haulThingReq = ThingRequest.ForGroup(ThingRequestGroup.HaulableAlways);
                         Predicate<Thing> haulThingPredicate = t =>
@@ -47,32 +44,20 @@ namespace ProjectK9.AI
 
                         if (closestHaulableThing != null)
                         {
-                            Log.Message("Reserving thing for job");
                             if (HaulAIUtility.PawnCanAutomaticallyHaulFast(pet, closestHaulableThing))
                             {
-                                Log.Message("starting haul job");
-
                                 // TBD
                                 Job job = HaulAIUtility_Pets.HaulToStorageJob(pet, closestHaulableThing);
                                 if (job != null)
                                 {
+                                    Log.Message("Got a hauling job");
                                     return job;
-                                }
-                                else
-                                {
-                                    Log.Message("Impossible to get the Job from AI");
-                                    return null;
                                 }
                             }
                         }
-                        else
-                            Log.Message("no haulable thing found");
                     }
                 }
-                if (!hasHauler)
-                    Log.Message("No colonist hauling");
             }
-            Log.Message("No hauling Job");
             return null;
         }
     }

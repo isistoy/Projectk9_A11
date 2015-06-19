@@ -83,13 +83,6 @@ namespace ProjectK9
             }
         }
 
-        public override void PostMake()
-        {
-            base.PostMake();
-            if (factionInt != null) 
-                isColonyPet = true;
-        }
-
         public override void DeSpawn()
         {
             if (ownership != null && ownership.ownedBed != null)
@@ -179,8 +172,8 @@ namespace ProjectK9
             }
             else if (this.def.defName == "Shep")
             {
-                //if (!story.WorkTypeIsDisabled(WorkTypeDefOf.Hunting))
-                //    workTypes.Add(WorkTypeDefOf.Hunting);
+                if (!story.WorkTypeIsDisabled(WorkTypeDefOf.Hunting))
+                    workTypes.Add(WorkTypeDefOf.Hunting);
                 if (!story.WorkTypeIsDisabled(WorkTypeDefOf.Hauling))
                     workTypes.Add(WorkTypeDefOf.Hauling);
             }
@@ -390,6 +383,7 @@ namespace ProjectK9
                 this.jobs.EndCurrentJob(JobCondition.Errored);
             }
             base.ExposeData();
+            Scribe_Values.LookValue<bool>(ref isColonyPet, "IsColonyPet");
         }
 
         public bool IsDesignatedToBeTamed()
@@ -417,6 +411,11 @@ namespace ProjectK9
         private WorkTypeDef getDef(string defName)
         {
             return DefDatabase<WorkTypeDef>.GetNamed(defName);
+        }
+
+        public override string ToString()
+        {
+            return this.LabelBaseShort.ToString();
         }
 
         //protected override void ApplyDamage(DamageInfo dinfo)

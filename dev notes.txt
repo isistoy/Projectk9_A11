@@ -10,4 +10,6 @@ health control
 
 Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonctions, petit à petit
 
-types de backstories Calm, Docile, Glutton, Playfull, Shady
+types de backstories Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent
+
+use Boreal forest for a good spawn chance

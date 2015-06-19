@@ -20,7 +20,6 @@ namespace ProjectK9.AI
 
             StoragePriority currentPriority = StoragePriorityAtFor(t.Position, t);
             // HACK here for faction
-            Log.Message("before Hack");
             if (!StoreUtility.TryFindBestBetterStoreCellFor(t, p, currentPriority, Faction.OfColony, out vec, true))
             {
                 JobFailReason.Is(NoEmptyPlaceLowerTrans);

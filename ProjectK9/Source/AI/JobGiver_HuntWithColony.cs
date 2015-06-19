@@ -17,7 +17,15 @@ namespace ProjectK9.AI
             // Only hunt with colonists, not with group
             TameablePawn pet = pawn as TameablePawn;
             if (pet == null)
+            {
+                Log.Message("Not a TameablePawn in HuntWithColony");
                 return null;
+            }
+            else
+            {
+                if (!pet.IsColonyPet)
+                    Log.Error("Not a colony Pet in HuntWithColony");
+            }
             
             Boolean isHunter = !pawn.story.DisabledWorkTypes.Contains(WorkTypeDefOf.Hunting);
             JobDef killJobDef = DefDatabase<JobDef>.GetNamed("Kill");

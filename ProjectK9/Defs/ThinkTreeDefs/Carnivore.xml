@@ -36,7 +36,7 @@
 
         <li Class="ThinkNode_PrioritySorter">
           <subNodes>
-            <!--<li Class="ProjectK9.AI.JobGiver_GetOrHuntFood"/>-->
+            <li Class="ProjectK9.AI.JobGiver_GetOrHuntFood"/>
             <li Class="ProjectK9.AI.JobGiver_GetRestForAnimal"/>
           </subNodes>
         </li>
@@ -50,7 +50,7 @@
               <tagToGive>Idle</tagToGive>
               <subNodes>
                 <li Class="JobGiver_WanderHerd">
-                  <maxDanger>Deadly</maxDanger>
+                  <maxDanger>Some</maxDanger>
                 </li>
               </subNodes>
             </li>

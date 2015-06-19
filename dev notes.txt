@@ -12,4 +12,6 @@ Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonct
 
 types de backstories Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent
 
-use Boreal forest for a good spawn chance
+utiliser Boreal forest pour avoir une chance de voir une meute au début
+
+Pas d'animation dans la tache de nourriture sur viande.

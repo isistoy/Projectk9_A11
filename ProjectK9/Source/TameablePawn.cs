@@ -199,11 +199,11 @@ namespace ProjectK9
                 Log.Message("mood");
                 needs.mood = new Need_Mood(this);
             }
-            if (needs.mood.thoughts == null)
-            {
-                Log.Message("thoughts");
-                needs.mood.thoughts = new ThoughtHandler(this);
-            }
+            //if (needs.mood.thoughts == null)
+            //{
+            //    Log.Message("thoughts");
+            //    needs.mood.thoughts = new ThoughtHandler(this);
+            //}
             if (mindState == null)
             {
                 Log.Message("mindstate");
@@ -235,7 +235,7 @@ namespace ProjectK9
         {
             if (story == null)
             {
-                Log.Message("blanc story");
+                Log.Message("story");
                 story = new Pawn_StoryTracker(this);
             }
             Backstory childStory = new Backstory()
@@ -246,7 +246,7 @@ namespace ProjectK9
                 titleShort = "Calm",
                 baseDesc = "Calm",
                 spawnCategories = new List<string>(new string[] { "pet" }),
-                uniqueSaveKey = "k9_pet_calm",
+                uniqueSaveKey = string.Concat("k9_pet_calm", this.def.defName, this.thingIDNumber.ToString()),
                 workDisables = WorkTags.None
             };
             BackstoryDatabase.AddBackstory(childStory);
@@ -260,7 +260,7 @@ namespace ProjectK9
                 titleShort = "Playful",
                 baseDesc = "Playful",
                 spawnCategories = new List<string>(new string[] { "pet" }),
-                uniqueSaveKey = "k9_pet_playful",
+                uniqueSaveKey = string.Concat("k9_pet_playful", this.def.defName, this.thingIDNumber.ToString()),
                 workDisables = WorkTags.None
             };
             BackstoryDatabase.AddBackstory(adultStory);
@@ -281,7 +281,7 @@ namespace ProjectK9
                 //story.GenerateSkillsFromBackstory();
             }
             Log.Message("name");
-            story.name = PawnNameMaker.GenerateName(this);
+            story.name = Name = PawnNameMaker.GenerateName(this);
             Name.ResolveMissingPieces();
         }
 
@@ -393,7 +393,7 @@ namespace ProjectK9
 
         public override void ExposeData()
         {
-            if (this.jobs != null && this.jobs.curDriver != null && this.jobs.curDriver.GetType().FullName.StartsWith("ProjectK9"))
+            if (this.jobs != null && this.jobs.curDriver != null)
             {
                 this.jobs.EndCurrentJob(JobCondition.Errored);
             }
@@ -435,7 +435,7 @@ namespace ProjectK9
                 return LabelBaseShort;
             }
             else
-                return string.Concat("pet",this.thingIDNumber.ToString());
+                return string.Concat("pet", this.thingIDNumber.ToString());
         }
 
         //protected override void ApplyDamage(DamageInfo dinfo)

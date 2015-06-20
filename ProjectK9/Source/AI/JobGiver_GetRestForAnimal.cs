@@ -26,33 +26,39 @@ namespace ProjectK9.AI
       
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            if (pawn.Faction == Faction.OfColony)
+            if (!pawn.Downed)
             {
-                Building_Bed bedFor = pawn.ownership.ownedBed;
-                if (bedFor == null)
+                TameablePawn pet = pawn as TameablePawn;
+                if ((pet != null) && pet.IsColonyPet)
                 {
-                    bedFor = findUnownedBed(pawn);
-                    if (bedFor != null && bedFor.owner != pawn)
+                    Building_Bed bedFor = pawn.ownership.ownedBed;
+                    if (bedFor == null)
                     {
-                        // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
-                        // make it unclaim the bed and then it'll error out.
-                        if (bedFor.owner == PetBed.PetBedHolder)
+                        bedFor = findUnownedBed(pawn);
+                        if (bedFor != null && bedFor.owner != pawn)
                         {
-                            bedFor.owner = null;
+                            // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
+                            // make it unclaim the bed and then it'll error out.
+                            if (bedFor.owner == PetBed.PetBedHolder)
+                            {
+                                bedFor.owner = null;
+                            }
+                            else
+                                bedFor = null;
                         }
-                        else
-                            bedFor = null;
+                    }
+
+                    if (bedFor != null)
+                    {
+                        Log.Message("Sleeping on a bed");
+                        return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), bedFor);
                     }
                 }
 
-                if (bedFor != null)
-                {
-                    Log.Message("bed found");
-                    return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), bedFor);
-                }
+                Log.Message("Sleeping on the Ground");
+                return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
             }
-            Log.Message("No bed found");
-            return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), new TargetInfo(GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 6)));
+            return null;
         }
 
         private Building_Bed findUnownedBed(Pawn pawn)

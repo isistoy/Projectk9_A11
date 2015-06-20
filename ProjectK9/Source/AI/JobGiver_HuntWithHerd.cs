@@ -14,7 +14,7 @@ namespace ProjectK9.AI
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            IEnumerable<Pawn> herdMembers = HerdUtility.FindHerdMembers(pawn as TameablePawn);
+            IEnumerable<Pawn> herdMembers = HerdUtility_Pets.FindHerdMembers(pawn);
             foreach (Pawn herdMember in herdMembers)
             {
                 if (herdMember.jobs.curJob != null && herdMember.jobs.curJob.def == JobDefOf.AttackMelee)

@@ -67,7 +67,7 @@
     <Compile Include="Source\AI\ThinkNode_ConditionalTamed.cs" />
     <Compile Include="Source\AI\ThinkNode_PriorityDebug.cs" />
     <Compile Include="Source\AI\WorkGiver_TamerTame.cs" />
-    <Compile Include="Source\HerdUtility.cs" />
+    <Compile Include="Source\AI\HerdAIUtility_Pets.cs" />
     <Compile Include="Source\PetApparelOverride.cs" />
     <Compile Include="Source\PetBed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

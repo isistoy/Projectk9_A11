@@ -99,7 +99,7 @@ namespace ProjectK9.AI
 
         private void resetFaction()
         {
-            pawn.SetFactionDirect(HerdUtility.GetColonyPetFaction());
+            pawn.SetFactionDirect(HerdUtility_Pets.GetColonyPetFaction());
         }
     }
 }

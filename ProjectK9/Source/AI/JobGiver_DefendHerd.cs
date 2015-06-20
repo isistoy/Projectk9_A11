@@ -9,19 +9,16 @@ using RimWorld;
 
 namespace ProjectK9.AI
 {
-    class JobGiver_DefendHerd : ThinkNode_JobGiver
+    public class JobGiver_DefendHerd : ThinkNode_JobGiver
     {
-
-
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            TameablePawn pet = pawn as TameablePawn;
             Pawn threat = pawn.mindState.meleeThreat;
             Pawn targetOfThreat = pawn;
 
             if (threat == null)
             {
-                IEnumerable<Pawn> herdMembers = HerdUtility.FindHerdMembers(pet);
+                IEnumerable<Pawn> herdMembers = HerdUtility_Pets.FindHerdMembers(pawn);
                 foreach(Pawn herdMember in herdMembers)
                 {
                     if (herdMember.mindState.meleeThreat != null)
@@ -37,7 +34,7 @@ namespace ProjectK9.AI
 
             if (threat == null || threat.Dead || threat.Downed
                 || (targetOfThreat.mindState.lastMeleeThreatHarmTick - Find.TickManager.TicksGame) > 300
-                || (targetOfThreat.Position - threat.Position).LengthHorizontalSquared > HerdUtility.HERD_DISTANCE 
+                || (targetOfThreat.Position - threat.Position).LengthHorizontalSquared > HerdUtility_Pets.HERD_DISTANCE 
                 || !GenSight.LineOfSight(pawn.Position, threat.Position))
             {
                 pawn.mindState.meleeThreat = null;

@@ -16,38 +16,28 @@ namespace ProjectK9.AI
         {
             // Only hunt with colonists, not with group
             TameablePawn pet = pawn as TameablePawn;
-            if (pet == null)
+            if (pet != null)
             {
-                Log.Message("Not a TameablePawn in HuntWithColony");
-                return null;
+                if (!pet.IsColonyPet)
+                    Log.Error(string.Concat(pet, " is not a colony Pet, in HuntWithColony"));
             }
             else
             {
-                if (!pet.IsColonyPet)
-                    Log.Error("Not a colony Pet in HuntWithColony");
+                Log.Error(string.Concat(pawn, " is not a pet, in HuntWithColony"));
+                return null;
             }
-            
-            Boolean isHunter = !pawn.story.DisabledWorkTypes.Contains(WorkTypeDefOf.Hunting);
-            JobDef killJobDef = DefDatabase<JobDef>.GetNamed("Kill");
-            
-            IEnumerable<Pawn> colonists = Find.ListerPawns.FreeColonists;
-            if (isHunter)
-            {
-                foreach (Pawn colonist in colonists)
-                {
-                    if (colonist.jobs.curJob != null && colonist.jobs.curJob.def == JobDefOf.Hunt)
-                        return new Job(killJobDef, colonist.jobs.curJob.targetA);
-                }
-            }            
-            //IEnumerable<Pawn> pets = Find.ListerPawns.AllPawns.Where(t => (t is TameablePawn) && ((TameablePawn)t).IsColonyPet );
 
-            //foreach (Pawn comp in pets) {
-            //    if (HerdUtility.isInHerd(pawn, comp))
-            //    {
-            //        if (comp.jobs.curJob != null && comp.jobs.curJob.def == killJobDef)
-            //            return new Job(killJobDef, comp.jobs.curJob.targetA);
-            //    }
-            //}
+            JobDef killJobDef = DefDatabase<JobDef>.GetNamed("Kill");
+
+            IEnumerable<Pawn> colonists = Find.ListerPawns.FreeColonists;
+            foreach (Pawn colonist in colonists)
+            {
+                if (colonist.jobs.curJob != null && colonist.jobs.curJob.def == JobDefOf.Hunt && colonist.jobs.curJob.targetA != null)
+                {
+                    Log.Message(string.Concat(pet, " hunting prey ", colonist.jobs.curJob.targetA, " with colonist ", colonist));
+                    return new Job(JobDefOf.AttackMelee, colonist.jobs.curJob.targetA) { killIncappedTarget = true };
+                }
+            }
             return null;
         }
     }

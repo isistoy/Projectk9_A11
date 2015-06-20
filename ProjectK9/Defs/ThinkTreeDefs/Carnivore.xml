@@ -16,15 +16,13 @@
         </li>
 
         <!-- If Carnivore is Wild -->
-        <!--<li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
+        <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
           <invertResult>true</invertResult>
           <subNodes>
             <li Class="ProjectK9.AI.JobGiver_DefendHerd"/>
           </subNodes>
         </li>
-        -->
         <!-- Else -->
-        <!--
         <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">
           <subNodes>
             <li Class="ThinkNode_Subtree">
@@ -32,9 +30,9 @@
             </li>
             <li Class="ProjectK9.AI.JobGiver_DefendColony"/>
           </subNodes>
-        </li>-->
+        </li>
 
-        <!--<li Class="ProjectK9.AI.JobGiver_HuntWithHerd"/>-->
+        <li Class="ProjectK9.AI.JobGiver_HuntWithHerd"/>
 
         <li Class="ThinkNode_PrioritySorter">
           <subNodes>
@@ -42,7 +40,6 @@
             <li Class="ProjectK9.AI.JobGiver_GetRestForAnimal"/>
           </subNodes>
         </li>
-        <!--<li Class="ProjectK9.AI.ThinkNode_SatisfyCarniverousNeeds"/>-->
 
         <!-- If Carnivore is Wild -->
         <li Class="ProjectK9.AI.ThinkNode_ConditionalTamed">

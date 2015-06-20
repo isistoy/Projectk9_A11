@@ -16,7 +16,6 @@ namespace ProjectK9.AI
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            
             ToilFailConditions.EndOnDespawned<JobDriver_KillUnreserved>(this, TargetIndex.A, JobCondition.Succeeded);
             this.FailOn(hunterIsKilled);
             yield return Toils_Combat.TrySetJobToUseAttackVerb();
@@ -28,7 +27,6 @@ namespace ProjectK9.AI
             yield return Toils_Combat.TrySetJobToUseAttackVerb();
             yield return Toils_Combat.CastVerb(TargetIndex.A);
             yield return Toils_Jump.Jump(jump);
-            
         }
 
         private bool hunterIsKilled()

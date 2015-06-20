@@ -19,11 +19,6 @@
       <min>100</min>
       <max>100</max>
     </naturalColonyGoodwill>
-    <apparelStuffFilter>
-      <thingDefs>
-        <li>Synthread</li>
-      </thingDefs>
-    </apparelStuffFilter>
     <homeIconPath>World/FactionHomes/DefaultHome</homeIconPath>
     <homeIconColor>(255,0,0)</homeIconColor>
   </FactionDef>

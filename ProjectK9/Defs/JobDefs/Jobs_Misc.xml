@@ -21,9 +21,9 @@
   </JobDef>
   
 	<JobDef>
-		<defName>Kill</defName>
-		<driverClass>ProjectK9.AI.JobDriver_KillUnreserved</driverClass>
-		<reportString>Killing TargetA.</reportString>
+		<defName>HuntForAnimals</defName>
+		<driverClass>ProjectK9.AI.JobDriver_HuntForAnimals</driverClass>
+		<reportString>Hunting TargetA.</reportString>
 	</JobDef>
 
 	<JobDef>

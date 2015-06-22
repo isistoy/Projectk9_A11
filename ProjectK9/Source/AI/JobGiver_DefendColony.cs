@@ -13,33 +13,27 @@ namespace ProjectK9.AI
     {
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
+            //Log.Message(string.Concat(pawn, " looking for any colony threat"));
             ThingRequest pawnReq = ThingRequest.ForGroup(ThingRequestGroup.Pawn);
             Predicate<Thing> hostilePredicate = t => 
             {
                 Pawn hostile = t as Pawn;
-                TameablePawn pet = pawn as TameablePawn;
-                if (pet.IsColonyPet
-                    && (hostile.Faction.HostileTo(Faction.OfColony) || hostile.IsPrisonerOfColony)
-                    && pawn.Position.CanReach(hostile.Position, PathEndMode.OnCell, TraverseParms.For(TraverseMode.NoPassClosedDoors, Danger.Deadly, false)))
-                {
-                    return true;
-                }
-                return false;
+                return ( ((TameablePawn)pawn).IsColonyPet && !hostile.Dead && !hostile.Downed && 
+                    (hostile.Faction.HostileTo(Faction.OfColony) || hostile.IsPrisonerOfColony) );
             };
             
             Pawn closestEnemy = 
                 GenClosest.ClosestThingReachable(pawn.Position, pawnReq, 
-                    PathEndMode.OnCell, TraverseParms.For(pawn, Danger.Deadly, TraverseMode.ByPawn, false), 100f, hostilePredicate) as Pawn;
+                    PathEndMode.OnCell, TraverseParms.For(pawn), 100f, hostilePredicate) as Pawn;
 
-            if (closestEnemy == null || closestEnemy == pawn)
+            if (closestEnemy == null || closestEnemy == pawn || !GenSight.LineOfSight(pawn.Position, closestEnemy.Position))
                 return null;
 
-            Log.Warning(pawn + " found threat to colony: " + closestEnemy);
+            Log.Message(string.Concat(pawn," found threat to colony: ", closestEnemy));
             return new Job(JobDefOf.AttackMelee)
             {
                 targetA=closestEnemy,
-                maxNumMeleeAttacks = 1,
-                expiryInterval = 200
+                expiryInterval = 200,
             };
         }
     }

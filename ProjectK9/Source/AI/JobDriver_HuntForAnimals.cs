@@ -8,22 +8,23 @@ using Verse.AI;
 
 namespace ProjectK9.AI
 {
-    public class JobDriver_KillUnreserved : JobDriver
+    public class JobDriver_HuntForAnimals : JobDriver
     {
-        public JobDriver_KillUnreserved()
+        public JobDriver_HuntForAnimals()
         {
         }
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            ToilFailConditions.EndOnDespawned<JobDriver_KillUnreserved>(this, TargetIndex.A, JobCondition.Succeeded);
+            this.EndOnDespawned(TargetIndex.A, JobCondition.Succeeded);
             this.FailOn(hunterIsKilled);
+
             yield return Toils_Combat.TrySetJobToUseAttackVerb();
             Toil gotoPosition = Toils_Combat.GotoCastPosition(TargetIndex.A);
             yield return gotoPosition;
             Toil jump = Toils_Jump.JumpIfTargetNotHittable(TargetIndex.A, gotoPosition);
             yield return jump;
-            Log.Message(pawn + " trying to kill " + TargetA);
+            Log.Message(string.Concat(pawn, " trying to kill ", TargetA));
             yield return Toils_Combat.TrySetJobToUseAttackVerb();
             yield return Toils_Combat.CastVerb(TargetIndex.A);
             yield return Toils_Jump.Jump(jump);

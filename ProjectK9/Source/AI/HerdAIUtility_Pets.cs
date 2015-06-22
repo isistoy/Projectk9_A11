@@ -26,15 +26,16 @@ namespace ProjectK9.AI
                 return false;
             }
             TameablePawn tameableTarget = target as TameablePawn;
-            if ((tameableTarget != null) && !tameableTarget.IsColonyPet)
+            if (tameableTarget == null) 
             {
                 return false;
             }
-            if ( tameableMember.IsColonyPet
-              || target.def != herdMember.def
-              || target == herdMember
-              || !WanderUtility.InSameRoom(herdMember.Position, target.Position)
-              || (herdMember.Position - target.Position).LengthHorizontalSquared > HERD_DISTANCE)
+            if (tameableTarget.IsColonyPet 
+                || tameableMember.IsColonyPet
+                || target.def != herdMember.def
+                || target == herdMember
+                || !WanderUtility.InSameRoom(herdMember.Position, target.Position)
+                || (herdMember.Position - target.Position).LengthHorizontalSquared > HERD_DISTANCE)
             {
                 return false;
             }

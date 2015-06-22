@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResearchProjectDefs>
+
+  <ResearchProjectDef>
+    <defName>DogTaming</defName>
+    <label>Dog Taming</label>
+    <description>Learn tips and tricks on how to tame Wild Dogs. 
+	
+	*After researching you can then tame a Dog.
+	How to tame:
+	- Select the Dog you want to tame.
+	- Press the Tame Button beside its description box to enable it for taming.
+	- Make sure at least one of your Colonist is set for Taming at the Work Priority Tab.
+	
+Tamed Dogs can haul items, they will notably fetch any item in the map it doesn't matter if they're forbidden or not.
+	
+*You can manually set them to fetch items or not by toggling the Fetch Button beside their Description Box.</description>
+    <totalCost>20000</totalCost>
+  </ResearchProjectDef>
+
+</ResearchProjectDefs>

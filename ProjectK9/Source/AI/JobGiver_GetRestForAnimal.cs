@@ -28,6 +28,7 @@ namespace ProjectK9.AI
         {
             if (!pawn.Downed)
             {
+                //Log.Message(string.Concat(pawn, " trying to sleep"));
                 TameablePawn pet = pawn as TameablePawn;
                 if ((pet != null) && pet.IsColonyPet)
                 {
@@ -50,12 +51,9 @@ namespace ProjectK9.AI
 
                     if (bedFor != null)
                     {
-                        Log.Message("Sleeping on a bed");
                         return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), bedFor);
                     }
                 }
-
-                Log.Message("Sleeping on the Ground");
                 return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
             }
             return null;

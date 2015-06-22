@@ -13,12 +13,14 @@ namespace ProjectK9.AI
     {
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
+            //Log.Message(string.Concat(pawn, " looking for any herd threat"));
             Pawn threat = pawn.mindState.meleeThreat;
             Pawn targetOfThreat = pawn;
 
             if (threat == null)
             {
                 IEnumerable<Pawn> herdMembers = HerdUtility_Pets.FindHerdMembers(pawn);
+                // Remplacer foreach par un itérateur avec MoveNext
                 foreach(Pawn herdMember in herdMembers)
                 {
                     if (herdMember.mindState.meleeThreat != null)
@@ -42,12 +44,9 @@ namespace ProjectK9.AI
             }
             else
             {
-                return new Job(JobDefOf.AttackMelee)
-                {
-                    targetA = threat,
-                    maxNumMeleeAttacks = 1,
-                    expiryInterval = 200
-                };
+                Log.Message(string.Concat(pawn, " found threat to herd: ", threat));
+                JobDef huntJobDef = DefDatabase<JobDef>.GetNamed("HuntForAnimals");
+                return new Job(huntJobDef, threat);
             }
         }
     }

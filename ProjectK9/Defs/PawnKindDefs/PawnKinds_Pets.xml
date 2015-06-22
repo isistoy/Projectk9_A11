@@ -17,8 +17,8 @@
 		<wildSpawn_EcoSystemWeight>0.3</wildSpawn_EcoSystemWeight>
 		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
     <wildSpawn_GroupSizeRange>
-      <min>3</min>
-      <max>6</max>
+      <min>2</min>
+      <max>5</max>
     </wildSpawn_GroupSizeRange>
 	</PawnKindDef>
 
@@ -34,7 +34,7 @@
 		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
     <wildSpawn_GroupSizeRange>
       <min>3</min>
-      <max>5</max>
+      <max>4</max>
     </wildSpawn_GroupSizeRange>
 	</PawnKindDef>
   

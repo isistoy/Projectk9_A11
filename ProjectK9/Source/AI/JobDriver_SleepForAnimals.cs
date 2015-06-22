@@ -86,7 +86,7 @@ namespace ProjectK9.AI
                 && (pawn.health.hediffSet.GetNaturallyHealingInjuredParts().Any<BodyPartRecord>() && (pawn.needs.food != null)))
                 && !pawn.needs.food.Starving)
             {
-                Log.Message(string.Concat(pawn, " is now healing..."));
+                //Log.Message(string.Concat(pawn, " is healing..."));
                 BodyPartRecord part = pawn.health.hediffSet.GetNaturallyHealingInjuredParts().RandomElement<BodyPartRecord>();
                 List<HediffDef> healHediff = DefDatabase<HediffDef>.AllDefs.Where(def => def.naturallyHealed).ToList<HediffDef>();
                 BodyPartDamageInfo info = new BodyPartDamageInfo(part, false, healHediff);
@@ -119,7 +119,7 @@ namespace ProjectK9.AI
             }
             else if (pawn.IsHashIntervalTick(211) && ShouldStopSleeping(pawn, building_Bed))
             {
-                Log.Message(string.Concat(pawn, " trying to stop sleeping"));                
+                //Log.Message(string.Concat(pawn, " trying to stop sleeping"));
                 pawn.jobs.CheckForJobOverride();
             }
         }

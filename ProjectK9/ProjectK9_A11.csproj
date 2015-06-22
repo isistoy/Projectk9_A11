@@ -37,6 +37,10 @@
       <HintPath>Source DLLs\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Backstories!">
+      <HintPath>Source DLLs\Backstories!.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -54,7 +58,7 @@
     <Compile Include="Source\AI\HaulAIUtility_Pets.cs" />
     <Compile Include="Source\AI\JobDriver_EatCorpse.cs" />
     <Compile Include="Source\AI\JobDriver_HaulForPets.cs" />
-    <Compile Include="Source\AI\JobDriver_KillUnreserved.cs" />
+    <Compile Include="Source\AI\JobDriver_HuntForAnimals.cs" />
     <Compile Include="Source\AI\JobDriver_SleepForAnimals.cs" />
     <Compile Include="Source\AI\JobDriver_Tame.cs" />
     <Compile Include="Source\AI\JobGiver_DefendColony.cs" />
@@ -83,9 +87,10 @@
     <Content Include="About\preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Defs\BiomeDefs\Biomes.xml">
+    <Content Include="Defs\BackstoryDefs\BackstoryDef_BasicPets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Defs\BiomeDefs\Biomes.xml" />
     <Content Include="Defs\DesignationDefs\Designations.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -101,9 +106,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Defs\ResearchProjectDefs\DogResearchProjects.xml" />
     <Content Include="Defs\RulePackDefs\RulePacks_NameMakers_Pets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Defs\SkillDefs\TamingSkill.xml" />
+    <Content Include="Defs\StatsDefs\Stats_Pet_Tame.xml" />
     <Content Include="Defs\ThingDefs\Buildings_Furniture.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -172,6 +180,8 @@
     <Content Include="Textures\Things\Pawn\Animal\Wolf_side.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\UI\Commands\cantFetch.png" />
+    <Content Include="Textures\UI\Commands\Fetch.png" />
     <Content Include="Textures\UI\Commands\Tame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

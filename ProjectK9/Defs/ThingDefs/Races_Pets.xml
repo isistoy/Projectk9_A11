@@ -106,9 +106,24 @@
       </li>
     </verbs>
     <race>
-      <bodySize>1.5</bodySize>
+      <bodySize>0.8</bodySize>
       <healthScale>0.7</healthScale>
       <hungerRate>0.45</hungerRate>
+      <wildBiomes>
+        <!--<li>
+          <biome>IceSheet</biome>
+          <commonality>0.2</commonality>          
+        </li>
+        <li>
+          <biome>AridShrubland</biome>
+          <commonality></commonality>
+        </li>-->
+        <li>
+          <animal>Mutt</animal>
+          <biome>BorealForest</biome>
+          <commonality>0.5</commonality>
+        </li>
+      </wildBiomes>
       <ShadowInfo>
         <baseWidth>0.2</baseWidth>
         <baseHeight>0.2</baseHeight>
@@ -122,7 +137,7 @@
     <label>Shep</label>
     <description>A hardy work dog. When tamed, this dog should help the colony with simple jobs.</description>
     <statBases>
-      <MoveSpeed>4.95</MoveSpeed>
+      <MoveSpeed>4.5</MoveSpeed>
       <Flammability>1.0</Flammability>
       <ComfyTemperatureMin>-25</ComfyTemperatureMin>
       <ComfyTemperatureMax>35</ComfyTemperatureMax>
@@ -137,9 +152,24 @@
       </li>
     </verbs>
     <race>
-      <bodySize>2</bodySize>
+      <bodySize>1</bodySize>
       <healthScale>0.9</healthScale>
-      <hungerRate>0.5</hungerRate>
+      <hungerRate>0.4</hungerRate>
+      <wildBiomes>
+        <!--<li>
+          <biome>IceSheet</biome>
+          <commonality>0.2</commonality>          
+        </li>
+        <li>
+          <biome>AridShrubland</biome>
+          <commonality></commonality>
+        </li>-->
+        <li>
+          <animal>Shep</animal>
+          <biome>BorealForest</biome>
+          <commonality>1</commonality>
+        </li>
+      </wildBiomes>
       <ShadowInfo>
         <baseWidth>0.4</baseWidth>
         <baseHeight>0.4</baseHeight>

@@ -26,11 +26,10 @@ namespace ProjectK9.AI
             {
                 foreach (Pawn colonist in colonists)
                 {
-                    //if (colonist.jobs.curJob != null && colonist.jobs.curJob.def == JobDefOf.HaulToContainer)
                     if (colonist.jobs.curJob != null && ((colonist.jobs.curJob.def == JobDefOf.HaulToContainer)
                         || (colonist.jobs.curJob.def == JobDefOf.HaulToCell)))
                     {
-                        Log.Message("Some colonists hauling");
+                        //Log.Message(string.Concat(pawn, " found that ", colonist, " is hauling"));
                         ThingRequest haulThingReq = ThingRequest.ForGroup(ThingRequestGroup.HaulableAlways);
                         Predicate<Thing> haulThingPredicate = t =>
                         {  
@@ -50,7 +49,7 @@ namespace ProjectK9.AI
                                 Job job = HaulAIUtility_Pets.HaulToStorageJob(pet, closestHaulableThing);
                                 if (job != null)
                                 {
-                                    Log.Message("Got a hauling job");
+                                    //Log.Message(string.Concat(pawn, " is hauling ", closestHaulableThing));
                                     return job;
                                 }
                             }

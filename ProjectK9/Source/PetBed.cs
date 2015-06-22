@@ -53,7 +53,7 @@ namespace ProjectK9
         public override void ExposeData()
         {
  	        base.ExposeData();
-            Scribe_Values.LookValue<TameablePawn>(ref PetBedHolder, "petBedHolder");
+            Scribe_References.LookReference<TameablePawn>(ref PetBedHolder, "petBedHolder");
         }
     }
 }

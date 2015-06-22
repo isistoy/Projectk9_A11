@@ -7,6 +7,8 @@ using Verse;
 using Verse.AI;
 using UnityEngine;
 using RimWorld;
+using Backstories;
+using System.Reflection;
 
 namespace ProjectK9
 {
@@ -36,7 +38,7 @@ namespace ProjectK9
                         ", Colony Pet")
                         );
                 else
-                    return base.LabelBase;
+                    return string.Concat("pet", this.thingIDNumber.ToString());
             }
         }
 
@@ -47,7 +49,7 @@ namespace ProjectK9
                 if (IsColonyPet)
                     return this.Nickname;
                 else
-                    return base.LabelBaseShort;
+                    return string.Concat("pet", this.thingIDNumber.ToString());
             }
         }
 
@@ -133,7 +135,15 @@ namespace ProjectK9
                 isColonyPet = true;
                 initBasicPet();
                 generateStory();
+                SetFactionDirect(Faction.OfColony);
                 initWorkSettings();
+                if (guest == null)
+                {
+                    Log.Message("guest");
+                    guest = new Pawn_GuestTracker(this);
+                    //Log.Message("Setting guest Status");
+                    //this.guest.SetGuestStatus(Faction.OfColony);
+                }
                 //Log.Message("Hack: forcing faction OfColony for fooling reservations/ensuring hauling!");
                 //SetFactionDirect(Faction.OfColony);
             }
@@ -146,12 +156,11 @@ namespace ProjectK9
 
         private void initWorkSettings()
         {
-            if (playerController == null)
-            {
-                Log.Message("player controller");
-                playerController = new Pawn_PlayerController(this);
-            }
-            Log.Message("Trying to enable and initialize Pet's work");
+            //if (playerController == null)
+            //{
+            //    Log.Message("player controller");
+            //    playerController = new Pawn_PlayerController(this);
+            //}
             if (workSettings == null)
             {
                 Log.Message("worksettings");
@@ -162,6 +171,9 @@ namespace ProjectK9
                 Log.Message("jobs");
                 jobs = new Pawn_JobTracker(this);
             }
+            else if (jobs.curJob != null)
+                jobs.EndCurrentJob(JobCondition.Incompletable);
+
             workSettings.EnableAndInitialize();
             workSettings.DisableAll();
             List<WorkTypeDef> workTypes = new List<WorkTypeDef>();
@@ -189,16 +201,26 @@ namespace ProjectK9
                 Log.Message("ownership");
                 ownership = new Pawn_Ownership(this);
             }
-            if (needs == null)
+            if (pather == null)
             {
-                Log.Message("needs");
-                needs = new Pawn_NeedsTracker(this);
+                Log.Message("pather");
+                pather = new Pawn_PathFollower(this);
             }
-            if (needs.mood == null)
+            else
             {
-                Log.Message("mood");
-                needs.mood = new Need_Mood(this);
+                pather.ResetToCurrentPosition();
             }
+            if (natives == null)
+            {
+                Log.Message("natives");
+                natives = new Pawn_NativeVerbs(this);
+            }
+            if (thinker == null)
+            {
+                Log.Message("thinker");
+                thinker = new Pawn_Thinker(this);
+            }
+           
             //if (needs.mood.thoughts == null)
             //{
             //    Log.Message("thoughts");
@@ -214,6 +236,11 @@ namespace ProjectK9
                 Log.Message("filth");
                 filth = new Pawn_FilthTracker(this);
             }
+            if (stances == null)
+            {
+                Log.Message("stances");
+                stances = new Pawn_StanceTracker(this);
+            }
             if (carryHands == null)
             {
                 Log.Message("carryhands");
@@ -224,65 +251,62 @@ namespace ProjectK9
                 Log.Message("inventory");
                 inventory = new Pawn_InventoryTracker(this);
             }
+            if (equipment == null)
+            {
+                equipment = new Pawn_EquipmentTracker(this);
+            }
             if (apparel == null)
             {
                 Log.Message("custom apparel");
                 apparel = new PetApparelOverride(this);
             }
+            if (needs == null)
+            {
+                Log.Message("needs");
+                needs = new Pawn_NeedsTracker(this);
+            }
+            if (needs.mood == null)
+            {
+                Log.Message("mood");
+                typeof(Pawn_NeedsTracker).GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(this.needs, new object[] { DefDatabase<NeedDef>.GetNamed("Mood", true) });
+            }
         }
 
         private void generateStory()
         {
-            if (story == null)
-            {
-                Log.Message("story");
-                story = new Pawn_StoryTracker(this);
-            }
-            Backstory childStory = new Backstory()
-            {
-                bodyTypeGlobal = 0,
-                slot = BackstorySlot.Childhood,
-                title = "Calm",
-                titleShort = "Calm",
-                baseDesc = "Calm",
-                spawnCategories = new List<string>(new string[] { "pet" }),
-                uniqueSaveKey = string.Concat("k9_pet_calm", this.def.defName, this.thingIDNumber.ToString()),
-                workDisables = WorkTags.None
-            };
-            BackstoryDatabase.AddBackstory(childStory);
-            story.childhood = childStory;
-
-            Backstory adultStory = new Backstory()
-            {
-                bodyTypeGlobal = 0,
-                slot = BackstorySlot.Adulthood,
-                title = "Playful",
-                titleShort = "Playful",
-                baseDesc = "Playful",
-                spawnCategories = new List<string>(new string[] { "pet" }),
-                uniqueSaveKey = string.Concat("k9_pet_playful", this.def.defName, this.thingIDNumber.ToString()),
-                workDisables = WorkTags.None
-            };
-            BackstoryDatabase.AddBackstory(adultStory);
-            story.adulthood = adultStory;
-
-            if (story.traits == null)
-            {
-                Log.Message("traits");
-                story.traits = new TraitSet(this);
-                //story.traits.GainTrait(new Trait());
-            }
-            //Log.Message("bio");
-            //PawnBioGenerator.GiveAppropriateBioTo(this, Faction.def);
-            if (skills == null)
+             if (skills == null)
             {
                 Log.Message("skills");
                 skills = new Pawn_SkillTracker(this);
                 //story.GenerateSkillsFromBackstory();
             }
+            if (story == null)
+            {
+                Log.Message("story");
+                story = new Pawn_StoryTracker(this);
+            }
+            
+            // TO DO : randomize access to backstories, by their spawnCategories
+            Backstory childStory = BackstoryDatabase.allBackstories.Where(stor => 
+                stor.Value.spawnCategories.Exists( cat => cat == "pet") && stor.Value.slot == BackstorySlot.Childhood)
+                .RandomElement().Value;
+            Backstory adultStory = BackstoryDatabase.allBackstories.Where(stor =>
+                stor.Value.spawnCategories.Exists(cat => cat == "pet") && stor.Value.slot == BackstorySlot.Adulthood)
+                .RandomElement().Value;
+            story.childhood = childStory;
+                //BackstoryDatabase.GetWithKey(BackstoryDefExt.UniqueSaveKeyFor(BackstoryDef.Named("k9_calm_childhood")));
+            story.adulthood = adultStory;
+                //BackstoryDatabase.GetWithKey(BackstoryDefExt.UniqueSaveKeyFor(BackstoryDef.Named("k9_playful_adulthood")));            
+
+            if (story.traits == null)
+            {
+                Log.Message("traits");
+                story.traits = new TraitSet(this);
+            }
+
             Log.Message("name");
             story.name = Name = PawnNameMaker.GenerateName(this);
-            Name.ResolveMissingPieces();
+            story.name.ResolveMissingPieces();
         }
 
         //public override void SetFaction(Faction newFaction)
@@ -344,13 +368,7 @@ namespace ProjectK9
         //            Log.Message("caller");
         //            caller = new Pawn_CallTracker(this);
         //        }
-        //        if (guest == null)
-        //        {
-        //            Log.Message("guest");
-        //            guest = new Pawn_GuestTracker(this);
-        //            Log.Message("Setting guest Status");
-        //            this.guest.SetGuestStatus(Faction.OfColony, false);
-        //        }
+
         //        Log.Message("direct faction");
         //        SetFactionDirect(newFaction);
 
@@ -393,10 +411,10 @@ namespace ProjectK9
 
         public override void ExposeData()
         {
-            if (this.jobs != null && this.jobs.curDriver != null)
-            {
-                this.jobs.EndCurrentJob(JobCondition.Errored);
-            }
+            //if (this.jobs != null && this.jobs.curDriver != null)
+            //{
+            //    this.jobs.EndCurrentJob(JobCondition.Errored);
+            //}
             base.ExposeData();
             Scribe_Values.LookValue<bool>(ref isColonyPet, "IsColonyPet");
         }
@@ -440,22 +458,22 @@ namespace ProjectK9
 
         //protected override void ApplyDamage(DamageInfo dinfo)
         //{
-        //    Log.Message(this + " taking " + dinfo.Amount + " damage. New health will be: " + (this.health - dinfo.Amount));
+        //    Log.Message(string.Concat(this, " taking ", dinfo.Amount, " damage. New health will be: ", (this.health - dinfo.Amount)));
         //    base.ApplyDamage(dinfo);
         //}
 
         //public override void Killed(DamageInfo dam)
         //{
-        //    Log.Message("Killing: " + this);
+        //    Log.Message(string.Concat("Killing: ", this));
         //    base.Killed(dam);
-        //    Log.Message(this + " has been killed");
+        //    Log.Message(string.Concat(this, " has been killed"));
         //}
 
         //public override void Destroy()
         //{
-        //    Log.Message("Destroying: " + this);
+        //    Log.Message(string.Concat("Destroying: ", this));
         //    base.Destroy();
-        //    Log.Message(this + " has been destroyed");
+        //    Log.Message(string.Concat(this, " has been destroyed"));
         //}
     }
 }

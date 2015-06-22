@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <StatDef>
+    <defName>TameWildChance</defName>
+    <label>Tame wild animal chance</label>
+    <description>Base chance this person will tame a wild animal.</description>
+    <category>PawnSocial</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.01</minValue>
+    <toStringStyle>PercentTwo</toStringStyle>
+    <skillNeedFactors>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Taming</skill>
+        <baseFactor>0.03</baseFactor>
+        <bonusFactor>0.01</bonusFactor>
+      </li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <li>
+        <capacity>Talking</capacity>
+        <weight>0.9</weight>
+      </li>
+    </capacityFactors>
+  </StatDef>
+</Defs>

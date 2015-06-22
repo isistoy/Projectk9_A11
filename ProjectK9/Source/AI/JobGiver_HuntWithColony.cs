@@ -16,28 +16,48 @@ namespace ProjectK9.AI
         {
             // Only hunt with colonists, not with group
             TameablePawn pet = pawn as TameablePawn;
-            if (pet != null)
+            if (!pet.IsColonyPet)
             {
-                if (!pet.IsColonyPet)
-                    Log.Error(string.Concat(pet, " is not a colony Pet, in HuntWithColony"));
-            }
-            else
-            {
-                Log.Error(string.Concat(pawn, " is not a pet, in HuntWithColony"));
+                Log.Error(string.Concat(pet, " is not a colony Pet, in HuntWithColony"));
                 return null;
             }
 
-            JobDef killJobDef = DefDatabase<JobDef>.GetNamed("Kill");
-
-            IEnumerable<Pawn> colonists = Find.ListerPawns.FreeColonists;
-            foreach (Pawn colonist in colonists)
+            JobDef huntJobDef = DefDatabase<JobDef>.GetNamed("HuntForAnimals");
+            Pawn targetA = null;
+            IEnumerator<Pawn> enumerator = Find.ListerPawns.FreeColonists.GetEnumerator();
+            try
             {
-                if (colonist.jobs.curJob != null && colonist.jobs.curJob.def == JobDefOf.Hunt && colonist.jobs.curJob.targetA != null)
+                while (enumerator.MoveNext())
                 {
-                    Log.Message(string.Concat(pet, " hunting prey ", colonist.jobs.curJob.targetA, " with colonist ", colonist));
-                    return new Job(JobDefOf.AttackMelee, colonist.jobs.curJob.targetA) { killIncappedTarget = true };
+                    Pawn current = enumerator.Current;
+                    if (!current.Downed
+                        && (current.jobs.curJob != null)
+                        && (current.jobs.curJob.def == huntJobDef))
+                    {
+                        TargetInfo huntTarget = current.jobs.curJob.targetA;
+                        if (pawn.CanReach(huntTarget, PathEndMode.OnCell, Danger.Deadly)
+                            && !(huntTarget.Thing is Corpse)
+                            && ((Pawn)huntTarget).Downed
+                            && ((Pawn)huntTarget).Dead)
+                        {
+                            targetA = (Pawn)huntTarget;
+                            Log.Message(string.Concat(pet, " found prey ", targetA, " hunted by ", current));
+                        }
+                    }
                 }
             }
+            finally
+            {
+                if (enumerator == null)
+                { }
+                enumerator.Dispose();
+            }
+            if (targetA != null)
+            {
+                Log.Message(string.Concat(pet, " hunting prey ", targetA));
+                return new Job(huntJobDef, targetA) { checkOverrideOnExpire = true, expiryInterval = 500 };
+            }
+            
             return null;
         }
     }

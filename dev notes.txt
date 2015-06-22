@@ -1,5 +1,4 @@
-Dans AI:
-	Vérifier que GetPriority est définie dans les jobgivers GetRestForAnimal et GetOrHuntFood
+OK - Vérifier que GetPriority est définie dans les jobgivers GetRestForAnimal et GetOrHuntFood
 
 Pour obtenir le besoin de nourriture:
 	pawn.needs.food.CurCategory == HungerCategory.UrgentlyHungry 
@@ -8,12 +7,32 @@ health control
 	pawn.health.summaryHealth.summaryHealthPercent < 0.9f par ex.
 
 
-Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonctions, petit à petit
+OK - Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonctions, petit à petit
 
-types de backstories Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent
+Types de backstories Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent
 
-utiliser Boreal forest pour avoir une chance de voir une meute au début
+OK - Boreal forest pour avoir une chance de voir une meute au début
 
-Pas d'animation dans la tache de nourriture sur viande.
+OK - Pas d'animation dans la tache de nourriture sur viande
 
-20.06.2015 - Problems with sleep placement (possibly after reload of a saved game).
+OK - Problems with sleep placement (possibly after reload of a saved game).
+
+OK - Retravail des messages de log - moins de verbes, string.concat partout
+
+WIP - Intégration des backstories. 2 par défaut (enfance et age adulte). Ajouter randomisation
+
+WIP - Intégration de la Research, Skill et Stat pour Taming
+
+WIP - Intégration des BiomeAnimalRecord directement dans raceproperties de pawn. Supprimer le dossier Biomes
+
+TODO - Revérifier que l'AI répond bien à toutes les tâches, sans bug
+
+TODO - Ajouter une commande Tame dans la barre de commande des colonistes
+
+TODO - Ajouter la possibilité de siffler un animal au rappel (entrainement?)
+
+TODO - POuvoir transporter un pet handicapé vers un lit
+
+TODO - Prévoir de pouvoir faire des opérations (recettes médicales) sur un patient pet
+
+TODO - Voir si on doit customiser les bodyparts, à terme.

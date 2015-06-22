@@ -18,20 +18,17 @@ namespace ProjectK9.AI
         protected override IEnumerable<Toil> MakeNewToils()
         {
             this.FailOnDestroyed(TargetIndex.A);
-            this.FailOn(eaterIsKilled); 
+            this.FailOn(eaterIsKilled);
             yield return Toils_Reserve.Reserve(TargetIndex.A);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
-
-            // TODO: Loop this sound
-            yield return Toils_Effects.MakeSound("EatStandard");
 
             Toil chewCorpse = new Toil
             {
                 defaultCompleteMode = ToilCompleteMode.Instant,
             };
+            chewCorpse.initAction = new Action(finishChewing);
             chewCorpse.WithEffect(EffecterDef.Named("EatMeat"), TargetIndex.A);
             chewCorpse.EndOnDespawned(TargetIndex.A);
-            chewCorpse.AddFinishAction(finishEating);
             yield return chewCorpse;
         }
 
@@ -40,42 +37,41 @@ namespace ProjectK9.AI
             return pawn.Dead || pawn.Downed || pawn.HitPoints == 0;
         }
 
-        private void finishEating()
+        private void finishChewing()
         {
             Corpse corpse = TargetThingA as Corpse;
-            if (corpse != null) {
-                
-                Faction petFaction = Find.FactionManager.FirstFactionOfDef(FactionDef.Named("ColonyPets"));
 
-                // TODO: Figure out a way to butcher a corpse without any Butcher skill
-                Pawn butcher = Find.ListerPawns.FreeColonists.First();
-                IEnumerable<Thing> products = corpse.ButcherProducts(butcher, 1.0f);
-                List<Thing> leftovers = new List<Thing>();
-                foreach (Thing meatPile in products)
+            if (corpse != null)
+            {
+                /// changed to used butchering recipe directly and only place leftovers.
+                //Pawn butcher = Find.ListerPawns.FreeColonists.First();
+                //corpse.ButcherProducts(butcher, 1.0f).ToList<Thing>();
+                TameablePawn pet = pawn as TameablePawn;
+                Log.Message("Attempting to butch corpse");
+                IntVec3 centerPos = corpse.Position;
+                List<Thing> leftovers =
+                    GenRecipe.MakeRecipeProducts(DefDatabase<RecipeDef>.GetNamed("ButcherCorpseFlesh"), pet, null, corpse).ToList<Thing>();
+                if (leftovers.Count != 0)
                 {
-                    //while (meatPile.stackCount > 0 && pawn.needs.food.CurInstantLevel >= 0.95f)
-                    //{
-                    //    Thing meat = meatPile.SplitOff(1);
-                    //    pawn.needs.food.FinishEating(meat);
-                    //}
-                    meatPile.Ingested(pawn, pawn.needs.food.NutritionWanted);
-                    if ((meatPile != null) && (meatPile.stackCount > 0))
-                        leftovers.Add(meatPile);
+                    for (int i = 0; i < leftovers.Count; i++)
+                    {
+                        Thing placedLeftover = null;
+                        if (!GenPlace.TryPlaceThing(leftovers[i], centerPos, ThingPlaceMode.Near, out placedLeftover))
+                        {
+                            Log.Error("Couldn't drop products");
+                            pet.jobs.EndCurrentJob(JobCondition.Incompletable);
+                        }
+                        else
+                        {
+                            placedLeftover.SetForbidden(true);
+                        }
+                    }
+                    //if ((pet.IsColonyPet) && (pawn.needs.mood.thoughts != null))
+                    //    pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteStraightFromCorpse"));
                 }
-
-                foreach (Thing leftover in leftovers)
-                {
-                    if (pawn.Faction != petFaction)
-                        leftover.SetForbidden(true);
-                    GenPlace.TryPlaceThing(leftover, corpse.Position, ThingPlaceMode.Near);
-                }
-
-                if (pawn.Faction == petFaction) 
-                    pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteStraightFromCorpse"));
-
-                corpse.Destroy();
+                corpse.Destroy(DestroyMode.Vanish);
+                pet.jobs.EndCurrentJob(JobCondition.Succeeded);
             }
         }
-
     }
 }

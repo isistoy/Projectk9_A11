@@ -9,7 +9,7 @@ health control
 
 OK - Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonctions, petit à petit
 
-Types de backstories Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent
+WIP - Ajouter des backstories (i.e. Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent)
 
 OK - Boreal forest pour avoir une chance de voir une meute au début
 
@@ -19,13 +19,17 @@ OK - Problems with sleep placement (possibly after reload of a saved game).
 
 OK - Retravail des messages de log - moins de verbes, string.concat partout
 
-WIP - Intégration des backstories. 2 par défaut (enfance et age adulte). Ajouter randomisation
+OK - Intégration des backstories. 2 par défaut (enfance et age adulte). Ajouter randomisation
 
 WIP - Intégration de la Research, Skill et Stat pour Taming
 
-WIP - Intégration des BiomeAnimalRecord directement dans raceproperties de pawn. Supprimer le dossier Biomes
+OK - Intégration des BiomeAnimalRecord directement dans raceproperties de pawn. Supprimer le dossier Biomes
 
-TODO - Revérifier que l'AI répond bien à toutes les tâches, sans bug
+WIP - Vérifier que l'AI répond bien à toutes les tâches, sans bug
+
+WIP - Tester l'appartenance à la faction Colony standard, plutôt qu'à ColonyPets
+
+TODO - Vérifier pourquoi les pets passent les portes sans autre
 
 TODO - Ajouter une commande Tame dans la barre de commande des colonistes
 

@@ -87,14 +87,6 @@
         <animal>Muffalo</animal>
         <commonality>0.5</commonality>
       </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.2</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.1</commonality>
-      </li>
     </wildAnimals>
   </BiomeDef>
 
@@ -234,14 +226,6 @@
       <li>
         <animal>WildBoar</animal>
         <commonality>0.5</commonality>
-      </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.2</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.05</commonality>
       </li>
     </wildAnimals>
   </BiomeDef>
@@ -399,14 +383,6 @@
         <animal>Tortoise</animal>
         <commonality>0.4</commonality>
       </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.4</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.4</commonality>
-      </li>
     </wildAnimals>
   </BiomeDef>
 
@@ -513,14 +489,6 @@
       <li>
         <animal>Dromedary</animal>
         <commonality>0.5</commonality>
-      </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.3</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.2</commonality>
       </li>
     </wildAnimals>
   </BiomeDef>
@@ -672,14 +640,6 @@
         <animal>Tortoise</animal>
         <commonality>0.3</commonality>
       </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.4</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.2</commonality>
-      </li>
     </wildAnimals>
   </BiomeDef>
   
@@ -825,14 +785,6 @@
         <animal>Hare</animal>
         <commonality>1</commonality>
       </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.5</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.3</commonality>
-      </li>
     </wildAnimals>
   </BiomeDef>
 
@@ -970,14 +922,6 @@
       <li>
         <animal>Hare</animal>
         <commonality>1</commonality>
-      </li>
-      <li>
-        <animal>Shep</animal>
-        <commonality>0.3</commonality>
-      </li>
-      <li>
-        <animal>Mutt</animal>
-        <commonality>0.1</commonality>
       </li>
     </wildAnimals>
   </BiomeDef>

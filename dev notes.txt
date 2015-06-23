@@ -1,15 +1,14 @@
-OK - Vérifier que GetPriority est définie dans les jobgivers GetRestForAnimal et GetOrHuntFood
-
 Pour obtenir le besoin de nourriture:
 	pawn.needs.food.CurCategory == HungerCategory.UrgentlyHungry 
 
 health control
 	pawn.health.summaryHealth.summaryHealthPercent < 0.9f par ex.
 
+CANCEL - Voir si on doit customiser les bodyparts, à terme.
+
+OK - Vérifier que GetPriority est définie dans les jobgivers GetRestForAnimal et GetOrHuntFood
 
 OK - Desactivation des branches de ThinkTreeDef pour les dogs et activation des fonctions, petit à petit
-
-WIP - Ajouter des backstories (i.e. Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent)
 
 OK - Boreal forest pour avoir une chance de voir une meute au début
 
@@ -21,9 +20,11 @@ OK - Retravail des messages de log - moins de verbes, string.concat partout
 
 OK - Intégration des backstories. 2 par défaut (enfance et age adulte). Ajouter randomisation
 
-WIP - Intégration de la Research, Skill et Stat pour Taming
-
 OK - Intégration des BiomeAnimalRecord directement dans raceproperties de pawn. Supprimer le dossier Biomes
+
+WIP - Ajouter des backstories (i.e. Calm, Docile, Glutton, Playfull, Shady, Agressive, Persistent)
+
+WIP - Intégration de la Research, Skill et Stat pour Taming
 
 WIP - Vérifier que l'AI répond bien à toutes les tâches, sans bug
 
@@ -35,8 +36,8 @@ TODO - Ajouter une commande Tame dans la barre de commande des colonistes
 
 TODO - Ajouter la possibilité de siffler un animal au rappel (entrainement?)
 
-TODO - POuvoir transporter un pet handicapé vers un lit
+TODO - Pouvoir transporter un pet handicapé vers un lit
 
 TODO - Prévoir de pouvoir faire des opérations (recettes médicales) sur un patient pet
 
-TODO - Voir si on doit customiser les bodyparts, à terme.
+

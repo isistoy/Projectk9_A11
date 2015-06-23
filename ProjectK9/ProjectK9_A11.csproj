@@ -90,7 +90,6 @@
     <Content Include="Defs\BackstoryDefs\BackstoryDef_BasicPets.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Defs\BiomeDefs\Biomes.xml" />
     <Content Include="Defs\DesignationDefs\Designations.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

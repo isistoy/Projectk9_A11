@@ -36,20 +36,16 @@ namespace ProjectK9.AI
             Thing thing = GenClosest.ClosestThingReachable(pawn.Position, meatRequest, PathEndMode.Touch, traverseParams, 100f, availMeatPredicate);
             if (thing != null)
             {
-                PawnPath path = PathFinder.FindPath(pawn.Position, thing, traverseParams); 
-                if (path != PawnPath.NotFound)
+                Log.Message(string.Concat(pet, " Found meat"));
+                if (pet.IsColonyPet && thing.SelectableNow() && pawn.needs.mood.thoughts != null)
                 {
-                    Log.Message(string.Concat(pet, " Found meat"));
-                    //if (pet.IsColonyPet && thing.SelectableNow() && pawn.needs.mood.thoughts != null)
-                    //{
-                    //    Log.Message("Meat and colonist. Ingesting...");
-                    //    if (thing.def.ingestible.IsMeat)
-                    //        pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteMeat"));
-                    //    if (thing.def.ingestible.ingestedDirectThought == ThoughtDef.Named("AteHumanoidMeatDirect"))
-                    //        pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("HumanMeatIsYummy"));
-                    //}
-                    return new Job(JobDefOf.Ingest, thing);
+                    Log.Message("Meat and colonist. Ingesting...");
+                    if (thing.def.ingestible.IsMeat)
+                        pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteMeat"));
+                    if (thing.def.ingestible.ingestedDirectThought == ThoughtDefOf.AteHumanlikeMeatDirect)
+                        pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("HumanMeatIsYummy"));
                 }
+                return new Job(JobDefOf.Ingest, thing);
             }
 
             // Find the closest dead meaty-thing and eat it.

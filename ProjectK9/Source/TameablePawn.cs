@@ -117,7 +117,7 @@ namespace ProjectK9
 
         public Thought GiveObservedThought()
         {
-            if (!IsColonyPet || this.RaceProps.bodySize >= 0.5f)
+            if (!IsColonyPet || this.RaceProps.bodySize > 0.5f)
             {
                 return null;
             }
@@ -134,18 +134,15 @@ namespace ProjectK9
                 SetFactionDirect(getPetFaction());
                 isColonyPet = true;
                 initBasicPet();
-                generateStory();
-                SetFactionDirect(Faction.OfColony);
+                generateStory();                
                 initWorkSettings();
-                if (guest == null)
-                {
-                    Log.Message("guest");
-                    guest = new Pawn_GuestTracker(this);
-                    //Log.Message("Setting guest Status");
-                    //this.guest.SetGuestStatus(Faction.OfColony);
-                }
-                //Log.Message("Hack: forcing faction OfColony for fooling reservations/ensuring hauling!");
-                //SetFactionDirect(Faction.OfColony);
+                
+                pather.StopDead();
+                jobs.StopAll();
+                Find.Reservations.ReleaseAllClaimedBy(this);
+                mindState.Reset();
+                Find.ListerPawns.UpdateRegistryForPawn(this);
+                
             }
             catch (Exception ex)
             {
@@ -156,11 +153,6 @@ namespace ProjectK9
 
         private void initWorkSettings()
         {
-            //if (playerController == null)
-            //{
-            //    Log.Message("player controller");
-            //    playerController = new Pawn_PlayerController(this);
-            //}
             if (workSettings == null)
             {
                 Log.Message("worksettings");
@@ -171,8 +163,6 @@ namespace ProjectK9
                 Log.Message("jobs");
                 jobs = new Pawn_JobTracker(this);
             }
-            else if (jobs.curJob != null)
-                jobs.EndCurrentJob(JobCondition.Incompletable);
 
             workSettings.EnableAndInitialize();
             workSettings.DisableAll();
@@ -206,9 +196,15 @@ namespace ProjectK9
                 Log.Message("pather");
                 pather = new Pawn_PathFollower(this);
             }
-            else
+            if (playerController == null)
             {
-                pather.ResetToCurrentPosition();
+                Log.Message("player controller");
+                playerController = new Pawn_PlayerController(this);
+            }
+            if (guest == null)
+            {
+                Log.Message("guest");
+                guest = new Pawn_GuestTracker(this);
             }
             if (natives == null)
             {

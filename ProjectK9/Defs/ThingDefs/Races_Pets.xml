@@ -26,6 +26,7 @@
   </ThingDef>
 
   <ThingDef Name="BaseAnimal" ParentName="BasePawn" Abstract="True">
+    <label>animal</label>
     <race>
       <isFlesh>true</isFlesh>
       <hasGenders>true</hasGenders>
@@ -33,6 +34,7 @@
   </ThingDef>
 
   <ThingDef Name="BaseDog" ParentName="BaseAnimal" Abstract="True">
+    <label>dog</label>
     <selectable>true</selectable>
     <targetHitChanceFactor>1.0</targetHitChanceFactor>
     <statBases>
@@ -42,16 +44,17 @@
       <thinkTree>CarnivoreHerd</thinkTree>
       <makesFootprints>true</makesFootprints>
       <herdAnimal>true</herdAnimal>
-      <body>QuadrupedAnimalWithPawsAndTail</body>
+      <body>QuadrupedAnimalWithPawsAndTail</body>      
       <diet>Carnivorous</diet>
+      <needsRest>true</needsRest>
       <hasLeather>true</hasLeather>
       <leatherColor>(128,128,128)</leatherColor>
       <leatherLabel>dog fur</leatherLabel>
       <leatherInsulation>1.1</leatherInsulation>
-      <soundWounded>Pawn_Iguana_Wounded</soundWounded>
-      <soundDeath>Pawn_Iguana_Death</soundDeath>
-      <soundCall>Pawn_Iguana_Call</soundCall>
-      <soundAngry>Pawn_Iguana_Angry</soundAngry>
+      <soundWounded>Pawn_Alphabeaver_Wounded</soundWounded>
+      <soundDeath>Pawn_Alphabeaver_Death</soundDeath>
+      <soundCall>Pawn_Alphabeaver_Call</soundCall>
+      <soundAngry>Pawn_Alphabeaver_Angry</soundAngry>
       <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
       <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
@@ -92,7 +95,6 @@
     <description>A friendly looking dog. It appears relatively harmless mostly due to it's size. It's quite adorable.</description>
     <statBases>
       <MoveSpeed>4.75</MoveSpeed>
-      <Flammability>1.0</Flammability>
       <ComfyTemperatureMin>-15</ComfyTemperatureMin>
       <ComfyTemperatureMin>30</ComfyTemperatureMin>
     </statBases>
@@ -106,7 +108,7 @@
       </li>
     </verbs>
     <race>
-      <bodySize>0.8</bodySize>
+      <bodySize>0.5</bodySize>
       <healthScale>0.7</healthScale>
       <hungerRate>0.45</hungerRate>
       <wildBiomes>
@@ -116,7 +118,7 @@
         </li>
         <li>
           <biome>AridShrubland</biome>
-          <commonality></commonality>
+          <commonality>0.2</commonality>
         </li>-->
         <li>
           <animal>Mutt</animal>
@@ -124,12 +126,8 @@
           <commonality>0.5</commonality>
         </li>
       </wildBiomes>
-      <ShadowInfo>
-        <baseWidth>0.2</baseWidth>
-        <baseHeight>0.2</baseHeight>
-        <tallness>0.2</tallness>
-      </ShadowInfo>
     </race>
+    <!--<graphicData/>-->      
   </ThingDef>
 
   <ThingDef ParentName="BaseDog">
@@ -138,7 +136,6 @@
     <description>A hardy work dog. When tamed, this dog should help the colony with simple jobs.</description>
     <statBases>
       <MoveSpeed>4.5</MoveSpeed>
-      <Flammability>1.0</Flammability>
       <ComfyTemperatureMin>-25</ComfyTemperatureMin>
       <ComfyTemperatureMax>35</ComfyTemperatureMax>
     </statBases>
@@ -162,7 +159,7 @@
         </li>
         <li>
           <biome>AridShrubland</biome>
-          <commonality></commonality>
+          <commonality>0.2</commonality>
         </li>-->
         <li>
           <animal>Shep</animal>
@@ -170,11 +167,7 @@
           <commonality>1</commonality>
         </li>
       </wildBiomes>
-      <ShadowInfo>
-        <baseWidth>0.4</baseWidth>
-        <baseHeight>0.4</baseHeight>
-        <tallness>0.4</tallness>
-      </ShadowInfo>
     </race>
+    <!--<graphicData />-->
   </ThingDef>
 </ThingDefs>

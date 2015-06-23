@@ -11,14 +11,19 @@ namespace ProjectK9.AI
 {
     public class JobDriver_EatCorpse : JobDriver
     {
+        private Faction oldFaction = null;
+
         public JobDriver_EatCorpse()
         {
         }
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            this.FailOnDestroyed(TargetIndex.A);
-            this.FailOn(eaterIsKilled);
+            //oldFaction = pawn.Faction;
+            //pawn.SetFactionDirect(Faction.OfColony);
+
+            this.FailOnDestroyed<JobDriver_EatCorpse>(TargetIndex.A);
+            this.FailOn<JobDriver_EatCorpse>(eaterIsKilled);
             yield return Toils_Reserve.Reserve(TargetIndex.A);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
 
@@ -26,7 +31,8 @@ namespace ProjectK9.AI
             {
                 defaultCompleteMode = ToilCompleteMode.Instant,
             };
-            chewCorpse.initAction = new Action(finishChewing);
+            chewCorpse.initAction = new Action(doChewCorpse);
+            //chewCorpse.AddFinishAction(new Action(resetFaction));
             chewCorpse.WithEffect(EffecterDef.Named("EatMeat"), TargetIndex.A);
             chewCorpse.EndOnDespawned(TargetIndex.A);
             yield return chewCorpse;
@@ -37,41 +43,44 @@ namespace ProjectK9.AI
             return pawn.Dead || pawn.Downed || pawn.HitPoints == 0;
         }
 
-        private void finishChewing()
+        private void doChewCorpse()
         {
             Corpse corpse = TargetThingA as Corpse;
-
+            TameablePawn pet = pawn as TameablePawn;
             if (corpse != null)
             {
                 /// changed to used butchering recipe directly and only place leftovers.
                 //Pawn butcher = Find.ListerPawns.FreeColonists.First();
                 //corpse.ButcherProducts(butcher, 1.0f).ToList<Thing>();
-                TameablePawn pet = pawn as TameablePawn;
                 Log.Message("Attempting to butch corpse");
                 IntVec3 centerPos = corpse.Position;
-                List<Thing> leftovers =
-                    GenRecipe.MakeRecipeProducts(DefDatabase<RecipeDef>.GetNamed("ButcherCorpseFlesh"), pet, null, corpse).ToList<Thing>();
-                if (leftovers.Count != 0)
+                List<Thing> leftOvers = GenRecipe.MakeRecipeProducts(DefDatabase<RecipeDef>.GetNamed("ButcherCorpseFlesh"), pet, null, corpse).ToList<Thing>();
+                Thing leftOver = null;
+                for (int i = 0; i < leftOvers.Count; i++)
                 {
-                    for (int i = 0; i < leftovers.Count; i++)
+                    if (!GenPlace.TryPlaceThing(leftOvers[i], centerPos, ThingPlaceMode.Near, out leftOver))
                     {
-                        Thing placedLeftover = null;
-                        if (!GenPlace.TryPlaceThing(leftovers[i], centerPos, ThingPlaceMode.Near, out placedLeftover))
-                        {
-                            Log.Error("Couldn't drop products");
-                            pet.jobs.EndCurrentJob(JobCondition.Incompletable);
-                        }
-                        else
-                        {
-                            placedLeftover.SetForbidden(true);
-                        }
+                        Log.Warning("Couldn't drop products");
+                        pet.jobs.EndCurrentJob(JobCondition.Incompletable);
                     }
-                    //if ((pet.IsColonyPet) && (pawn.needs.mood.thoughts != null))
-                    //    pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteStraightFromCorpse"));
+                    if (leftOver != null)
+                        leftOver.SetForbidden(true);
                 }
-                corpse.Destroy(DestroyMode.Vanish);
-                pet.jobs.EndCurrentJob(JobCondition.Succeeded);
+                if ((pet.IsColonyPet) && (pawn.needs.mood.thoughts != null))
+                    pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteStraightFromCorpse"));
+                corpse.Destroy();
             }
+            pet.jobs.EndCurrentJob(JobCondition.Succeeded);
+        }
+
+        private void resetFaction()
+        {
+            if (oldFaction != null)
+            {
+                pawn.SetFactionDirect(oldFaction);
+            }
+            else
+                pawn.SetFactionDirect(null);
         }
     }
 }

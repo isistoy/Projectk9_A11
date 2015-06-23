@@ -48,8 +48,6 @@ namespace ProjectK9.AI
             }
             finally
             {
-                if (enumerator == null)
-                { }
                 enumerator.Dispose();
             }
             if (targetA != null)

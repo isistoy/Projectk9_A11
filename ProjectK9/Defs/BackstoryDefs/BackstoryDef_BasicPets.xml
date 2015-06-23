@@ -5,7 +5,7 @@
     <defName>k9_calm_childhood</defName>
     <title>Calm brood</title>
     <titleShort>Calm</titleShort>
-    <baseDescription>This dog had quite a lovely wild youth and is not complaining about it's new situation at all.</baseDescription>
+    <baseDescription>NAME had quite a lovely wild youth. HECAP is not complaining about HISCAP new situation at all.</baseDescription>
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <bodyTypeGlobal>Thin</bodyTypeGlobal>
@@ -29,7 +29,7 @@
     <defName>k9_playful_adulthood</defName>
     <title>Totally playful</title>
     <titleShort>Playful</titleShort>
-    <baseDescription>This dog is quite well-tampered and is always willing to haul with his master. Sometimes, a handler would be preferable.</baseDescription>
+    <baseDescription>NAME is quite well-tempered and HE is always willing to haul with HISCAP master. Sometimes, a handler would be preferable.</baseDescription>
     <bodyTypeMale>Male</bodyTypeMale>
     <bodyTypeFemale>Female</bodyTypeFemale>
     <bodyTypeGlobal>Thin</bodyTypeGlobal>

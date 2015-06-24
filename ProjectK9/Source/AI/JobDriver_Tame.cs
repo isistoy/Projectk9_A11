@@ -42,15 +42,13 @@ namespace ProjectK9.AI
                 return;
 
             Log.Message("Initializing new Pet");
-            tamee.InitializeColonyPet();
+            TamePawnUtility.InitializeColonyPet(tamee);
             //Log.Message("Previously giving the pawn it's Keys");
             //tamee.inventory.container.TryAdd(ThingMaker.MakeThing(ThingDefOf.DoorKey));
             Designation tameDes = Find.DesignationManager.DesignationOn(TargetThingA, DefDatabase<DesignationDef>.GetNamed("Tame"));
             if (tameDes != null)
                 Find.DesignationManager.RemoveDesignation(tameDes);
             Log.Message("Removed Taming designation");
-
         }
-
     }
 }

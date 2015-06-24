@@ -68,6 +68,7 @@
     <Compile Include="Source\AI\JobGiver_HaulWithColony.cs" />
     <Compile Include="Source\AI\JobGiver_HuntWithColony.cs" />
     <Compile Include="Source\AI\JobGiver_HuntWithHerd.cs" />
+    <Compile Include="Source\TamePawnUtility.cs" />
     <Compile Include="Source\AI\ThinkNode_ConditionalTamed.cs" />
     <Compile Include="Source\AI\ThinkNode_PriorityDebug.cs" />
     <Compile Include="Source\AI\WorkGiver_TamerTame.cs" />

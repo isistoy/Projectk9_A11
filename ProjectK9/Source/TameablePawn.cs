@@ -24,6 +24,10 @@ namespace ProjectK9
             {
                 return isColonyPet;
             }
+            set 
+            { 
+                isColonyPet = value; 
+            }
         }
 
         public override string LabelBase
@@ -127,184 +131,6 @@ namespace ProjectK9
             return obs;
         }
 
-        public void InitializeColonyPet()
-        {
-            try
-            {
-                SetFactionDirect(getPetFaction());
-                isColonyPet = true;
-                initBasicPet();
-                generateStory();                
-                initWorkSettings();
-                
-                pather.StopDead();
-                jobs.StopAll();
-                Find.Reservations.ReleaseAllClaimedBy(this);
-                mindState.Reset();
-                Find.ListerPawns.UpdateRegistryForPawn(this);
-                
-            }
-            catch (Exception ex)
-            {
-                Log.ErrorOnce(string.Concat("Message: ", ex.Message), 900900900);
-                Log.ErrorOnce(string.Concat("Stack: ", ex.StackTrace), 900900901);
-            }
-        }
-
-        private void initWorkSettings()
-        {
-            if (workSettings == null)
-            {
-                Log.Message("worksettings");
-                workSettings = new Pawn_WorkSettings(this);
-            }
-            if (jobs == null)
-            {
-                Log.Message("jobs");
-                jobs = new Pawn_JobTracker(this);
-            }
-
-            workSettings.EnableAndInitialize();
-            workSettings.DisableAll();
-            List<WorkTypeDef> workTypes = new List<WorkTypeDef>();
-            if (this.def.defName == "Mutt")
-            {
-                if (!story.WorkTypeIsDisabled(WorkTypeDefOf.Hauling))
-                    workTypes.Add(WorkTypeDefOf.Hauling);
-            }
-            else if (this.def.defName == "Shep")
-            {
-                if (!story.WorkTypeIsDisabled(WorkTypeDefOf.Hunting))
-                    workTypes.Add(WorkTypeDefOf.Hunting);
-                if (!story.WorkTypeIsDisabled(WorkTypeDefOf.Hauling))
-                    workTypes.Add(WorkTypeDefOf.Hauling);
-            }
-            Log.Message("Trying to add new work types");
-            foreach (WorkTypeDef workType in workTypes)
-                workSettings.SetPriority(workType, 4);
-        }
-
-        private void initBasicPet()
-        {
-            if (ownership == null)
-            {
-                Log.Message("ownership");
-                ownership = new Pawn_Ownership(this);
-            }
-            if (pather == null)
-            {
-                Log.Message("pather");
-                pather = new Pawn_PathFollower(this);
-            }
-            if (playerController == null)
-            {
-                Log.Message("player controller");
-                playerController = new Pawn_PlayerController(this);
-            }
-            if (guest == null)
-            {
-                Log.Message("guest");
-                guest = new Pawn_GuestTracker(this);
-            }
-            if (natives == null)
-            {
-                Log.Message("natives");
-                natives = new Pawn_NativeVerbs(this);
-            }
-            if (thinker == null)
-            {
-                Log.Message("thinker");
-                thinker = new Pawn_Thinker(this);
-            }
-           
-            //if (needs.mood.thoughts == null)
-            //{
-            //    Log.Message("thoughts");
-            //    needs.mood.thoughts = new ThoughtHandler(this);
-            //}
-            if (mindState == null)
-            {
-                Log.Message("mindstate");
-                mindState = new Pawn_MindState(this);
-            }
-            if (filth == null)
-            {
-                Log.Message("filth");
-                filth = new Pawn_FilthTracker(this);
-            }
-            if (stances == null)
-            {
-                Log.Message("stances");
-                stances = new Pawn_StanceTracker(this);
-            }
-            if (carryHands == null)
-            {
-                Log.Message("carryhands");
-                carryHands = new Pawn_CarryHands(this);
-            }
-            if (inventory == null)
-            {
-                Log.Message("inventory");
-                inventory = new Pawn_InventoryTracker(this);
-            }
-            if (equipment == null)
-            {
-                equipment = new Pawn_EquipmentTracker(this);
-            }
-            if (apparel == null)
-            {
-                Log.Message("custom apparel");
-                apparel = new PetApparelOverride(this);
-            }
-            if (needs == null)
-            {
-                Log.Message("needs");
-                needs = new Pawn_NeedsTracker(this);
-            }
-            if (needs.mood == null)
-            {
-                Log.Message("mood");
-                typeof(Pawn_NeedsTracker).GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(this.needs, new object[] { DefDatabase<NeedDef>.GetNamed("Mood", true) });
-            }
-        }
-
-        private void generateStory()
-        {
-             if (skills == null)
-            {
-                Log.Message("skills");
-                skills = new Pawn_SkillTracker(this);
-                //story.GenerateSkillsFromBackstory();
-            }
-            if (story == null)
-            {
-                Log.Message("story");
-                story = new Pawn_StoryTracker(this);
-            }
-            
-            // TO DO : randomize access to backstories, by their spawnCategories
-            Backstory childStory = BackstoryDatabase.allBackstories.Where(stor => 
-                stor.Value.spawnCategories.Exists( cat => cat == "pet") && stor.Value.slot == BackstorySlot.Childhood)
-                .RandomElement().Value;
-            Backstory adultStory = BackstoryDatabase.allBackstories.Where(stor =>
-                stor.Value.spawnCategories.Exists(cat => cat == "pet") && stor.Value.slot == BackstorySlot.Adulthood)
-                .RandomElement().Value;
-            story.childhood = childStory;
-                //BackstoryDatabase.GetWithKey(BackstoryDefExt.UniqueSaveKeyFor(BackstoryDef.Named("k9_calm_childhood")));
-            story.adulthood = adultStory;
-                //BackstoryDatabase.GetWithKey(BackstoryDefExt.UniqueSaveKeyFor(BackstoryDef.Named("k9_playful_adulthood")));            
-
-            if (story.traits == null)
-            {
-                Log.Message("traits");
-                story.traits = new TraitSet(this);
-            }
-
-            Log.Message("name");
-            story.name = Name = PawnNameMaker.GenerateName(this);
-            story.name.ResolveMissingPieces();
-        }
-
         //public override void SetFaction(Faction newFaction)
         //{
         //    if (newFaction == base.Faction)
@@ -385,25 +211,7 @@ namespace ProjectK9
         //        //Find.GameEnder.CheckGameOver();
         //    }
 
-        //}
-
-        private Faction getPetFaction()
-        {
-            FactionDef petFactionDef = FactionDef.Named("ColonyPets");
-            Faction petFaction = Find.FactionManager.FirstFactionOfDef(petFactionDef);
-
-            if (petFaction == null)
-            {
-                // This should probably never happen.
-                Log.Warning("Creating the Pet Faction for the First time.");
-                petFaction = new Faction();
-                petFaction.def = petFactionDef;
-                petFaction.name = "ColonyPets";
-                Find.FactionManager.Add(petFaction);
-            }
-
-            return petFaction;
-        }
+        //}        
 
         public override void ExposeData()
         {

@@ -19,5 +19,13 @@ namespace ProjectK9
                 return 1;
             }
         }
+
+        public new bool PsychologicallyNude
+        {
+            get
+            {
+                return false;
+            }
+        }
     }
 }

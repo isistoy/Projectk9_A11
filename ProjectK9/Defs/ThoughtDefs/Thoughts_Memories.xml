@@ -3,8 +3,10 @@
 
 	<ThoughtDef>
 		<defName>SawCuteDog</defName>
-		<duration>20000</duration>
+    <thoughtClass>Thought_Observation</thoughtClass>
+		<duration>10000</duration>
 		<stackLimit>3</stackLimit>
+    <stackedEffectMultiplier>0.3</stackedEffectMultiplier>
 		<stages>
 			<li>
 				<label>Saw cute dog</label>
@@ -53,6 +55,18 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-	
-	
+
+  <ThoughtDef>
+    <defName>FriendIsCaring</defName>
+    <duration>20000</duration>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>A human friend is caring</label>
+        <description>I have a human friend caring about me.</description>
+        <baseMoodEffect>8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+		
 </ThoughtDefs>

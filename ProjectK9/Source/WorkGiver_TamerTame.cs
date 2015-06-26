@@ -7,7 +7,7 @@ using Verse;
 using Verse.AI;
 using RimWorld;
 
-namespace ProjectK9.AI
+namespace ProjectK9
 {
     public class WorkGiver_TamerTame : WorkGiver
     {

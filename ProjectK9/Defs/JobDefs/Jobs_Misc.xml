@@ -28,7 +28,7 @@
 
 	<JobDef>
 		<defName>Tame</defName>
-		<driverClass>ProjectK9.AI.JobDriver_Tame</driverClass>
+		<driverClass>ProjectK9.JobDriver_Tame</driverClass>
 		<reportString>Taming TargetA.</reportString>
 	</JobDef>
 

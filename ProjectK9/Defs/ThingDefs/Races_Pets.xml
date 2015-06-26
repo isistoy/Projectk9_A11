@@ -30,6 +30,7 @@
     <race>
       <isFlesh>true</isFlesh>
       <hasGenders>true</hasGenders>
+      <intelligence>Animal</intelligence>
     </race>
   </ThingDef>
 

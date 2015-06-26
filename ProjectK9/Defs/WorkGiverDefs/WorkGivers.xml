@@ -3,7 +3,7 @@
 
   <WorkGiverDef>
     <defName>TamerTame</defName>
-    <giverClass>ProjectK9.AI.WorkGiver_TamerTame</giverClass>
+    <giverClass>ProjectK9.WorkGiver_TamerTame</giverClass>
     <workType>Taming</workType>
     <verb>tame</verb>
     <gerund>taming</gerund>

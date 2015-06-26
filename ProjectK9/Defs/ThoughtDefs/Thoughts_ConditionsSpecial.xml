@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThoughtDefs>
+  <ThoughtDef>
+    <defName>Naked</defName>
+    <workerClass>ProjectK9.ThoughtWorker_PsychologicallyNude</workerClass>
+    <nullifyingTraits>
+      <li>Nudist</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>naked</label>
+        <description>I'm naked. This is humiliating.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</ThoughtDefs>

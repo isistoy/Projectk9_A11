@@ -24,9 +24,9 @@ namespace ProjectK9
             {
                 return isColonyPet;
             }
-            set 
-            { 
-                isColonyPet = value; 
+            set
+            {
+                isColonyPet = value;
             }
         }
 
@@ -89,6 +89,48 @@ namespace ProjectK9
             }
         }
 
+        public override void SpawnSetup()
+        {
+            if (!isColonyPet)
+            {
+                TamePawnUtility.InitBasicPet(this);
+                TamePawnUtility.GenerateStory(this);
+            }
+            base.SpawnSetup();
+        }
+
+        //public override void PostMapInit()
+        //{
+
+        //    base.PostMapInit();
+        //}
+
+        //private void CleanupToughts()
+        //{
+        //    /// Fixed bad thoughts reference that we want out
+        //    /// Would have to be loaded from a custom def directly
+        //    List<ThoughtDef> forbidThoughtDefs = new List<ThoughtDef>();
+        //    forbidThoughtDefs.Add(ThoughtDef.Named("Naked"));
+        //    forbidThoughtDefs.Add(ThoughtDef.Named("ApparelDamaged"));
+        //    forbidThoughtDefs.Add(ThoughtDefOf.AteWithoutTable);
+        //    forbidThoughtDefs.Add(ThoughtDef.Named("AteRawFood"));
+        //    forbidThoughtDefs.Add(ThoughtDefOf.AteHumanlikeMeatDirect);
+        //    forbidThoughtDefs.Add(ThoughtDefOf.AteHumanlikeMeatAsIngredient);
+        //    forbidThoughtDefs.Add(ThoughtDefOf.ObservedLayingCorpse);
+        //    forbidThoughtDefs.Add(ThoughtDefOf.ObservedLayingRottingCorpse);
+        //    forbidThoughtDefs.Add(ThoughtDef.Named("SharedBedroom"));
+
+        //    var query =
+        //        from c in needs.mood.thoughts.DistinctThoughtDefs
+        //        join f in forbidThoughts on c.defName equals f.defName
+        //        select new { c };
+        //}
+
+        public override IEnumerable<FloatMenuOption> GetExtraFloatMenuOptionsFor(IntVec3 sq)
+        {
+            yield return new FloatMenuOption("testaction", new Action(() => { }));
+        }
+
         public override void DeSpawn()
         {
             if (ownership != null && ownership.ownedBed != null)
@@ -121,12 +163,14 @@ namespace ProjectK9
 
         public Thought GiveObservedThought()
         {
-            if (!IsColonyPet || this.RaceProps.bodySize > 0.5f)
+            int num1 = 10;
+            int num2 = UnityEngine.Random.Range(1, 100);
+            if (!IsColonyPet || (num2 < num1))
             {
                 return null;
             }
-            Thought_Observation obs;
-            obs = (Thought_Observation)ThoughtMaker.MakeThought(ThoughtDef.Named("SawCuteDog"));
+
+            Thought_Observation obs = (Thought_Observation)ThoughtMaker.MakeThought(ThoughtDef.Named("SawCuteDog"));
             obs.Target = this;
             return obs;
         }

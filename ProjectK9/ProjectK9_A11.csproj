@@ -60,7 +60,7 @@
     <Compile Include="Source\AI\JobDriver_HaulForPets.cs" />
     <Compile Include="Source\AI\JobDriver_HuntForAnimals.cs" />
     <Compile Include="Source\AI\JobDriver_SleepForAnimals.cs" />
-    <Compile Include="Source\AI\JobDriver_Tame.cs" />
+    <Compile Include="Source\JobDriver_Tame.cs" />
     <Compile Include="Source\AI\JobGiver_DefendColony.cs" />
     <Compile Include="Source\AI\JobGiver_DefendHerd.cs" />
     <Compile Include="Source\AI\JobGiver_GetOrHuntFood.cs" />
@@ -68,10 +68,13 @@
     <Compile Include="Source\AI\JobGiver_HaulWithColony.cs" />
     <Compile Include="Source\AI\JobGiver_HuntWithColony.cs" />
     <Compile Include="Source\AI\JobGiver_HuntWithHerd.cs" />
+    <Compile Include="Source\TameableFlotOptionMenuUtility.cs" />
     <Compile Include="Source\TamePawnUtility.cs" />
     <Compile Include="Source\AI\ThinkNode_ConditionalTamed.cs" />
     <Compile Include="Source\AI\ThinkNode_PriorityDebug.cs" />
-    <Compile Include="Source\AI\WorkGiver_TamerTame.cs" />
+    <Compile Include="Source\ThoughtWorker_PsychologicallyNude.cs" />
+    <Compile Include="Source\Toils_Tame.cs" />
+    <Compile Include="Source\WorkGiver_TamerTame.cs" />
     <Compile Include="Source\AI\HerdAIUtility_Pets.cs" />
     <Compile Include="Source\PetApparelOverride.cs" />
     <Compile Include="Source\PetBed.cs" />
@@ -102,6 +105,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Defs\NameDefs\NameDefTemplate.xml" />
     <Content Include="Defs\PawnKindDefs\PawnKinds_Pets.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -123,11 +127,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Defs\ThoughtDefs\Thoughts_ConditionsSpecial.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Defs\ThoughtDefs\Thoughts_Memories.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\WorkGiverDefs\WorkGivers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Defs\WorkTypeDefs\WorkTypes.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

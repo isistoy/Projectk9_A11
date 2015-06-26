@@ -6,9 +6,9 @@ using RimWorld;
 
 namespace ProjectK9
 {
-    class PetApparelOverride : Pawn_ApparelTracker
+    public class Tameable_ApparelTracker : Pawn_ApparelTracker
     {
-        public PetApparelOverride(Pawn pawn) : base(pawn)
+        public Tameable_ApparelTracker(Pawn pawn):base(pawn)
         {
         }
 

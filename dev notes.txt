@@ -30,7 +30,9 @@ WIP - Vérifier que l'AI répond bien à toutes les tâches, sans bug
 
 WIP - Tester l'appartenance à la faction Colony standard, plutôt qu'à ColonyPets
 
-TODO - Vérifier pourquoi les pets passent les portes sans autre
+WIP - Vérifier pourquoi les pets passent les portes sans autre
+
+TODO - Ajouter Boxer textures and model
 
 TODO - Ajouter une commande Tame dans la barre de commande des colonistes
 

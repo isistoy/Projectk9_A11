@@ -28,6 +28,7 @@
 		<race>Shep</race>
     <backstoryCategory>Slave</backstoryCategory>
 		<pointsCost>60</pointsCost>
+    <!--<defaultFactionType>ColonyPets</defaultFactionType>-->
 		<standardBodygraphicPath>Things/Pawn/Animal/Shep</standardBodygraphicPath>
     <dessicatedBodygraphicPath>Things/Pawn/Animal/MuttDessicated</dessicatedBodygraphicPath>
 		<wildSpawn_EcoSystemWeight>0.2</wildSpawn_EcoSystemWeight>

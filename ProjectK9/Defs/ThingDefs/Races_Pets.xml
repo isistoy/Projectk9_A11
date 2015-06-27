@@ -165,10 +165,52 @@
         <li>
           <animal>Shep</animal>
           <biome>BorealForest</biome>
-          <commonality>1</commonality>
+          <commonality>0.8</commonality>
         </li>
       </wildBiomes>
     </race>
     <!--<graphicData />-->
   </ThingDef>
+
+  <ThingDef ParentName="BaseDog">
+    <defName>Pitbull</defName>
+    <label>Pitbull</label>
+    <description>A sanguine attack dog. When tamed, this dog can also help the colony with simple jobs.</description>
+    <statBases>
+      <MoveSpeed>4.5</MoveSpeed>
+      <ComfyTemperatureMin>-20</ComfyTemperatureMin>
+      <ComfyTemperatureMax>40</ComfyTemperatureMax>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_MeleeAttack</verbClass>
+        <defaultCooldownTicks>75</defaultCooldownTicks>
+        <meleeDamageBaseAmount>9</meleeDamageBaseAmount>
+        <meleeDamageDef>Bite</meleeDamageDef>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+      </li>
+    </verbs>
+    <race>
+      <bodySize>1</bodySize>
+      <healthScale>0.9</healthScale>
+      <hungerRate>0.4</hungerRate>
+      <wildBiomes>
+        <!--<li>
+          <biome>IceSheet</biome>
+          <commonality>0.2</commonality>          
+        </li>
+        <li>
+          <biome>AridShrubland</biome>
+          <commonality>0.2</commonality>
+        </li>-->
+        <li>
+          <animal>Pitbull</animal>
+          <biome>BorealForest</biome>
+          <commonality>0.8</commonality>
+        </li>
+      </wildBiomes>
+    </race>
+    <!--<graphicData />-->
+  </ThingDef>
+  
 </ThingDefs>

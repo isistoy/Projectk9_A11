@@ -26,6 +26,16 @@ namespace ProjectK9
             return FactionDef.Named("ColonyPets");
         }
 
+        public static DesignationDef GetTameDesDef()
+        {
+            return DefDatabase<DesignationDef>.GetNamed("Tame");
+        }
+
+        public static JobDef GetTameJobDef()
+        {
+            return DefDatabase<JobDef>.GetNamed("Tame");
+        }
+
         public static bool CanTame(Pawn pawn, TameablePawn tamee)
         {
             IntVec3 vec = pawn.Position - tamee.Position;

@@ -11,9 +11,6 @@ namespace ProjectK9
 {
     public class WorkGiver_TamerTame : WorkGiver
     {
-        private DesignationDef tameDesDef = DefDatabase<DesignationDef>.GetNamed("Tame");
-        private JobDef tameJobDef = DefDatabase<JobDef>.GetNamed("Tame");
-
         public WorkGiver_TamerTame()
         {
         }
@@ -25,19 +22,19 @@ namespace ProjectK9
                 return false;
             if (!pawn.CanReserve(t, 1))
                 return false;
-            if (Find.DesignationManager.DesignationOn(t, tameDesDef) == null)
+            if (Find.DesignationManager.DesignationOn(t, TamePawnUtility.GetTameDesDef()) == null)
                 return false;
             return true;
         }
 
         public override Job JobOnThing(Pawn pawn, Thing t)
         {
-            return new Job(tameJobDef, t);
+            return new Job(TamePawnUtility.GetTameJobDef(), t);
         }
 
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn Pawn)
         {
-            foreach (Designation designation in Find.DesignationManager.DesignationsOfDef(tameDesDef))
+            foreach (Designation designation in Find.DesignationManager.DesignationsOfDef(TamePawnUtility.GetTameDesDef()))
             {
                 yield return designation.target.Thing;
             }

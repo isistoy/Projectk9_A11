@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Source\Designator_Tame.cs" />
     <Compile Include="Source\AI\FoodAIUtility_Pets.cs" />
     <Compile Include="Source\AI\HaulAIUtility_Pets.cs" />
     <Compile Include="Source\AI\JobDriver_EatCorpse.cs" />
@@ -92,6 +93,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\BackstoryDefs\BackstoryDef_BasicPets.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Defs\DesignationCategoryDefs\DesignationCategories.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\DesignationDefs\Designations.xml">
@@ -168,6 +172,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\Things\Pawn\Animal\Mutt_side.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Things\Pawn\Animal\Pitbull_back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Things\Pawn\Animal\Pitbull_front.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Textures\Things\Pawn\Animal\Pitbull_side.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Textures\Things\Pawn\Animal\Shep_back.png">

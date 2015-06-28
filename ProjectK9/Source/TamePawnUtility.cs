@@ -222,7 +222,7 @@ namespace ProjectK9
                 Log.Message("tametracker");
                 tamee.tameTracker = new TameablePawn_TameTracker(tamee);
                 tamee.tameTracker.Init();
-            }
+            }            
         }
 
         public static void GenerateStory(TameablePawn tamee)

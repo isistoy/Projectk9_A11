@@ -89,9 +89,11 @@ namespace ProjectK9
         {
             if (this.tameDifficulty < 0f)
             {
+                Log.Message("baseRecruitDifficulty");
                 float baseDifficulty = this.tameable.kindDef.baseRecruitDifficulty + Rand.Range((float)-30f, (float)30f);
                 //float popIntent = (Game.Mode != GameMode.MapPlaying) ? 1f : Find.Storyteller.intenderPopulation.PopulationIntent;
                 //baseDifficulty = PopIntentAdjustedTameDifficulty(baseDifficulty, popIntent);
+                Log.Message("recruitDifficulty");
                 this.tameDifficulty = Mathf.Clamp(baseDifficulty, 30f, 99f);
             }
         }

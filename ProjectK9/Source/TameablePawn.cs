@@ -18,6 +18,8 @@ namespace ProjectK9
 
         public TameablePawn_TameTracker tameTracker;
 
+        public bool initialized;
+
         public bool IsColonyPet
         {
             get
@@ -87,22 +89,6 @@ namespace ProjectK9
             }
         }
 
-        public override void PostMake()
-        {            
-            base.PostMake();
-            if (!IsColonyPet)
-            {
-                TamePawnUtility.InitBasicPet(this);
-                TamePawnUtility.GenerateStory(this);
-            }
-        }
-
-        //public override void PostMapInit()
-        //{
-
-        //    base.PostMapInit();
-        //}
-
         //private void CleanupToughts()
         //{
         //    /// Fixed bad thoughts reference that we want out
@@ -123,6 +109,17 @@ namespace ProjectK9
         //        join f in forbidThoughts on c.defName equals f.defName
         //        select new { c };
         //}
+
+        public override void SpawnSetup()
+        {
+            base.SpawnSetup();
+            if (!initialized)
+            {
+                TamePawnUtility.InitBasicPet(this);
+                TamePawnUtility.GenerateStory(this);
+                initialized = true;
+            }
+        }
 
         public override IEnumerable<FloatMenuOption> GetExtraFloatMenuOptionsFor(IntVec3 sq)
         {
@@ -263,7 +260,8 @@ namespace ProjectK9
             //}
             base.ExposeData();
             object[] objArray1 = new object[] { this };
-            Scribe_Deep.LookDeep<TameablePawn_TameTracker>(ref this.tameTracker, "tameTracker", objArray1);            
+            Scribe_Deep.LookDeep<TameablePawn_TameTracker>(ref this.tameTracker, "tameTracker", objArray1);
+            Scribe_Values.LookValue<bool>(ref initialized, "initialized");
         }
 
         public bool IsDesignatedToBeTamed()

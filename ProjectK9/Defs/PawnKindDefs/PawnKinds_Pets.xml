@@ -11,6 +11,7 @@
 		<race>Mutt</race>
     <backstoryCategory>Slave</backstoryCategory>
 		<pointsCost>45</pointsCost>
+    <baseRecruitDifficulty>35</baseRecruitDifficulty>
     <!--<defaultFactionType>ColonyPets</defaultFactionType>-->
 		<standardBodygraphicPath>Things/Pawn/Animal/Mutt</standardBodygraphicPath>
 		<dessicatedBodygraphicPath>Things/Pawn/Animal/MuttDessicated</dessicatedBodygraphicPath>
@@ -28,6 +29,7 @@
 		<race>Shep</race>
     <backstoryCategory>Slave</backstoryCategory>
 		<pointsCost>60</pointsCost>
+    <baseRecruitDifficulty>35</baseRecruitDifficulty>
     <!--<defaultFactionType>ColonyPets</defaultFactionType>-->
 		<standardBodygraphicPath>Things/Pawn/Animal/Shep</standardBodygraphicPath>
     <dessicatedBodygraphicPath>Things/Pawn/Animal/MuttDessicated</dessicatedBodygraphicPath>
@@ -45,6 +47,7 @@
     <race>Pitbull</race>
     <backstoryCategory>Slave</backstoryCategory>
     <pointsCost>60</pointsCost>
+    <baseRecruitDifficulty>35</baseRecruitDifficulty>
     <!--<defaultFactionType>ColonyPets</defaultFactionType>-->
     <standardBodygraphicPath>Things/Pawn/Animal/Pitbull</standardBodygraphicPath>
     <dessicatedBodygraphicPath>Things/Pawn/Animal/MuttDessicated</dessicatedBodygraphicPath>

@@ -64,15 +64,34 @@ namespace ProjectK9
                     tamee.needs.mood.thoughts.TryGainThought(newThought);
                 }
             }
+            MoteThrower.MakeSpeechOverlay(pawn);
             if (msg.Effect == TameEffect.TryTame)
             {
-                TryTameColonyPet(pawn, tamee);
+                float f = pawn.GetStatValue(StatDefOf.RecruitPrisonerChance, true);
+                float tameDifficulty = tamee.tameTracker.TameDifficulty;
+                if (tamee.needs.mood.CurLevel < 0.35f)
+                {
+                    object[] args = new object[] { pawn.Nickname, tamee, 0.35f.ToStringPercent() };
+                    Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], " because mood is below ", args[2]), MessageSound.Silent);
+                    return false;
+                }
+                f *= 1f - (tameDifficulty / 100f);
+                if (f < 0.011f)
+                {
+                    f = 0.01f;
+                }
+                if (Rand.Value > f)
+                {
+                    object[] args = new object[] { pawn.Nickname, tamee, f.ToStringPercent() };
+                    Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], ". It failed with a chance of ", args[2]), MessageSound.Silent);
+                    return false;
+                }
+                TryTameColonyPet(tamee);
             }
-            MoteThrower.MakeSpeechOverlay(pawn);
             return true;
         }
 
-        public static void TryTameColonyPet(Pawn pawn, TameablePawn tamee)
+        private static void TryTameColonyPet(TameablePawn tamee)
         {
             try
             {
@@ -100,7 +119,6 @@ namespace ProjectK9
                     tamee.health.surgeryBills.Clear();
                     Find.ListerPawns.RegisterPawn(tamee);
                     Find.GameEnder.CheckGameOver();
-                    tamee.IsColonyPet = true;
                     Designation tameDes = Find.DesignationManager.DesignationOn(tamee, DefDatabase<DesignationDef>.GetNamed("Tame"));
                     if (tameDes != null)
                         Find.DesignationManager.RemoveDesignation(tameDes);
@@ -238,6 +256,12 @@ namespace ProjectK9
                     .GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance)
                     .Invoke(tamee.needs, new object[] { DefDatabase<NeedDef>.GetNamed("Mood", true) });
             }
+            if (tamee.tameTracker == null)
+            {
+                Log.Message("");
+                tamee.tameTracker = new TameablePawn_TameTracker(tamee);
+                tamee.tameTracker.Init();
+            }
         }
 
         public static void GenerateStory(TameablePawn tamee)
@@ -297,12 +321,5 @@ namespace ProjectK9
     {
         None = 0,
         TryTame = 1
-    }
-
-    public enum TameableInteractionMode : byte
-    {
-        NoInteraction = 0,
-        Pet = 1,
-        AttemptTame = 2
     }
 }

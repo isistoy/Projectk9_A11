@@ -30,6 +30,7 @@
 		<defName>Tame</defName>
 		<driverClass>ProjectK9.JobDriver_Tame</driverClass>
 		<reportString>Taming TargetA.</reportString>
+    <canCheckOverrideOnDamage>true</canCheckOverrideOnDamage>
 	</JobDef>
 
 

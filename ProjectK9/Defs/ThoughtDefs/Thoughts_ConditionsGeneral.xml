@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThoughtDefs>
+  <ThoughtDef>
+    <defName>EnvironmentDark</defName>
+    <workerClass>ProjectK9.ThoughtWorker_Dark</workerClass>
+    <stages>
+      <li>
+        <label>in darkness</label>
+        <description>I've been in the dark for a while. I don't like it.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</ThoughtDefs>

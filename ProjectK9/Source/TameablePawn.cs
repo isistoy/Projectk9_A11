@@ -16,17 +16,15 @@ namespace ProjectK9
     {
         private static Color pawnNameColor = new Color(0.9f, 0.9f, 0.9f);
 
-        private bool isColonyPet = false;
+        public TameablePawn_TameTracker tameTracker;
 
         public bool IsColonyPet
         {
             get
             {
-                return isColonyPet;
-            }
-            set
-            {
-                isColonyPet = value;
+                if (tameTracker != null)
+                    return tameTracker.IsTamed;
+                return false;
             }
         }
 
@@ -91,7 +89,7 @@ namespace ProjectK9
 
         public override void SpawnSetup()
         {
-            if (!isColonyPet)
+            if (!IsColonyPet)
             {
                 TamePawnUtility.InitBasicPet(this);
                 TamePawnUtility.GenerateStory(this);
@@ -264,7 +262,8 @@ namespace ProjectK9
             //    this.jobs.EndCurrentJob(JobCondition.Errored);
             //}
             base.ExposeData();
-            Scribe_Values.LookValue<bool>(ref isColonyPet, "IsColonyPet");
+            object[] objArray1 = new object[] { this };
+            Scribe_Deep.LookDeep<TameablePawn_TameTracker>(ref this.tameTracker, "tameTracker", objArray1);            
         }
 
         public bool IsDesignatedToBeTamed()
@@ -296,7 +295,7 @@ namespace ProjectK9
 
         public override string ToString()
         {
-            if (isColonyPet)
+            if (IsColonyPet)
             {
                 return LabelBaseShort;
             }

@@ -29,7 +29,19 @@ namespace ProjectK9
 
         public override Job JobOnThing(Pawn pawn, Thing t)
         {
-            return new Job(TamePawnUtility.GetTameJobDef(), t);
+            TameablePawn target = t as TameablePawn;
+            if (((target == null) || target.IsColonyPet) 
+                || ((target.Broken && target.BrokenStateDef.isAggro) || !pawn.CanReserveAndReach((Pawn)t, PathEndMode.OnCell, target.NormalMaxDanger(),1)))
+            {
+                return null;
+            }
+
+            if ((target.tameTracker.TameeScheduledForInteraction && pawn.health.capacities.CapableOf(PawnCapacityDefOf.Talking)) && (pawn.CanReserve(t, 1) && target.Awake()))
+            {
+                return new Job(TamePawnUtility.GetTameJobDef(), t);
+            }
+            return null;
+            
         }
 
         public override IEnumerable<Thing> PotentialWorkThingsGlobal(Pawn Pawn)

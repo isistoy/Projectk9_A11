@@ -87,14 +87,14 @@ namespace ProjectK9
             }
         }
 
-        public override void SpawnSetup()
-        {
+        public override void PostMake()
+        {            
+            base.PostMake();
             if (!IsColonyPet)
             {
                 TamePawnUtility.InitBasicPet(this);
                 TamePawnUtility.GenerateStory(this);
             }
-            base.SpawnSetup();
         }
 
         //public override void PostMapInit()

@@ -9,14 +9,17 @@ using RimWorld;
 
 namespace ProjectK9.AI
 {
-    class JobGiver_GetOrHuntFood : ThinkNode_JobGiver
+    public class JobGiver_GetOrHuntFood : ThinkNode_JobGiver
     {
         public override float GetPriority(Pawn pawn)
         {
             Need_Food food = pawn.needs.food;
-            if ((food != null) && (pawn.needs.food.CurCategory >= HungerCategory.UrgentlyHungry))
+            if (food != null) 
             {
-                return 8.5f;
+                if (food.CurCategory >= HungerCategory.UrgentlyHungry)
+                    return 7.5f;
+                if (food.CurCategory >= HungerCategory.Hungry)
+                    return 6f;
             }
             return 0f;
         }
@@ -37,7 +40,7 @@ namespace ProjectK9.AI
             if (thing != null)
             {
                 Log.Message(string.Concat(pet, " Found meat"));
-                if (pet.IsColonyPet && thing.SelectableNow() && pawn.needs.mood.thoughts != null)
+                if (thing.SelectableNow() && pawn.needs.mood.thoughts != null)
                 {
                     Log.Message("Meat and colonist. Ingesting...");
                     if (thing.def.ingestible.IsMeat)
@@ -45,7 +48,7 @@ namespace ProjectK9.AI
                     if (thing.def.ingestible.ingestedDirectThought == ThoughtDefOf.AteHumanlikeMeatDirect)
                         pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("HumanMeatIsYummy"));
                 }
-                return new Job(JobDefOf.Ingest, thing);
+                return new Job(DefDatabase<JobDef>.GetNamed("EatForAnimals"), thing);
             }
 
             // Find the closest dead meaty-thing and eat it.

@@ -8,6 +8,7 @@ using Verse;
 using Verse.AI;
 using System.Reflection;
 using RimWorld.SquadAI;
+using UnityEngine;
 
 namespace ProjectK9
 {
@@ -75,62 +76,22 @@ namespace ProjectK9
                     Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], " because mood is below ", args[2]), MessageSound.Silent);
                     return false;
                 }
+                // Added value for balance
                 f *= 1f - (tameDifficulty / 100f);
                 if (f < 0.011f)
                 {
                     f = 0.01f;
                 }
-                if (Rand.Value > f)
+
+                if (Rand.Range(0f,1f) > f)
                 {
                     object[] args = new object[] { pawn.Nickname, tamee, f.ToStringPercent() };
                     Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], ". It failed with a chance of ", args[2]), MessageSound.Silent);
                     return false;
                 }
-                TryTameColonyPet(tamee);
+                tamee.tameTracker.DoTamePet();
             }
             return true;
-        }
-
-        private static void TryTameColonyPet(TameablePawn tamee)
-        {
-            try
-            {
-                if (tamee != null)
-                {
-                    Log.Message("Initializing new Pet");
-                    //tamee.SetFactionDirect(GetPetFaction());
-                    //initBasicPet(tamee);
-                    //tamee.pather.StopDead();
-                    //tamee.jobs.StopAll();
-                    //tamee.mindState.Reset();
-                    //Find.ListerPawns.UpdateRegistryForPawn(tamee);
-                    Find.ListerPawns.DeRegisterPawn(tamee);
-                    Find.PawnDestinationManager.RemovePawnFromSystem(tamee);
-                    Find.Reservations.ReleaseAllClaimedBy(tamee);
-                    Brain squadBrain = tamee.GetSquadBrain();
-                    if (squadBrain != null)
-                    {
-                        squadBrain.Notify_PawnLost(tamee, PawnLostCondition.ChangedFaction);
-                    }
-                    ((Thing)tamee).SetFaction(GetPetFaction());
-                    //GenerateStory(tamee);
-                    InitWorkSettings(tamee);
-                    Reachability.ClearCache();
-                    tamee.health.surgeryBills.Clear();
-                    Find.ListerPawns.RegisterPawn(tamee);
-                    Find.GameEnder.CheckGameOver();
-                    Designation tameDes = Find.DesignationManager.DesignationOn(tamee, DefDatabase<DesignationDef>.GetNamed("Tame"));
-                    if (tameDes != null)
-                        Find.DesignationManager.RemoveDesignation(tameDes);
-                    Log.Message("Removed Taming designation");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Log.ErrorOnce(string.Concat("Message: ", ex.Message), 900900900);
-                Log.ErrorOnce(string.Concat("Stack: ", ex.StackTrace), 900900901);
-            }
         }
 
         public static void InitWorkSettings(TameablePawn tamee)
@@ -258,7 +219,7 @@ namespace ProjectK9
             }
             if (tamee.tameTracker == null)
             {
-                Log.Message("");
+                Log.Message("tametracker");
                 tamee.tameTracker = new TameablePawn_TameTracker(tamee);
                 tamee.tameTracker.Init();
             }

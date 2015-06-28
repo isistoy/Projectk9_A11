@@ -6,6 +6,7 @@ using System.Text;
 using Verse;
 using RimWorld;
 using UnityEngine;
+using RimWorld.SquadAI;
 
 namespace ProjectK9
 {
@@ -89,8 +90,8 @@ namespace ProjectK9
             if (this.tameDifficulty < 0f)
             {
                 float baseDifficulty = this.tameable.kindDef.baseRecruitDifficulty + Rand.Range((float)-30f, (float)30f);
-                float popIntent = (Game.Mode != GameMode.MapPlaying) ? 1f : Find.Storyteller.intenderPopulation.PopulationIntent;
-                baseDifficulty = PopIntentAdjustedTameDifficulty(baseDifficulty, popIntent);
+                //float popIntent = (Game.Mode != GameMode.MapPlaying) ? 1f : Find.Storyteller.intenderPopulation.PopulationIntent;
+                //baseDifficulty = PopIntentAdjustedTameDifficulty(baseDifficulty, popIntent);
                 this.tameDifficulty = Mathf.Clamp(baseDifficulty, 30f, 99f);
             }
         }
@@ -104,6 +105,49 @@ namespace ProjectK9
         //public static DoTables_PopIntentTameDifficulty();
         //public void SetTamedStatus(Faction newHost);
 
+        public void DoTamePet()
+        {
+            try
+            {
+                if ((this.tameable != null) && !this.IsTamed)
+                {                    
+                    this.tameable.pather.StopDead();
+                    this.tameable.jobs.StopAll();
+                    Find.Reservations.ReleaseAllClaimedBy(this.tameable);
+                    //this.tameable.SetFactionDirect(TamePawnUtility.GetPetFaction());
+                    this.tameable.SetFactionDirect(Faction.OfColony);
+                    TamePawnUtility.InitWorkSettings(this.tameable);
+                    this.tameable.health.surgeryBills.Clear();
+                    //Find.ListerPawns.UpdateRegistryForPawn(this.tameable);
+                    Reachability.ClearCache();
+                    this.isTamed = true;
+                    Log.Message(string.Concat("new pet tamed ", this.tameable));
+                    Designation tameDes = Find.DesignationManager.DesignationOn(this.tameable, DefDatabase<DesignationDef>.GetNamed("Tame"));
+                    if (tameDes != null)
+                        Find.DesignationManager.RemoveDesignation(tameDes);
+
+                    if (this.tameable.Faction.HostileTo(Faction.OfColony))
+                        Log.Message("Faction colonypets hostile to colonists");
+                    //initBasicPet(tamee);
+                    //tamee.mindState.Reset();                    
+                    //Find.ListerPawns.DeRegisterPawn(this.tameable);
+                    //Find.PawnDestinationManager.RemovePawnFromSystem(this.tameable);
+                    //Brain squadBrain = this.tameable.GetSquadBrain();
+                    //if (squadBrain != null)
+                    //{
+                    //    squadBrain.Notify_PawnLost(this.tameable, PawnLostCondition.ChangedFaction);
+                    //}
+                    //GenerateStory(tamee);
+                    //Find.ListerPawns.RegisterPawn(this.tameable);
+                    //Find.GameEnder.CheckGameOver();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorOnce(string.Concat("Message: ", ex.Message), 900900900);
+                Log.ErrorOnce(string.Concat("Stack: ", ex.StackTrace), 900900901);
+            }
+        }
 
     }
 }

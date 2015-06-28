@@ -19,7 +19,7 @@ namespace ProjectK9.AI
             {
                 Pawn hostile = t as Pawn;
                 return ( ((TameablePawn)pawn).IsColonyPet && !hostile.Dead && !hostile.Downed && 
-                    (hostile.Faction.HostileTo(Faction.OfColony) || hostile.IsPrisonerOfColony) );
+                    hostile.Faction.HostileTo(Faction.OfColony) && !hostile.IsPrisonerOfColony);
             };
             
             Pawn closestEnemy = 

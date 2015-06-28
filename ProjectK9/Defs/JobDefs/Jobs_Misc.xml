@@ -7,6 +7,12 @@
 		<reportString>Eating TargetA.</reportString>
 	</JobDef>
 
+  <JobDef>
+    <defName>EatForAnimals</defName>
+    <driverClass>ProjectK9.AI.JobDriver_EatForAnimals</driverClass>
+    <reportString>Consuming TargetA.</reportString>
+  </JobDef>
+
 	<JobDef>
 		<defName>SleepForAnimals</defName>
 		<driverClass>ProjectK9.AI.JobDriver_SleepForAnimals</driverClass>

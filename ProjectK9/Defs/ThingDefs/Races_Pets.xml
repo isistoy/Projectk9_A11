@@ -111,7 +111,7 @@
     <race>
       <bodySize>0.5</bodySize>
       <healthScale>0.7</healthScale>
-      <hungerRate>0.45</hungerRate>
+      <hungerRate>0.2</hungerRate>
       <wildBiomes>
         <!--<li>
           <biome>IceSheet</biome>
@@ -150,9 +150,9 @@
       </li>
     </verbs>
     <race>
-      <bodySize>1</bodySize>
+      <bodySize>0.6</bodySize>
       <healthScale>0.9</healthScale>
-      <hungerRate>0.4</hungerRate>
+      <hungerRate>0.3</hungerRate>
       <wildBiomes>
         <!--<li>
           <biome>IceSheet</biome>
@@ -191,9 +191,9 @@
       </li>
     </verbs>
     <race>
-      <bodySize>1</bodySize>
-      <healthScale>0.9</healthScale>
-      <hungerRate>0.4</hungerRate>
+      <bodySize>0.6</bodySize>
+      <healthScale>1</healthScale>
+      <hungerRate>0.3</hungerRate>
       <wildBiomes>
         <!--<li>
           <biome>IceSheet</biome>

@@ -16,9 +16,13 @@ namespace ProjectK9.AI
             Need_Rest rest = pawn.needs.rest;
             if (rest != null)
             {
-                if (rest.CurLevel < 0.55f)
+                if ((rest.CurLevel < 0.55f) || pawn.health.hediffSet.GetNaturallyHealingInjuredParts().Any<BodyPartRecord>())
                 {
                     return 8f;
+                }
+                else if (pawn.health.hediffSet.GetNaturallyHealingInjuredParts().Any<BodyPartRecord>())
+                {
+                    return 6f;
                 }
             }
             return 0f;

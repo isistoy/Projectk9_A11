@@ -27,7 +27,7 @@ namespace ProjectK9.AI
             }
             return 0f;
         }
-      
+
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
             if (!pawn.Downed)
@@ -37,28 +37,24 @@ namespace ProjectK9.AI
                 if ((pet != null) && pet.IsColonyPet)
                 {
                     Building_Bed bedFor = pawn.ownership.ownedBed;
-                    if (bedFor == null)
-                    {
-                        bedFor = findUnownedBed(pawn);
-                        if (bedFor != null && bedFor.owner != pawn)
-                        {
-                            // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
-                            // make it unclaim the bed and then it'll error out.
-                            if (bedFor.owner == PetBed.PetBedHolder)
-                            {
-                                bedFor.owner = null;
-                            }
-                            else
-                                bedFor = null;
-                        }
-                    }
 
-                    if (bedFor != null)
+                    if (bedFor == null)
+                        bedFor = findUnownedBed(pawn);
+
+                    if ((bedFor != null) && (bedFor.owner != pawn))
                     {
-                        return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), bedFor);
+                        // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
+                        // make it unclaim the bed and then it'll error out.
+                        if (bedFor.owner == PetBed.PetBedHolder)
+                        {
+                            bedFor.owner = null;
+                        }
+                        //return new Job(JobDefOf.LayDown, bedFor);
+                        return new Job(RestAIUtility_Animal.GetSleepJobDef(), bedFor);
                     }
                 }
-                return new Job(DefDatabase<JobDef>.GetNamed("SleepForAnimals"), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
+                return new Job(RestAIUtility_Animal.GetSleepJobDef(), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
+                //return new Job(JobDefOf.LayDown, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
             }
             return null;
         }

@@ -1,14 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
+using UnityEngine;
 using Verse;
 using RimWorld;
+using ProjectK9.AI;
 
 namespace ProjectK9
 {
-    class PetBed : Building_Bed
+    public class PetBed : Building_Bed
     {
         // This is a total hack. The PetBedHolder is just a pawn to assign as the owner of PetBeds so that Colonists
         //  don't try to sleep in this bed when looking for a bed to sleep in. Pets have to be wary when dealing
@@ -18,6 +20,7 @@ namespace ProjectK9
             thingIDNumber = Find.World.nextThingId,
             def = ThingDef.Named("Mutt")
         };
+
         public override IEnumerable<Gizmo> GetGizmos()
         {
             // We don't want to have pets as "prisoners". That makes me a sad panda.
@@ -32,6 +35,41 @@ namespace ProjectK9
                 owner = null;
             base.Destroy(mode);
         }
+
+        public TameablePawn CurPetOccupant
+        {
+            get
+            {
+                List<Thing> list = Find.ThingGrid.ThingsListAt(base.Position);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    TameablePawn pet = list[i] as TameablePawn;
+                    if (((pet != null) && (pet.jobs.curJob != null)) && ((pet.jobs.curJob.def == RestAIUtility_Animal.GetSleepJobDef()) && (pet.jobs.curJob.targetA.Thing == this)))
+                    {
+                        return pet;
+                    }
+                }
+                return null;
+            }
+        }
+
+        public override void DrawGUIOverlay()
+        {
+            if (((Find.CameraMap.CurrentZoom == CameraZoomRange.Closest) && (((this.owner == null) || !((TameablePawn)this.owner).InPetBed()) || (((TameablePawn)this.owner).CurrentPetBed().owner != this.owner))))
+            {
+                string nickname;
+                if (this.owner != null)
+                {
+                    nickname = this.owner != PetBedHolder ? this.owner.Nickname : "Unowned".Translate();
+                }
+                else
+                {
+                    nickname = "Unowned".Translate();
+                }
+                GenWorldUI.DrawThingLabel(this, nickname, new Color(1f, 1f, 1f, 0.75f));
+            }
+        }
+
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -52,8 +90,8 @@ namespace ProjectK9
 
         public override void ExposeData()
         {
- 	        base.ExposeData();
-            Scribe_References.LookReference<TameablePawn>(ref PetBedHolder, "petBedHolder");
+            base.ExposeData();
+            //Scribe_References.LookReference<TameablePawn>(ref PetBedHolder, "petBedHolder");
         }
     }
 }

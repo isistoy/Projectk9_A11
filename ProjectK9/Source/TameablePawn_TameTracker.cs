@@ -112,14 +112,14 @@ namespace ProjectK9
             try
             {
                 if ((this.tameable != null) && !this.IsTamed)
-                {                    
+                {
+                    this.tameable.SetFactionDirect(Faction.OfColony);
+                    this.tameable.mindState.Reset();
                     this.tameable.pather.StopDead();
                     this.tameable.jobs.StopAll();
                     Find.Reservations.ReleaseAllClaimedBy(this.tameable);
-                    //this.tameable.SetFactionDirect(TamePawnUtility.GetPetFaction());
-                    this.tameable.SetFactionDirect(Faction.OfColony);
-                    TamePawnUtility.InitWorkSettings(this.tameable);
                     this.tameable.health.surgeryBills.Clear();
+                    TamePawnUtility.InitWorkSettings(this.tameable);
                     //Find.ListerPawns.UpdateRegistryForPawn(this.tameable);
                     Reachability.ClearCache();
                     this.isTamed = true;
@@ -127,11 +127,9 @@ namespace ProjectK9
                     Designation tameDes = Find.DesignationManager.DesignationOn(this.tameable, DefDatabase<DesignationDef>.GetNamed("Tame"));
                     if (tameDes != null)
                         Find.DesignationManager.RemoveDesignation(tameDes);
-
                     if (this.tameable.Faction.HostileTo(Faction.OfColony))
                         Log.Message("Faction colonypets hostile to colonists");
-                    //initBasicPet(tamee);
-                    //tamee.mindState.Reset();                    
+                    //initBasicPet(tamee);                    
                     //Find.ListerPawns.DeRegisterPawn(this.tameable);
                     //Find.PawnDestinationManager.RemovePawnFromSystem(this.tameable);
                     //Brain squadBrain = this.tameable.GetSquadBrain();

@@ -5,4 +5,9 @@
     <texturePath>Designations/Hunt</texturePath>
     <targetType>Thing</targetType>
   </DesignationDef>
+  <!--<DesignationDef>
+    <defName>PetDeconstruct</defName>
+    <texturePath>Designations/Deconstruct</texturePath>
+    <targetType>Thing</targetType>
+  </DesignationDef>-->
 </DesignationDefs>

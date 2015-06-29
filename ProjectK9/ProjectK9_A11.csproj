@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Source\AI\JobDriver_EatForAnimals.cs" />
+    <Compile Include="Source\AI\RestAIUtility_Animal.cs" />
     <Compile Include="Source\Designator_Tame.cs" />
     <Compile Include="Source\AI\FoodAIUtility_Pets.cs" />
     <Compile Include="Source\AI\HaulAIUtility_Pets.cs" />

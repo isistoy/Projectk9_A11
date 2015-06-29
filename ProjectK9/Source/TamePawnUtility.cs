@@ -134,11 +134,11 @@ namespace ProjectK9
                 Log.Message("pather");
                 tamee.pather = new Pawn_PathFollower(tamee);
             }
-            //if (tamee.playerController == null)
-            //{
-            //    Log.Message("player controller");
-            //    tamee.playerController = new Pawn_PlayerController(tamee);
-            //}
+            if (tamee.playerController == null)
+            {
+                Log.Message("player controller");
+                tamee.playerController = new Pawn_PlayerController(tamee);
+            }
             if (tamee.ownership == null)
             {
                 Log.Message("ownership");

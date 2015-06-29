@@ -9,6 +9,7 @@ using UnityEngine;
 using RimWorld;
 using Backstories;
 using System.Reflection;
+using ProjectK9.AI;
 
 namespace ProjectK9
 {
@@ -267,6 +268,24 @@ namespace ProjectK9
         public bool IsDesignatedToBeTamed()
         {
             return getTamingDesignationOnSelf() != null;
+        }
+
+        public bool InPetBed()
+        {
+            return (CurrentPetBed() != null);
+        }
+        
+        public PetBed CurrentPetBed()
+        {
+            if ((this.CurJob != null) && (this.CurJob.def == RestAIUtility_Animal.GetSleepJobDef()))
+            {
+                PetBed thing = this.jobs.curJob.targetA.Thing as PetBed;
+                if ((thing != null) && (thing.CurPetOccupant == this))
+                {
+                    return thing;
+                }
+            }
+            return null;
         }
 
         private void removePawnTamingDesignation()

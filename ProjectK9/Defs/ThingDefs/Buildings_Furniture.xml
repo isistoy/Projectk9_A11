@@ -35,6 +35,7 @@
 			<Beauty>15</Beauty>
 			<WorkToMake>580</WorkToMake>
 			<BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.75</Comfort>
 		</statBases>
 		<Size>(1,1)</Size>
 		<stuffCategories>
@@ -46,8 +47,8 @@
 		<building>
 			<Bed_ShowSleeperBody>False</Bed_ShowSleeperBody>
 			<Bed_HealTickInterval>2100</Bed_HealTickInterval>
-      <sowTag>SupportPlantsOnly</sowTag>
-      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <claimable>true</claimable>
+      <deconstructible>true</deconstructible>
 		</building>
 		<fillPercent>0.4</fillPercent>
 		<PathCost>60</PathCost>

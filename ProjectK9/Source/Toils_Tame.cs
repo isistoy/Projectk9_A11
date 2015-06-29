@@ -63,7 +63,7 @@ namespace ProjectK9
                     TameablePawn thing = (TameablePawn)toil.actor.CurJob.GetTarget(ind).Thing;
                     if (thing.tameTracker != null)
                     {
-                        Log.Message(string.Concat("Setting tamervisittime ", Find.TickManager.TicksGame, " to ", thing));
+                        Log.Message(string.Concat("Setting tamer visit time ", Find.TickManager.TicksGame, " to ", thing));
                         thing.tameTracker.lastTamerVisitTime = Find.TickManager.TicksGame;
                     }
                     else

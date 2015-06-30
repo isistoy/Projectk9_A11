@@ -30,7 +30,7 @@ namespace ProjectK9.AI
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            if (!pawn.Downed)
+            if ((!pawn.Downed) && (!pawn.Broken))
             {
                 //Log.Message(string.Concat(pawn, " trying to sleep"));
                 TameablePawn pet = pawn as TameablePawn;

@@ -90,17 +90,25 @@ namespace ProjectK9
             }
         }
 
-        public override void TickLong()
-        {
-            base.TickLong();
-            //CleanupToughts();
-        }
+        //public override void TickLong()
+        //{
+        //    CleanupToughts();
+        //    base.TickLong();
+        //}
 
         private void CleanupToughts()
         {
-            /// WIP
+            /// WIP            
             /// Fixed bad thoughts reference that we want out
             /// Should be loaded from an xml attribute collection
+            /// 
+            //if (this.initialized)
+            //{
+            //    // Get internal thought list
+            //    //List<Thought> thoughtList = (List<Thought>)typeof(List<Thought>).GetField("thoughts", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(needs.mood.thoughts);
+            //    // Reset existing with nothing
+            //    typeof(List<Thought>).GetField("thoughts", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(needs.mood.thoughts, new List<Thought>());
+            //}
 
             //List<ThoughtDef> forbidThoughtDefs = new List<ThoughtDef>();
             //forbidThoughtDefs.Add(ThoughtDef.Named("Naked"));
@@ -122,7 +130,6 @@ namespace ProjectK9
             //{
             //    IEnumerable<Thought> wrongThoughts = needs.mood.thoughts.ThoughtsOfDef(wrongDef);
             //}
-            this.needs.mood.thoughts.DistinctThoughtDefs.Clear();
         }
 
         public override void SpawnSetup()
@@ -157,7 +164,7 @@ namespace ProjectK9
                 playerController = new Pawn_PlayerController(this);
             }
             // Potential other inits to do
-
+            TamePawnUtility.CreateTameableMood(this);
             health.surgeryBills.Clear();
             Find.ListerPawns.RegisterPawn(this);
             Find.GameEnder.CheckGameOver();          

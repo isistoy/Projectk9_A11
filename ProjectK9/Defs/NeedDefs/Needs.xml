@@ -7,7 +7,7 @@
     <label>livng being mood</label>
     <description>Mood represents how happy or stressed a living begin is. If mood gets too low, the living being may behave in unpredictive ways.</description>
     <showOnNeedList>false</showOnNeedList>
-    <minIntelligence>ToolUser</minIntelligence>
+    <minIntelligence>Animal</minIntelligence>
     <baseLevel>0.4</baseLevel>
     <seekerRisePerHour>0.06</seekerRisePerHour>
     <seekerFallPerHour>0.04</seekerFallPerHour>

@@ -214,18 +214,46 @@ namespace ProjectK9
                 Log.Message("mindstate");
                 tamee.mindState = new Pawn_MindState(tamee);
             }
-            if ((tamee.needs != null) && (tamee.needs.mood == null))
-            {
-                Log.Message("mood");
-                typeof(Pawn_NeedsTracker)
-                    .GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Invoke(tamee.needs, new object[] { DefDatabase<NeedDef>.GetNamed("TameableMood", true) });
-            }
             if (tamee.tameTracker == null)
             {
                 Log.Message("tametracker");
                 tamee.tameTracker = new TameablePawn_TameTracker(tamee);
                 tamee.tameTracker.Init();
+            }
+        }
+
+        private static NeedDef GetTameableMoodDef()
+        {
+            return new NeedDef
+            {
+                defName = "TameableMood",
+                needClass = typeof(Need_TameableMood),
+                label = "Living being mood",
+                description = "Mood represents how happy or stressed a living begin is. If mood gets too low, the living being may behave in unpredictive ways.",
+                showOnNeedList = false,
+                minIntelligence = Intelligence.ToolUser,
+                baseLevel = 0.5f,
+                seekerRisePerHour = 0f,
+                seekerFallPerHour = 0f,
+                listPriority = 0,
+                major = false,
+                freezeWhileSleeping = true
+            };
+        }
+
+        public static void CreateTameableMood(TameablePawn tamee)
+        {
+            if ((tamee.needs != null) && (tamee.needs.mood == null))
+            {
+                Log.Message("mood");
+                //typeof(Pawn_NeedsTracker)
+                //    .GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance)
+                //    .Invoke(tamee.needs, new object[] { TamePawnUtility.GetTameableMoodDef() });
+
+                typeof(Pawn_NeedsTracker).
+                    GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance).
+                    Invoke(tamee.needs, new object[] { DefDatabase<NeedDef>.GetNamed("Mood", true) });
+
             }
         }
 

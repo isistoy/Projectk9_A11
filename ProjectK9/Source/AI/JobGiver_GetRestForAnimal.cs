@@ -49,9 +49,9 @@ namespace ProjectK9.AI
                         {
                             bedFor.owner = null;
                         }
-                        //return new Job(JobDefOf.LayDown, bedFor);
-                        return new Job(RestAIUtility_Animal.GetSleepJobDef(), bedFor);
                     }
+                    if (bedFor != null)
+                        return new Job(RestAIUtility_Animal.GetSleepJobDef(), bedFor);
                 }
                 return new Job(RestAIUtility_Animal.GetSleepJobDef(), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
                 //return new Job(JobDefOf.LayDown, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));

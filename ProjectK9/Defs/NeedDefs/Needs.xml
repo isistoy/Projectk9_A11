@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <NeedDef>
+    <DefName>TameableMood</DefName>
+    <needClass>ProjectK9.Need_TameableMood</needClass>
+    <label>livng being mood</label>
+    <description>Mood represents how happy or stressed a living begin is. If mood gets too low, the living being may behave in unpredictive ways.</description>
+    <showOnNeedList>false</showOnNeedList>
+    <minIntelligence>ToolUser</minIntelligence>
+    <baseLevel>0.4</baseLevel>
+    <seekerRisePerHour>0.06</seekerRisePerHour>
+    <seekerFallPerHour>0.04</seekerFallPerHour>
+    <listPriority>1000</listPriority>
+    <major>true</major>
+    <freezeWhileSleeping>true</freezeWhileSleeping>
+  </NeedDef>
+
+</Defs>

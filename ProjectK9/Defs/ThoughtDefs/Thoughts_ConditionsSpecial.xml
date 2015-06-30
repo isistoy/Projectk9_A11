@@ -14,4 +14,30 @@
       </li>
     </stages>
   </ThoughtDef>
+  <ThoughtDef>
+    <defName>HumanMeatIsYummy</defName>
+    <duration>40000</duration>
+    <stackedEffectMultiplier>0.25</stackedEffectMultiplier>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>Humans are Yummy</label>
+        <description>Despite what you may have heard, human meat is rather delicious.</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>FriendIsCaring</defName>
+    <duration>20000</duration>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>A human friend is caring</label>
+        <description>I have a human friend caring about me.</description>
+        <baseMoodEffect>8</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
 </ThoughtDefs>

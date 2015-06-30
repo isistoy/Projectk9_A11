@@ -35,19 +35,6 @@ namespace ProjectK9.AI
             }
             else
             {
-                Toil dropFoodIfNeeded = new Toil();
-                dropFoodIfNeeded.initAction = new Action(() =>
-                {
-                    Pawn actor = dropFoodIfNeeded.actor;
-                    Thing item = actor.CurJob.GetTarget(TargetIndex.A).Thing;
-                    if (((pawn.inventory != null) && pawn.inventory.container.Contains(item)) && pawn.inventory.container.TryDrop(item, actor.Position, ThingPlaceMode.Near, out item))
-                    {
-                        Log.Error(pawn + " could not drop their food to eat it.");
-                        EndJobWith(JobCondition.Errored);
-                    }
-                });
-                yield return dropFoodIfNeeded;
-
                 Toil resFood = new Toil();
                 resFood.initAction = new Action(() =>
                     {
@@ -60,26 +47,22 @@ namespace ProjectK9.AI
                     });
                 resFood.defaultCompleteMode = ToilCompleteMode.Instant;
                 yield return resFood;
-
-                if (!pawn.RaceProps.ToolUser)
+                yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
+                if (pawn.Faction != null)
                 {
-                    yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
-                    if (pawn.Faction != null)
-                    {
-                        yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
-                    }
+                    yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
                 }
-                else
-                {
-                    yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch).FailOnDespawnedOrForbidden<Toil>(TargetIndex.A);
-                    yield return Toils_Ingest.PickupIngestible(TargetIndex.A, pawn);
-                    yield return Toils_Ingest.CarryIngestibleToChewSpot().FailOnDestroyedOrForbidden<Toil>(TargetIndex.A);
-                    yield return Toils_Ingest.PlaceItemForIngestion(TargetIndex.A);
-                    if (pawn.Faction != null)
-                    {
-                        yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
-                    }                    
-                }
+                //else
+                //{
+                //    yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.ClosestTouch).FailOnDespawnedOrForbidden<Toil>(TargetIndex.A);
+                //    yield return Toils_Ingest.PickupIngestible(TargetIndex.A, pawn);
+                //    yield return Toils_Ingest.CarryIngestibleToChewSpot().FailOnDestroyedOrForbidden<Toil>(TargetIndex.A);
+                //    yield return Toils_Ingest.PlaceItemForIngestion(TargetIndex.A);
+                //    if (pawn.Faction != null)
+                //    {
+                //        yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
+                //    }                    
+                //}
                 yield return Toils_Ingest.ChewIngestible(pawn, 1f / pawn.GetStatValue(StatDefOf.EatingSpeed, true)).FailOnDespawned<Toil>(TargetIndex.A);
                 yield return FoodAIUtility_Animals.FinalizeEatForAnimals(pawn, TargetIndex.A);
             }

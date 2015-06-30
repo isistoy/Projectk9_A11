@@ -43,7 +43,7 @@ namespace ProjectK9
                         ", Colony Pet")
                         );
                 else
-                    return string.Concat("pet", this.thingIDNumber.ToString());
+                    return base.LabelBase;
             }
         }
 
@@ -54,7 +54,7 @@ namespace ProjectK9
                 if (IsColonyPet)
                     return this.Nickname;
                 else
-                    return string.Concat("pet", this.thingIDNumber.ToString());
+                    return base.LabelBaseShort;
             }
         }
 
@@ -90,26 +90,40 @@ namespace ProjectK9
             }
         }
 
-        //private void CleanupToughts()
-        //{
-        //    /// Fixed bad thoughts reference that we want out
-        //    /// Would have to be loaded from a custom def directly
-        //    List<ThoughtDef> forbidThoughtDefs = new List<ThoughtDef>();
-        //    forbidThoughtDefs.Add(ThoughtDef.Named("Naked"));
-        //    forbidThoughtDefs.Add(ThoughtDef.Named("ApparelDamaged"));
-        //    forbidThoughtDefs.Add(ThoughtDefOf.AteWithoutTable);
-        //    forbidThoughtDefs.Add(ThoughtDef.Named("AteRawFood"));
-        //    forbidThoughtDefs.Add(ThoughtDefOf.AteHumanlikeMeatDirect);
-        //    forbidThoughtDefs.Add(ThoughtDefOf.AteHumanlikeMeatAsIngredient);
-        //    forbidThoughtDefs.Add(ThoughtDefOf.ObservedLayingCorpse);
-        //    forbidThoughtDefs.Add(ThoughtDefOf.ObservedLayingRottingCorpse);
-        //    forbidThoughtDefs.Add(ThoughtDef.Named("SharedBedroom"));
+        public override void TickLong()
+        {
+            base.TickLong();
+            //CleanupToughts();
+        }
 
-        //    var query =
-        //        from c in needs.mood.thoughts.DistinctThoughtDefs
-        //        join f in forbidThoughts on c.defName equals f.defName
-        //        select new { c };
-        //}
+        private void CleanupToughts()
+        {
+            /// WIP
+            /// Fixed bad thoughts reference that we want out
+            /// Should be loaded from an xml attribute collection
+
+            //List<ThoughtDef> forbidThoughtDefs = new List<ThoughtDef>();
+            //forbidThoughtDefs.Add(ThoughtDef.Named("Naked"));
+            //forbidThoughtDefs.Add(ThoughtDef.Named("ApparelDamaged"));
+            //forbidThoughtDefs.Add(ThoughtDefOf.AteWithoutTable);
+            //forbidThoughtDefs.Add(ThoughtDef.Named("AteRawFood"));
+            //forbidThoughtDefs.Add(ThoughtDefOf.AteHumanlikeMeatDirect);
+            //forbidThoughtDefs.Add(ThoughtDefOf.AteHumanlikeMeatAsIngredient);
+            //forbidThoughtDefs.Add(ThoughtDefOf.ObservedLayingCorpse);
+            //forbidThoughtDefs.Add(ThoughtDefOf.ObservedLayingRottingCorpse);
+            //forbidThoughtDefs.Add(ThoughtDef.Named("SharedBedroom"));
+
+            //var query =
+            //    from c in needs.mood.thoughts.DistinctThoughtDefs
+            //    join f in forbidThoughtDefs on c.defName equals f.defName
+            //    select new { c };
+
+            //foreach(ThoughtDef wrongDef in forbidThoughtDefs)
+            //{
+            //    IEnumerable<Thought> wrongThoughts = needs.mood.thoughts.ThoughtsOfDef(wrongDef);
+            //}
+            this.needs.mood.thoughts.DistinctThoughtDefs.Clear();
+        }
 
         public override void SpawnSetup()
         {
@@ -127,15 +141,37 @@ namespace ProjectK9
             yield return new FloatMenuOption("testaction", new Action(() => { }));
         }
 
-        public override void DeSpawn()
+        public override void SetFaction(Faction newFaction)
         {
-            if (ownership != null && ownership.ownedBed != null)
+            mindState.Reset();
+            pather.StopDead();
+            jobs.StopAll();
+            Find.ListerPawns.DeRegisterPawn(this);
+            Find.Reservations.ReleaseAllClaimedBy(this);
+            base.SetFactionDirect(Faction.OfColony);
+            TamePawnUtility.InitWorkSettings(this);
+            Reachability.ClearCache();
+            if (playerController == null)
             {
-                ownership.ownedBed.owner = PetBed.PetBedHolder;
-                ownership = null;
+                Log.Message("creating player controller");
+                playerController = new Pawn_PlayerController(this);
             }
-            base.DeSpawn();
+            // Potential other inits to do
+
+            health.surgeryBills.Clear();
+            Find.ListerPawns.RegisterPawn(this);
+            Find.GameEnder.CheckGameOver();          
         }
+
+        //public override void DeSpawn()
+        //{
+        //    if (ownership != null && ownership.ownedBed != null)
+        //    {
+        //        ownership.ownedBed.owner = PetBed.PetBedHolder;
+        //        ownership = null;
+        //    }
+        //    base.DeSpawn();
+        //}
 
         public override IEnumerable<Gizmo> GetGizmos()
         {
@@ -170,88 +206,6 @@ namespace ProjectK9
             obs.Target = this;
             return obs;
         }
-
-        //public override void SetFaction(Faction newFaction)
-        //{
-        //    if (newFaction == base.Faction)
-        //    {
-        //        Log.Warning(string.Concat(new object[] { "Used ChangePawnFactionTo to change ", this, " to same faction ", newFaction }));
-        //    }
-        //    else
-        //    {
-        //        //Log.Message("deregistering pawn");
-        //        //Find.ListerPawns.DeRegisterPawn(this);
-        //        //Find.PawnDestinationManager.RemovePawnFromSystem(this);
-
-        //        if (health == null)
-        //        {
-        //            Log.Message("health");
-        //            health = new Pawn_HealthTracker(this);
-        //        }
-
-        //        if (ageTracker == null)
-        //        {
-        //            Log.Message("age");
-        //            ageTracker = new Pawn_AgeTracker(this);
-        //        }
-        //        if (pather == null)
-        //        {
-        //            Log.Message("path");
-        //            pather = new Pawn_PathFollower(this);
-        //        }
-
-        //        if (needs == null)
-        //        {
-        //            Log.Message("needs");
-        //            needs = new Pawn_NeedsTracker(this);
-        //        }
-        //        if (stances == null)
-        //        {
-        //            Log.Message("stances");
-        //            stances = new Pawn_StanceTracker(this);
-        //        }
-        //        if (thinker == null)
-        //        {
-        //            Log.Message("thinker");
-        //            thinker = new Pawn_Thinker(this);
-        //        }
-        //        if (inventory == null)
-        //        {
-        //            Log.Message("inventory");
-        //            inventory = new Pawn_InventoryTracker(this);
-        //        }
-        //        if (playerController == null)
-        //        {
-        //            Log.Message("playercontroller");
-        //            playerController = new Pawn_PlayerController(this);
-        //        }
-        //        if (caller == null)
-        //        {
-        //            Log.Message("caller");
-        //            caller = new Pawn_CallTracker(this);
-        //        }
-
-        //        Log.Message("direct faction");
-        //        SetFactionDirect(newFaction);
-
-        //        //if (base.Faction.def == FactionDefOf.Colony)
-        //        //{
-        //        //    this.workSettings.EnableAndInitialize();
-        //        //}
-        //        //else if ((this.playerController != null) && this.playerController.Drafted)
-        //        //if ((this.playerController != null) && this.playerController.Drafted)
-        //        //{
-        //        //    this.playerController.Drafted = false;
-        //        //}
-        //        //Log.Message("Cleaning up reach and components");
-        //        //Reachability.ClearCache();
-        //        //PawnUtility.AddAndRemoveComponentsAsAppropriate(this);
-        //        //this.health.surgeryBills.Clear();
-        //        //Find.ListerPawns.RegisterPawn(this);
-        //        //Find.GameEnder.CheckGameOver();
-        //    }
-
-        //}        
 
         public override void ExposeData()
         {

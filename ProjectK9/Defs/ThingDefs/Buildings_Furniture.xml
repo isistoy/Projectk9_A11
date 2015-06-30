@@ -57,6 +57,6 @@
 		<DesignationCategory>Furniture</DesignationCategory>
 		<Passability>PassThroughOnly</Passability>
 		<DrawGUIOverlay>True</DrawGUIOverlay>
-		<!--<designationHotKey>B</designationHotKey>-->
+		<designationHotKey>B</designationHotKey>
   </ThingDef>
 </Buildings>

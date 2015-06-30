@@ -70,11 +70,14 @@ namespace ProjectK9
             {
                 float f = pawn.GetStatValue(StatDefOf.RecruitPrisonerChance, true);
                 float tameDifficulty = tamee.tameTracker.TameDifficulty;
-                if (tamee.needs.mood.CurLevel < 0.35f)
+                if (tamee.needs.mood != null)
                 {
-                    object[] args = new object[] { pawn.Nickname, tamee, 0.35f.ToStringPercent() };
-                    Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], " because mood is below ", args[2]), MessageSound.Silent);
-                    return false;
+                    if (tamee.needs.mood.CurLevel < 0.35f)
+                    {
+                        object[] args = new object[] { pawn.Nickname, tamee, 0.35f.ToStringPercent() };
+                        Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], " because mood is below ", args[2]), MessageSound.Silent);
+                        return false;
+                    } 
                 }
                 // Added value for balance
                 f *= 1f - (tameDifficulty / 100f);
@@ -83,13 +86,14 @@ namespace ProjectK9
                     f = 0.01f;
                 }
 
-                if (Rand.Range(0f,1f) > f)
+                if (Rand.Range(0f, 1f) > f)
                 {
                     object[] args = new object[] { pawn.Nickname, tamee, f.ToStringPercent() };
-                    Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], ". It failed with a chance of ", args[2]), MessageSound.Silent);
+                    Messages.Message(string.Concat(args[0], " couldn't tame ", args[1], ". It failed with a chance of ", args[2]), MessageSound.Standard);
                     return false;
                 }
                 tamee.tameTracker.DoTamePet();
+                Messages.Message(string.Concat(tamee, " has been tamed by ", pawn.Nickname), MessageSound.Benefit);
             }
             return true;
         }
@@ -215,14 +219,14 @@ namespace ProjectK9
                 Log.Message("mood");
                 typeof(Pawn_NeedsTracker)
                     .GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Invoke(tamee.needs, new object[] { DefDatabase<NeedDef>.GetNamed("Mood", true) });
+                    .Invoke(tamee.needs, new object[] { DefDatabase<NeedDef>.GetNamed("TameableMood", true) });
             }
             if (tamee.tameTracker == null)
             {
                 Log.Message("tametracker");
                 tamee.tameTracker = new TameablePawn_TameTracker(tamee);
                 tamee.tameTracker.Init();
-            }            
+            }
         }
 
         public static void GenerateStory(TameablePawn tamee)

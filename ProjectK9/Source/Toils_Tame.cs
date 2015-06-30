@@ -18,7 +18,7 @@ namespace ProjectK9
                 initAction = new Action(() =>
                     {
                         /// tame logic here
-                        if (!TamePawnUtility.TryTame(new TameMessage(ThoughtDef.Named("FriendIsCaring"), TameEffect.None), pawn, tamee))
+                        if (!TamePawnUtility.TryTame(new TameMessage(null, TameEffect.None), pawn, tamee))
                         {
                             pawn.jobs.curDriver.ReadyForNextToil();
                         }

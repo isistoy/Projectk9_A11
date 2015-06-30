@@ -47,8 +47,8 @@ namespace ProjectK9.AI
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            // HACK
-            pawn.SetFactionDirect(Faction.OfColony);
+
+            //pawn.SetFactionDirect(Faction.OfColony);
 
             this.FailOnDestroyed<JobDriver_HaulForPets>(TargetIndex.A);
             this.FailOnBurningImmobile<JobDriver_HaulForPets>(TargetIndex.B);
@@ -78,7 +78,7 @@ namespace ProjectK9.AI
             Toil carryToCell = Toils_Haul.CarryHauledThingToCell(TargetIndex.B);
             yield return carryToCell;
             Toil placeToCell = Toils_Haul.PlaceHauledThingInCell(TargetIndex.B, carryToCell,true);
-            placeToCell.AddFinishAction(resetFaction);
+            //placeToCell.AddFinishAction(resetFaction);
             yield return placeToCell;
         }
 

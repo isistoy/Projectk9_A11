@@ -66,7 +66,7 @@ namespace ProjectK9.AI
                     if (leftOver != null)
                         leftOver.SetForbidden(true);
                 }
-                if ((pet.IsColonyPet) && (pawn.needs.mood.thoughts != null))
+                if ((pet.IsColonyPet) && (pawn.needs.mood != null))
                     pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteStraightFromCorpse"));
                 corpse.Destroy();
             }

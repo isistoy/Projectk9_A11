@@ -11,4 +11,31 @@
       </li>
     </stages>
   </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>AteMeat</defName>
+    <duration>20000</duration>
+    <stackLimit>3</stackLimit>
+    <stages>
+      <li>
+        <label>Ate meat</label>
+        <description>That meat was quite juicy. Despite what you may have heard, I love raw food.</description>
+        <baseMoodEffect>12</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>AteStraightFromCorpse</defName>
+    <duration>30000</duration>
+    <stackLimit>2</stackLimit>
+    <stages>
+      <li>
+        <label>Ate from corpse</label>
+        <description>I ripped the meat from those bones. It was incredibly satisfying.</description>
+        <baseMoodEffect>20</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
 </ThoughtDefs>

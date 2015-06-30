@@ -46,7 +46,7 @@ namespace ProjectK9.AI
                             if (HaulAIUtility.PawnCanAutomaticallyHaulFast(pet, closestHaulableThing))
                             {
                                 // TBD
-                                Job job = HaulAIUtility_Pets.HaulToStorageJob(pet, closestHaulableThing);
+                                Job job = HaulAIUtility.HaulToStorageJob(pet, closestHaulableThing);
                                 if (job != null)
                                 {
                                     //Log.Message(string.Concat(pawn, " is hauling ", closestHaulableThing));

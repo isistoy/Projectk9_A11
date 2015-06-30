@@ -33,16 +33,15 @@ namespace ProjectK9.AI
             ThingRequest meatRequest = ThingRequest.ForGroup(ThingRequestGroup.FoodNotPlant);
             Predicate<Thing> availMeatPredicate = food =>
             {
-                return isMeaty(pawn, food);
+                return (isMeaty(pawn, food) && (pet.IsColonyPet?Find.Reservations.CanReserve(pet, food,1):true));
             };
 
             Thing thing = GenClosest.ClosestThingReachable(pawn.Position, meatRequest, PathEndMode.Touch, traverseParams, 100f, availMeatPredicate);
             if (thing != null)
             {
                 Log.Message(string.Concat(pet, " Found meat"));
-                if (thing.SelectableNow() && pawn.needs.mood.thoughts != null)
+                if (thing.SelectableNow() && pawn.needs.mood != null)
                 {
-                    Log.Message("Meat and colonist. Ingesting...");
                     if (thing.def.ingestible.IsMeat)
                         pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteMeat"));
                     if (thing.def.ingestible.ingestedDirectThought == ThoughtDefOf.AteHumanlikeMeatDirect)
@@ -55,7 +54,7 @@ namespace ProjectK9.AI
             ThingRequest corpseRequest = ThingRequest.ForGroup(ThingRequestGroup.Corpse);
             Predicate<Thing> availCorpsePredicate = corpse =>
             {
-                return isMeaty(pawn, corpse);
+                return (isMeaty(pawn, corpse) && (pet.IsColonyPet?Find.Reservations.CanReserve(pet, corpse,1):true));
             };
 
             Corpse closestCorpse = GenClosest.ClosestThingReachable(pawn.Position, corpseRequest, PathEndMode.Touch, traverseParams, 100f, availCorpsePredicate) as Corpse;
@@ -133,6 +132,5 @@ namespace ProjectK9.AI
         {
             return (pawn.Position.ToVector3() - thing.Position.ToVector3()).sqrMagnitude <= 100f * 100f;
         }
-
     }
 }

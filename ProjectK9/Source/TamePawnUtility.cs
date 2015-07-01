@@ -194,21 +194,6 @@ namespace ProjectK9
                 tamee.apparel = new Pawn_ApparelTracker(tamee);
                 //tamee.apparel = new Tameable_ApparelTracker(tamee);
             }
-            if (tamee.skills == null)
-            {
-                Log.Message("skills");
-                tamee.skills = new Pawn_SkillTracker(tamee);
-            }
-            if (tamee.story == null)
-            {
-                Log.Message("story");
-                tamee.story = new Pawn_StoryTracker(tamee);
-            }
-            if (tamee.story.traits == null)
-            {
-                Log.Message("traits");
-                tamee.story.traits = new TraitSet(tamee);
-            }
             if (tamee.mindState == null)
             {
                 Log.Message("mindstate");
@@ -260,6 +245,21 @@ namespace ProjectK9
         public static void GenerateStory(TameablePawn tamee)
         {
             // randomize backstories, filtering on their spawnCategories
+            if (tamee.skills == null)
+            {
+                Log.Message("skills");
+                tamee.skills = new Pawn_SkillTracker(tamee);
+            }
+            if (tamee.story == null)
+            {
+                Log.Message("story");
+                tamee.story = new Pawn_StoryTracker(tamee);
+            }
+            if (tamee.story.traits == null)
+            {
+                Log.Message("traits");
+                tamee.story.traits = new TraitSet(tamee);
+            }
             Backstory childStory = BackstoryDatabase.allBackstories.Where(stor =>
                 stor.Value.spawnCategories.Exists(cat => cat == "pet") && stor.Value.slot == BackstorySlot.Childhood)
                 .RandomElement().Value;

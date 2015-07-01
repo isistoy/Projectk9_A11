@@ -13,17 +13,10 @@ namespace ProjectK9.AI
     {
         public override float GetPriority(Pawn pawn)
         {
-            Need_Rest rest = pawn.needs.rest;
-            if (rest != null)
+
+            if ((pawn.needs.rest.CurLevel < 0.50f) && !pawn.needs.food.Starving)
             {
-                if ((rest.CurLevel < 0.55f) || pawn.health.hediffSet.GetNaturallyHealingInjuredParts().Any<BodyPartRecord>())
-                {
-                    return 8f;
-                }
-                else if (pawn.health.hediffSet.GetNaturallyHealingInjuredParts().Any<BodyPartRecord>())
-                {
-                    return 6f;
-                }
+                return 8f;
             }
             return 0f;
         }

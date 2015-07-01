@@ -48,7 +48,14 @@ namespace ProjectK9.AI
                 else
                 {
                     Log.Message(string.Concat(pawn, " found threat to herd: ", threat));
-                    return new Job(huntJobDef, threat);
+                    return new Job(huntJobDef)
+                    {
+                        targetA = threat,
+                        maxNumMeleeAttacks = 4,
+                        killIncappedTarget = true,
+                        checkOverrideOnExpire = true,
+                        expiryInterval = 500
+                    };
                 } 
             }
             return null;

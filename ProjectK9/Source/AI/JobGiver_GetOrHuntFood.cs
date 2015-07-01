@@ -85,7 +85,14 @@ namespace ProjectK9.AI
                 {
                     
                     Log.Message(string.Concat(pet, " Found prey"));
-                    return new Job(huntJobDef, closestPrey) { killIncappedTarget = true };
+                    return new Job(huntJobDef)
+                    {
+                        targetA = closestPrey,
+                        maxNumMeleeAttacks = 4,
+                        checkOverrideOnExpire = true,
+                        killIncappedTarget = true,
+                        expiryInterval = 500
+                    };
                 }
             }
 

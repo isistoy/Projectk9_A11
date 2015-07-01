@@ -45,7 +45,14 @@ namespace ProjectK9.AI
                                 if (targetA != null)
                                 {
                                     Log.Message(string.Concat(animal, " hunting prey ", targetA));
-                                    return new Job(huntJobDef, targetA) { checkOverrideOnExpire = true, expiryInterval = 500 };
+                                    return new Job(huntJobDef)
+                                    {
+                                        targetA = targetA,
+                                        maxNumMeleeAttacks = 4,
+                                        killIncappedTarget = true,
+                                        checkOverrideOnExpire = true,
+                                        expiryInterval = 500
+                                    };
                                 } 
                             }
                         }

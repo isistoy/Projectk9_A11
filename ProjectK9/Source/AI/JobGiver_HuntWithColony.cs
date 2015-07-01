@@ -34,7 +34,7 @@ namespace ProjectK9.AI
                         Pawn current = enumerator.Current;
                         if (!current.Downed
                             && (current.jobs.curJob != null)
-                            && (current.jobs.curJob.def == huntJobDef))
+                            && (current.jobs.curJob.def == JobDefOf.Hunt))
                         {
                             TargetInfo huntTarget = current.jobs.curJob.targetA;
                             if (pawn.CanReach(huntTarget, PathEndMode.OnCell, Danger.Deadly)

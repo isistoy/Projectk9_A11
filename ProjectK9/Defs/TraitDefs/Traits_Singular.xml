@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TraitDefs>
+
+  <TraitDef>
+    <defName>Resilient</defName>
+    <commonality>0</commonality>
+    <degreeDatas>
+      <li>
+        <label>resilient</label>
+        <description>NAME enjoys the feeling of freedom that comes from nature. HECAP can handle clothing, but will be happier without it.</description>
+      </li>
+    </degreeDatas>
+  </TraitDef>
+
+  
+</TraitDefs>

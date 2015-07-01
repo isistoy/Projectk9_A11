@@ -14,7 +14,7 @@ namespace ProjectK9.AI
         public override float GetPriority(Pawn pawn)
         {
             Need_Food food = pawn.needs.food;
-            if (food != null) 
+            if (food != null)
             {
                 if (food.CurCategory >= HungerCategory.UrgentlyHungry)
                     return 7.5f;
@@ -29,43 +29,51 @@ namespace ProjectK9.AI
             TameablePawn pet = (TameablePawn)pawn;
             TraverseParms traverseParams = TraverseParms.For(pawn);
 
-            // Find the closest meaty-thing and eat it.
-            ThingRequest meatRequest = ThingRequest.ForGroup(ThingRequestGroup.FoodNotPlant);
-            Predicate<Thing> availMeatPredicate = food =>
-            {
-                return (isMeaty(pawn, food) && (pet.IsColonyPet?Find.Reservations.CanReserve(pet, food,1):true));
-            };
-
-            Thing thing = GenClosest.ClosestThingReachable(pawn.Position, meatRequest, PathEndMode.Touch, traverseParams, 100f, availMeatPredicate);
-            if (thing != null)
-            {
-                Log.Message(string.Concat(pet, " Found meat"));
-                if (thing.SelectableNow() && pawn.needs.mood != null)
-                {
-                    if (thing.def.ingestible.IsMeat)
-                        pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteMeat"));
-                    if (thing.def.ingestible.ingestedDirectThought == ThoughtDefOf.AteHumanlikeMeatDirect)
-                        pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("HumanMeatIsYummy"));
-                }
-                return new Job(DefDatabase<JobDef>.GetNamed("EatForAnimals"), thing);
-            }
-
-            // Find the closest dead meaty-thing and eat it.
-            ThingRequest corpseRequest = ThingRequest.ForGroup(ThingRequestGroup.Corpse);
-            Predicate<Thing> availCorpsePredicate = corpse =>
-            {
-                return (isMeaty(pawn, corpse) && (pet.IsColonyPet?Find.Reservations.CanReserve(pet, corpse,1):true));
-            };
-
-            Corpse closestCorpse = GenClosest.ClosestThingReachable(pawn.Position, corpseRequest, PathEndMode.Touch, traverseParams, 100f, availCorpsePredicate) as Corpse;
-            if (closestCorpse != null)
-            {
-                Log.Message(string.Concat(pet, " Found corpse"));
-                return new Job(DefDatabase<JobDef>.GetNamed("EatCorpse"), closestCorpse);
-            }
-
             // Find the closest possible prey, and hunt it
-            if (pawn.jobs.curJob == null)
+            JobDef meatJobDef = FoodAIUtility_Animals.GetEatMeatJobDef();
+            if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != meatJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
+            {
+                // Find the closest meaty-thing and eat it.
+                ThingRequest meatRequest = ThingRequest.ForGroup(ThingRequestGroup.FoodNotPlant);
+                Predicate<Thing> availMeatPredicate = food =>
+                {
+                    return (isMeaty(pawn, food) && (pet.IsColonyPet ? Find.Reservations.CanReserve(pet, food, 1) : true));
+                };
+
+                Thing thing = GenClosest.ClosestThingReachable(pawn.Position, meatRequest, PathEndMode.Touch, traverseParams, 100f, availMeatPredicate);
+                if (thing != null)
+                {
+                    Log.Message(string.Concat(pet, " Found meat"));
+                    if (thing.SelectableNow() && pawn.needs.mood != null)
+                    {
+                        if (thing.def.ingestible.IsMeat)
+                            pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("AteMeat"));
+                        if (thing.def.ingestible.ingestedDirectThought == ThoughtDefOf.AteHumanlikeMeatDirect)
+                            pawn.needs.mood.thoughts.TryGainThought(ThoughtDef.Named("HumanMeatIsYummy"));
+                    }
+                    return new Job(meatJobDef, thing);
+                }
+            }
+            JobDef corpseJobDef = FoodAIUtility_Animals.GetEatCorpseJobDef();
+            if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != corpseJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
+            {
+                // Find the closest dead meaty-thing and eat it.
+                ThingRequest corpseRequest = ThingRequest.ForGroup(ThingRequestGroup.Corpse);
+                Predicate<Thing> availCorpsePredicate = corpse =>
+                {
+                    return (isMeaty(pawn, corpse) && (pet.IsColonyPet ? Find.Reservations.CanReserve(pet, corpse, 1) : true));
+                };
+
+                Corpse closestCorpse = GenClosest.ClosestThingReachable(pawn.Position, corpseRequest, PathEndMode.Touch, traverseParams, 100f, availCorpsePredicate) as Corpse;
+                if (closestCorpse != null)
+                {
+                    Log.Message(string.Concat(pet, " Found corpse"));
+                    return new Job(corpseJobDef, closestCorpse);
+                }
+            }
+
+            JobDef huntJobDef = FoodAIUtility_Animals.GetHuntForAnimalsJobDef();
+            if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != huntJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
             {
                 ThingRequest preyRequest = ThingRequest.ForGroup(ThingRequestGroup.Pawn);
                 Predicate<Thing> availPreyPredicate = p =>
@@ -77,8 +85,9 @@ namespace ProjectK9.AI
                 Pawn closestPrey = GenClosest.ClosestThingReachable(pawn.Position, preyRequest, PathEndMode.Touch, traverseParams, 100f, availPreyPredicate) as Pawn;
                 if (closestPrey != null)
                 {
+                    
                     Log.Message(string.Concat(pet, " Found prey"));
-                    return new Job(JobDefOf.AttackMelee, closestPrey) { killIncappedTarget = true };
+                    return new Job(huntJobDef, closestPrey) { killIncappedTarget = true };
                 }
             }
 

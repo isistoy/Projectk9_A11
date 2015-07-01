@@ -12,6 +12,21 @@ namespace ProjectK9.AI
 {
     public static class FoodAIUtility_Animals
     {
+        public static JobDef GetEatMeatJobDef()
+        {
+            return DefDatabase<JobDef>.GetNamed("EatForAnimals");
+        }
+
+        public static JobDef GetEatCorpseJobDef()
+        {
+            return DefDatabase<JobDef>.GetNamed("EatCorpse");
+        }
+       
+        public static JobDef GetHuntForAnimalsJobDef()
+        {
+            return DefDatabase<JobDef>.GetNamed("HuntForAnimals");
+        }
+
         private static IEnumerable<Thing> ButcherCorpseProducts(this Corpse corpse)
         {
             if (corpse.def.butcherProducts == null)

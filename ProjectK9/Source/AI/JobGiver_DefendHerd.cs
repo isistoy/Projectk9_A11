@@ -13,41 +13,45 @@ namespace ProjectK9.AI
     {
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            //Log.Message(string.Concat(pawn, " looking for any herd threat"));
-            Pawn threat = pawn.mindState.meleeThreat;
-            Pawn targetOfThreat = pawn;
-
-            if (threat == null)
+            JobDef huntJobDef = FoodAIUtility_Animals.GetHuntForAnimalsJobDef();
+            if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != huntJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
             {
-                IEnumerable<Pawn> herdMembers = HerdUtility_Pets.FindHerdMembers(pawn);
-                // Remplacer foreach par un itérateur avec MoveNext
-                foreach(Pawn herdMember in herdMembers)
+                //Log.Message(string.Concat(pawn, " looking for any herd threat"));
+                Pawn threat = pawn.mindState.meleeThreat;
+                Pawn targetOfThreat = pawn;
+
+                if (threat == null)
                 {
-                    if (herdMember.mindState.meleeThreat != null)
+                    IEnumerable<Pawn> herdMembers = HerdAIUtility_Pets.FindHerdMembers(pawn);
+                    // Remplacer foreach par un itérateur avec MoveNext
+                    foreach (Pawn herdMember in herdMembers)
                     {
-                        threat = herdMember.mindState.meleeThreat;
-                        pawn.mindState.meleeThreat = threat;
-                        targetOfThreat = herdMember;
-                        break;
+                        if (herdMember.mindState.meleeThreat != null)
+                        {
+                            threat = herdMember.mindState.meleeThreat;
+                            pawn.mindState.meleeThreat = threat;
+                            targetOfThreat = herdMember;
+                            break;
+                        }
                     }
                 }
-            }
-                
 
-            if (threat == null || threat.Dead || threat.Downed
-                || (targetOfThreat.mindState.lastMeleeThreatHarmTick - Find.TickManager.TicksGame) > 300
-                || (targetOfThreat.Position - threat.Position).LengthHorizontalSquared > HerdUtility_Pets.HERD_DISTANCE 
-                || !GenSight.LineOfSight(pawn.Position, threat.Position))
-            {
-                pawn.mindState.meleeThreat = null;
-                return null;
+
+                if (threat == null || threat.Dead || threat.Downed
+                    || (targetOfThreat.mindState.lastMeleeThreatHarmTick - Find.TickManager.TicksGame) > 300
+                    || (targetOfThreat.Position - threat.Position).LengthHorizontalSquared > HerdAIUtility_Pets.HERD_DISTANCE
+                    || !GenSight.LineOfSight(pawn.Position, threat.Position))
+                {
+                    pawn.mindState.meleeThreat = null;
+                    return null;
+                }
+                else
+                {
+                    Log.Message(string.Concat(pawn, " found threat to herd: ", threat));
+                    return new Job(huntJobDef, threat);
+                } 
             }
-            else
-            {
-                Log.Message(string.Concat(pawn, " found threat to herd: ", threat));
-                JobDef huntJobDef = DefDatabase<JobDef>.GetNamed("HuntForAnimals");
-                return new Job(huntJobDef, threat);
-            }
+            return null;
         }
     }
 }

@@ -30,31 +30,35 @@ namespace ProjectK9.AI
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            if ((!pawn.Downed) && (!pawn.Broken))
+            TameablePawn tameable = pawn as TameablePawn;
+            if ((tameable != null) && ((tameable.jobs.curJob == null) || tameable.Awake()))
             {
-                //Log.Message(string.Concat(pawn, " trying to sleep"));
-                TameablePawn pet = pawn as TameablePawn;
-                if ((pet != null) && pet.IsColonyPet)
+                if ((!pawn.Downed) && (!pawn.Broken))
                 {
-                    Building_Bed bedFor = pawn.ownership.ownedBed;
-
-                    if (bedFor == null)
-                        bedFor = findUnownedBed(pawn);
-
-                    if ((bedFor != null) && (bedFor.owner != pawn))
+                    //Log.Message(string.Concat(pawn, " trying to sleep"));
+                    TameablePawn pet = pawn as TameablePawn;
+                    if ((pet != null) && pet.IsColonyPet)
                     {
-                        // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
-                        // make it unclaim the bed and then it'll error out.
-                        if (bedFor.owner == PetBed.PetBedHolder)
+                        Building_Bed bedFor = pawn.ownership.ownedBed;
+
+                        if (bedFor == null)
+                            bedFor = findUnownedBed(pawn);
+
+                        if ((bedFor != null) && (bedFor.owner != pawn))
                         {
-                            bedFor.owner = null;
+                            // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
+                            // make it unclaim the bed and then it'll error out.
+                            if (bedFor.owner == PetBed.PetBedHolder)
+                            {
+                                bedFor.owner = null;
+                            }
                         }
+                        if (bedFor != null)
+                            return new Job(RestAIUtility_Animal.GetSleepJobDef(), bedFor);
                     }
-                    if (bedFor != null)
-                        return new Job(RestAIUtility_Animal.GetSleepJobDef(), bedFor);
+                    return new Job(RestAIUtility_Animal.GetSleepJobDef(), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
+                    //return new Job(JobDefOf.LayDown, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
                 }
-                return new Job(RestAIUtility_Animal.GetSleepJobDef(), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
-                //return new Job(JobDefOf.LayDown, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
             }
             return null;
         }

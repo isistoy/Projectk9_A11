@@ -9,7 +9,7 @@ using RimWorld;
 
 namespace ProjectK9.AI
 {
-    public static class HerdUtility_Pets
+    public static class HerdAIUtility_Pets
     {
         public const int HERD_DISTANCE = 35 * 35;
 

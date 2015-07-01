@@ -5,6 +5,9 @@
 		<defName>SawCuteDog</defName>
     <thoughtClass>Thought_Observation</thoughtClass>
 		<duration>10000</duration>
+    <nullifyingTraits>
+      <li>Resilient</li>
+    </nullifyingTraits>
 		<stackLimit>3</stackLimit>
     <stackedEffectMultiplier>0.3</stackedEffectMultiplier>
 		<stages>

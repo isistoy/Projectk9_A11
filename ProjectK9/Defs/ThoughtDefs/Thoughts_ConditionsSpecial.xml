@@ -1,6 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThoughtDefs>
+  
+
   <ThoughtDef>
+    <defName>SharedBedroom</defName>
+    <workerClass>ThoughtWorker_SharedBedroom</workerClass>
+    <nullifyingTraits>
+      <li>Resilient</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>sharing bedroom</label>
+        <description>Sharing a room with others is annoying. I want some privacy. </description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>ColonistLeftUnburied</defName>
+    <workerClass>ThoughtWorker_ColonistLeftUnburied</workerClass>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+      <li>Resilient</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>colonist left unburied</label>
+        <description>One of us died and we're just leaving them lying in the open. Nobody should be left like that. People deserve a decent burial.</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+
+  <ThoughtDef>
+    <defName>Naked</defName>
+    <workerClass>ThoughtWorker_PsychologicallyNude</workerClass>
+    <nullifyingTraits>
+      <li>Nudist</li>
+      <li>Resilient</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>naked</label>
+        <description>I'm naked. This is humiliating.</description>
+        <baseMoodEffect>-3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!--<ThoughtDef>
     <defName>Naked</defName>
     <workerClass>ProjectK9.ThoughtWorker_PsychologicallyNude</workerClass>
     <nullifyingTraits>
@@ -13,10 +63,15 @@
         <baseMoodEffect>-3</baseMoodEffect>
       </li>
     </stages>
-  </ThoughtDef>
+  </ThoughtDef>-->
+
+  
   <ThoughtDef>
     <defName>HumanMeatIsYummy</defName>
     <duration>40000</duration>
+    <requiredTraits>
+      <li>Resilient</li>
+    </requiredTraits>
     <stackedEffectMultiplier>0.25</stackedEffectMultiplier>
     <stackLimit>3</stackLimit>
     <stages>
@@ -31,6 +86,9 @@
   <ThoughtDef>
     <defName>FriendIsCaring</defName>
     <duration>20000</duration>
+    <requiredTraits>
+      <li>Resilient</li>
+    </requiredTraits>
     <stackLimit>3</stackLimit>
     <stages>
       <li>

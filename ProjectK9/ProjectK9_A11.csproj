@@ -57,7 +57,7 @@
     <Compile Include="Source\AI\JobDriver_EatForAnimals.cs" />
     <Compile Include="Source\AI\RestAIUtility_Animal.cs" />
     <Compile Include="Source\Designator_Tame.cs" />
-    <Compile Include="Source\AI\FoodAIUtility_Pets.cs" />
+    <Compile Include="Source\AI\FoodAIUtility_Animals.cs" />
     <Compile Include="Source\AI\HaulAIUtility_Pets.cs" />
     <Compile Include="Source\AI\JobDriver_EatCorpse.cs" />
     <Compile Include="Source\AI\JobDriver_HaulForPets.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="Source\ThoughtWorker_PsychologicallyNude.cs" />
     <Compile Include="Source\Toils_Tame.cs" />
     <Compile Include="Source\WorkGiver_TamerTame.cs" />
-    <Compile Include="Source\AI\HerdAIUtility_Pets.cs" />
+    <Compile Include="Source\AI\HerdAIUtility_Animals.cs" />
     <Compile Include="Source\PetApparelOverride.cs" />
     <Compile Include="Source\PetBed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -139,6 +139,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Defs\ThoughtDefs\Thoughts_ConditionsDrugs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Defs\ThoughtDefs\Thoughts_ConditionsGeneral.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -146,6 +149,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\ThoughtDefs\Thoughts_Memories.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Defs\ThoughtDefs\Thoughts_Needs.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Defs\ThoughtDefs\Thoughts_PsychicDrone.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Defs\TraitDefs\Traits_Singular.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\WorkGiverDefs\WorkGivers.xml">

@@ -138,7 +138,6 @@ namespace ProjectK9
             if (!initialized)
             {
                 TamePawnUtility.InitBasicPet(this);
-                TamePawnUtility.GenerateStory(this);
                 initialized = true;
             }
         }
@@ -156,6 +155,7 @@ namespace ProjectK9
             Find.ListerPawns.DeRegisterPawn(this);
             Find.Reservations.ReleaseAllClaimedBy(this);
             base.SetFactionDirect(Faction.OfColony);
+            TamePawnUtility.GenerateStory(this);
             TamePawnUtility.InitWorkSettings(this);
             Reachability.ClearCache();
             if (playerController == null)

@@ -18,8 +18,6 @@ namespace ProjectK9.AI
             {
                 if (food.CurCategory >= HungerCategory.UrgentlyHungry)
                     return 7.5f;
-                if (food.CurCategory >= HungerCategory.Hungry)
-                    return 6f;
             }
             return 0f;
         }

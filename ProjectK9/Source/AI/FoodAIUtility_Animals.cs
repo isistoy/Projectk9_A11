@@ -21,24 +21,61 @@ namespace ProjectK9.AI
         {
             return DefDatabase<JobDef>.GetNamed("EatCorpse");
         }
-       
+
         public static JobDef GetHuntForAnimalsJobDef()
         {
             return DefDatabase<JobDef>.GetNamed("HuntForAnimals");
         }
 
-        private static IEnumerable<Thing> ButcherCorpseProducts(this Corpse corpse)
+        public static IEnumerable<Thing> ButcherCorpseProducts(Corpse corpse, Pawn butcher)
         {
-            if (corpse.def.butcherProducts == null)
-                yield break;
-            int i = 0;
-            if (i < corpse.def.butcherProducts.Count)
+            if (corpse.def.butcherProducts != null)
             {
-                ThingCount counter = corpse.def.butcherProducts[i];
-                Thing result = ThingMaker.MakeThing(counter.thingDef, null);
-                result.stackCount = counter.count;
-                yield return result;
-                i++;
+                IEnumerator<Thing> butchEnumerator = corpse.innerPawn.ButcherProducts(butcher, 1f).GetEnumerator();
+                try
+                {
+                    while (butchEnumerator.MoveNext())
+                    {
+                        yield return butchEnumerator.Current;
+                    }
+                }
+                finally
+                {
+                    butchEnumerator.Dispose();
+                }            
+            }
+            else
+                Log.Message(string.Concat("No inventory things found in corpse ", corpse, " for pawn ", butcher));
+            
+            if (corpse.innerPawn.RaceProps.isFlesh)
+            {
+                FilthMaker.MakeFilth(butcher.Position, ThingDefOf.FilthBlood, corpse.innerPawn.LabelCap);
+            }
+
+            int meatCount = Mathf.RoundToInt(corpse.innerPawn.def.race.MeatAmount);
+            if (meatCount > 0)
+            {
+                Thing meat = ThingMaker.MakeThing(corpse.innerPawn.def.race.meatDef, null);
+
+                if (meat != null)
+                {
+                    meat.stackCount = meatCount;
+                    yield return meat;
+                }                
+            }
+
+            if (corpse.innerPawn.def.race.hasLeather && (corpse.innerPawn.def.race.leatherDef != null))
+            {
+                int LeatherCount = Mathf.RoundToInt(corpse.innerPawn.def.race.LeatherAmount);
+                if (LeatherCount > 0)
+                {
+                    Thing leather = ThingMaker.MakeThing(corpse.innerPawn.def.race.leatherDef, null);
+                    if (leather != null)
+                    {
+                        leather.stackCount = LeatherCount;
+                        yield return leather;
+                    }
+                }
             }
         }
 
@@ -95,7 +132,7 @@ namespace ProjectK9.AI
 
         public static Toil FinalizeEatForAnimals(Pawn ingester, TargetIndex ingestibleInd)
         {
-            Toil ingest = new Toil() { defaultCompleteMode = ToilCompleteMode.Instant};
+            Toil ingest = new Toil() { defaultCompleteMode = ToilCompleteMode.Instant };
             ingest.initAction = new Action(() =>
                 {
                     Thing ingested = ingest.actor.jobs.curJob.GetTarget(ingestibleInd).Thing;

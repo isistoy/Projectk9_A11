@@ -11,6 +11,8 @@ namespace ProjectK9.AI
 {
     public class JobGiver_GetOrHuntFood : ThinkNode_JobGiver
     {
+        public const int FOOD_DISTANCE = 50 * 50;
+        
         public override float GetPriority(Pawn pawn)
         {
             Need_Food food = pawn.needs.food;
@@ -26,12 +28,11 @@ namespace ProjectK9.AI
         {
             TameablePawn pet = (TameablePawn)pawn;
             TraverseParms traverseParams = TraverseParms.For(pawn);
-
-            // Find the closest possible prey, and hunt it
+            
+            // Find the closest meaty-thing and eat it.
             JobDef meatJobDef = FoodAIUtility_Animals.GetEatMeatJobDef();
             if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != meatJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
             {
-                // Find the closest meaty-thing and eat it.
                 ThingRequest meatRequest = ThingRequest.ForGroup(ThingRequestGroup.FoodNotPlant);
                 Predicate<Thing> availMeatPredicate = food =>
                 {
@@ -52,10 +53,11 @@ namespace ProjectK9.AI
                     return new Job(meatJobDef, thing);
                 }
             }
+
+            // Find the closest dead meaty-thing and eat it.
             JobDef corpseJobDef = FoodAIUtility_Animals.GetEatCorpseJobDef();
             if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != corpseJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
             {
-                // Find the closest dead meaty-thing and eat it.
                 ThingRequest corpseRequest = ThingRequest.ForGroup(ThingRequestGroup.Corpse);
                 Predicate<Thing> availCorpsePredicate = corpse =>
                 {
@@ -70,6 +72,7 @@ namespace ProjectK9.AI
                 }
             }
 
+            // Find the closest prey to hunt for food
             JobDef huntJobDef = FoodAIUtility_Animals.GetHuntForAnimalsJobDef();
             if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != huntJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
             {
@@ -144,7 +147,7 @@ namespace ProjectK9.AI
 
         private bool isNearby(Pawn pawn, Thing thing)
         {
-            return (pawn.Position.ToVector3() - thing.Position.ToVector3()).sqrMagnitude <= 100f * 100f;
+            return (pawn.Position - thing.Position).LengthHorizontalSquared <= FOOD_DISTANCE;
         }
     }
 }

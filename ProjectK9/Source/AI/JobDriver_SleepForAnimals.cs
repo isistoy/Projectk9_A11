@@ -41,7 +41,7 @@ namespace ProjectK9.AI
                 this.FailOnDespawned<JobDriver_LayDown>(TargetIndex.A);
                 this.FailOn<JobDriver_LayDown>(() => { return ((Building_Bed)pawn.CurJob.GetTarget(TargetIndex.A).Thing).IsBurning();});
                 this.FailOnNonMedicalBedNotOwned<JobDriver_LayDown>(TargetIndex.A, TargetIndex.None);
-                this.FailOn<JobDriver_LayDown>(() => { return pawn.health.CanUseMedicalBed; }); //&& ((Building_Bed)TargetThingA).Medical;
+                //this.FailOn<JobDriver_LayDown>(() => { return pawn.health.CanUseMedicalBed; }); //&& ((Building_Bed)TargetThingA).Medical;
                 this.FailOn<JobDriver_LayDown>(() => { return ((((TameablePawn)pawn).IsColonyPet && !CurJob.ignoreForbidden) && !pawn.Downed) && TargetThingA.IsForbidden(pawn); });
 
                 yield return Toils_Bed.ClaimBedIfNonMedical(TargetIndex.A, TargetIndex.None);
@@ -51,7 +51,6 @@ namespace ProjectK9.AI
             yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
 
             Toil sleep = new Toil();
-            sleep.actor = pawn;
             sleep.tickAction = new Action(tickAction);
             sleep.defaultCompleteMode = ToilCompleteMode.Never;
             yield return sleep;

@@ -11,7 +11,7 @@ namespace ProjectK9.AI
 {
     public class JobGiver_HuntWithHerd : ThinkNode_JobGiver
     {
-
+        public const int HUNT_DISTANCE = 35 * 35;
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
             JobDef huntJobDef = FoodAIUtility_Animals.GetHuntForAnimalsJobDef();
@@ -36,10 +36,11 @@ namespace ProjectK9.AI
                             && (current.jobs.curJob.def == huntJobDef))
                         {
                             TargetInfo huntTarget = current.jobs.curJob.targetA;
-                            if (pawn.CanReach(huntTarget, PathEndMode.OnCell, Danger.Deadly)
+                            if ((huntTarget != null)
+                                && pawn.CanReach(huntTarget, PathEndMode.OnCell, Danger.Deadly)
                                 && !(huntTarget.Thing is Corpse)
-                                && ((Pawn)huntTarget).Downed
-                                && ((Pawn)huntTarget).Dead)
+                                && !((Pawn)huntTarget).Dead
+                                && (pawn.Position - huntTarget.Center).LengthHorizontalSquared <= HUNT_DISTANCE)
                             {
                                 targetA = (Pawn)huntTarget;
                                 if (targetA != null)

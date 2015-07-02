@@ -14,23 +14,27 @@ namespace ProjectK9.AI
         public override float GetPriority(Pawn pawn)
         {
 
-            if ((pawn.needs.rest.CurLevel < 0.50f) && !pawn.needs.food.Starving)
+            if (pawn.needs.rest.CurLevel < 0.50f)
             {
                 return 8f;
+            }
+            if (!pawn.needs.food.Starving && pawn.health.hediffSet.GetNaturallyHealingInjuredParts().Any<BodyPartRecord>())
+            {
+                return 3f;
             }
             return 0f;
         }
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            TameablePawn tameable = pawn as TameablePawn;
-            if ((tameable != null) && ((tameable.jobs.curJob == null) || tameable.Awake()))
+            JobDef restJobDef = RestAIUtility_Animal.GetSleepJobDef();
+            TameablePawn pet = pawn as TameablePawn;
+            if ((pet.jobs.curJob == null) || ((pet.jobs.curJob.def != restJobDef) && pet.Awake()))
             {
                 if ((!pawn.Downed) && (!pawn.Broken))
                 {
                     //Log.Message(string.Concat(pawn, " trying to sleep"));
-                    TameablePawn pet = pawn as TameablePawn;
-                    if ((pet != null) && pet.IsColonyPet)
+                    if (pet.IsColonyPet)
                     {
                         Building_Bed bedFor = pawn.ownership.ownedBed;
 
@@ -47,9 +51,9 @@ namespace ProjectK9.AI
                             }
                         }
                         if (bedFor != null)
-                            return new Job(RestAIUtility_Animal.GetSleepJobDef(), bedFor);
+                            return new Job(restJobDef, bedFor);
                     }
-                    return new Job(RestAIUtility_Animal.GetSleepJobDef(), GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
+                    return new Job(restJobDef, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
                     //return new Job(JobDefOf.LayDown, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
                 }
             }

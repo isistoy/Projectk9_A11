@@ -23,6 +23,7 @@ namespace ProjectK9.AI
             //pawn.SetFactionDirect(Faction.OfColony);
 
             this.FailOnDestroyed<JobDriver_EatCorpse>(TargetIndex.A);
+            this.FailOnDespawnedIfNonNull<JobDriver_EatCorpse>(TargetIndex.A);
             this.FailOn<JobDriver_EatCorpse>(eaterIsKilled);
             yield return Toils_Reserve.Reserve(TargetIndex.A);
             yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
@@ -54,7 +55,8 @@ namespace ProjectK9.AI
                 //corpse.ButcherProducts(butcher, 1.0f).ToList<Thing>();
                 Log.Message("Attempting to butch corpse");
                 IntVec3 centerPos = corpse.Position;
-                List<Thing> leftOvers = GenRecipe.MakeRecipeProducts(DefDatabase<RecipeDef>.GetNamed("ButcherCorpseFlesh"), pet, null, corpse).ToList<Thing>();
+                List<Thing> leftOvers = FoodAIUtility_Animals.ButcherCorpseProducts(corpse, pet).ToList<Thing>();
+                //GenRecipe.MakeRecipeProducts(DefDatabase<RecipeDef>.GetNamed("ButcherCorpseFlesh"), pawn, null, corpse).ToList<Thing>();
                 Thing leftOver = null;
                 for (int i = 0; i < leftOvers.Count; i++)
                 {

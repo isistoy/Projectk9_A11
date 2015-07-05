@@ -38,6 +38,7 @@
     <label>dog</label>
     <selectable>true</selectable>
     <targetHitChanceFactor>1.0</targetHitChanceFactor>
+    <uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
     <statBases>
       <Flammability>1.0</Flammability>
     </statBases>

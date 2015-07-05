@@ -9,4 +9,29 @@
     <gerund>taming</gerund>
   </WorkGiverDef>
 
+  <WorkGiverDef>
+    <defName>DoctorRescue</defName>
+    <giverClass>ProjectK9.WorkGiver_RescueAllKind</giverClass>
+    <workType>Doctor</workType>
+    <verb>rescue</verb>
+    <gerund>rescuing</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <priorityInType>80</priorityInType>
+    <directOrderable>false</directOrderable>
+  </WorkGiverDef>
+
+  <WorkGiverDef>
+    <defName>DoctorTreat</defName>
+    <giverClass>ProjectK9.WorkGiver_TreatAllKind</giverClass>
+    <workType>Doctor</workType>
+    <verb>treat</verb>
+    <gerund>treating</gerund>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <priorityInType>60</priorityInType>
+  </WorkGiverDef>
+
 </WorkGivers>

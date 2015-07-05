@@ -23,7 +23,7 @@ namespace ProjectK9
             //    Log.Error(string.Concat(new object[] { "Tried to generate pawn of Humanlike race ", kindDef, " with null faction. Setting to ", faction }));
             //}
 
-            TameablePawn newPawn = (TameablePawn)ThingMaker.MakeThing(kindDef.race, null);
+            TameablePawn newPawn = (TameablePawn)ThingMaker.MakeThing(kindDef.race,null);
             newPawn.kindDef = kindDef;
             newPawn.SetFactionDirect(faction);
             TamePawnUtility.InitBasicPet(newPawn);
@@ -46,6 +46,7 @@ namespace ProjectK9
             GenerateRandomAge(newPawn);
             TamePawnUtility.InitWorkSettings(newPawn);
             TamePawnUtility.CreateTameableMood(newPawn);
+            newPawn.initialized = true;
             //newPawn.pather = new Pawn_PathFollower(newPawn);
             //newPawn.ageTracker = new Pawn_AgeTracker(newPawn);
             //newPawn.health = new Pawn_HealthTracker(newPawn);

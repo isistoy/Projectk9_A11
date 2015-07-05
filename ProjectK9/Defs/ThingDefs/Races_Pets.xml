@@ -43,6 +43,7 @@
     </statBases>
     <race>
       <thinkTree>CarnivoreHerd</thinkTree>
+      <graphicOverdraw>true</graphicOverdraw>
       <makesFootprints>true</makesFootprints>
       <herdAnimal>true</herdAnimal>
       <body>QuadrupedAnimalWithPawsAndTail</body>      

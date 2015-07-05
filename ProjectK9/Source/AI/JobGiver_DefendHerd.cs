@@ -23,7 +23,6 @@ namespace ProjectK9.AI
                 if (threat == null)
                 {
                     IEnumerable<Pawn> herdMembers = HerdAIUtility_Pets.FindHerdMembers(pawn);
-                    // Remplacer foreach par un itérateur avec MoveNext
                     foreach (Pawn herdMember in herdMembers)
                     {
                         if (herdMember.mindState.meleeThreat != null)

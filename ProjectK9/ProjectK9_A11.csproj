@@ -72,7 +72,9 @@
     <Compile Include="Source\AI\JobGiver_HuntWithColony.cs" />
     <Compile Include="Source\AI\JobGiver_HuntWithHerd.cs" />
     <Compile Include="Source\Need_TameableMood.cs" />
+    <Compile Include="Source\StockGenerator_SlavePets.cs" />
     <Compile Include="Source\TameableFlotOptionMenuUtility.cs" />
+    <Compile Include="Source\TameablePawnGenerator.cs" />
     <Compile Include="Source\TameablePawn_TameTracker.cs" />
     <Compile Include="Source\TamePawnUtility.cs" />
     <Compile Include="Source\AI\ThinkNode_ConditionalTamed.cs" />
@@ -158,6 +160,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\ThoughtDefs\Thoughts_PsychicDrone.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Defs\TraderKindDefs\TraderKinds.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Defs\TraitDefs\Traits_Singular.xml">

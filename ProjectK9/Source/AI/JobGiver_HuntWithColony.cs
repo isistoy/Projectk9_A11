@@ -11,7 +11,7 @@ namespace ProjectK9.AI
 {
     public class JobGiver_HuntWithColony : ThinkNode_JobGiver
     {
-        public const int HUNT_DISTANCE = 35 * 35;
+        //public const int HUNT_DISTANCE = 35 * 35;
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
             JobDef huntJobDef = FoodAIUtility_Animals.GetHuntForAnimalsJobDef();
@@ -26,33 +26,26 @@ namespace ProjectK9.AI
                 }
 
                 Pawn targetA = null;
-                IEnumerator<Pawn> enumerator = Find.ListerPawns.FreeColonists.GetEnumerator();
-                try
+                IEnumerable<Pawn> colonists = Find.ListerPawns.FreeColonists;
+                foreach (Pawn colonist in colonists)
                 {
-                    while (enumerator.MoveNext())
+                    if (!colonist.Downed
+                        && (colonist.jobs.curJob != null)
+                        && (colonist.jobs.curJob.def == JobDefOf.Hunt))
                     {
-                        Pawn current = enumerator.Current;
-                        if (!current.Downed
-                            && (current.jobs.curJob != null)
-                            && (current.jobs.curJob.def == JobDefOf.Hunt))
+                        TargetInfo huntTarget = colonist.jobs.curJob.targetA;
+                        if ((huntTarget != null)
+                            && pawn.CanReach(huntTarget, PathEndMode.OnCell, Danger.Deadly)
+                            && !(huntTarget.Thing is Corpse)
+                            && !((Pawn)huntTarget).Dead)
+                        //&& (pawn.Position - huntTarget.Center).LengthHorizontalSquared <= HUNT_DISTANCE)
                         {
-                            TargetInfo huntTarget = current.jobs.curJob.targetA;
-                            if ((huntTarget != null)
-                                && pawn.CanReach(huntTarget, PathEndMode.OnCell, Danger.Deadly)
-                                && !(huntTarget.Thing is Corpse)
-                                && !((Pawn)huntTarget).Dead
-                                && (pawn.Position - huntTarget.Center).LengthHorizontalSquared <= HUNT_DISTANCE)
-                            {
-                                targetA = (Pawn)huntTarget;
-                                Log.Message(string.Concat(pet, " found prey ", targetA, " hunted by ", current));
-                            }
+                            targetA = (Pawn)huntTarget;
+                            Log.Message(string.Concat(pet, " found prey ", targetA, " hunted by ", colonist));
                         }
                     }
                 }
-                finally
-                {
-                    enumerator.Dispose();
-                }
+
                 if (targetA != null)
                 {
                     Log.Message(string.Concat(pet, " hunting prey ", targetA));

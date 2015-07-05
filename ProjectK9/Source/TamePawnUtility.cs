@@ -110,7 +110,7 @@ namespace ProjectK9
                 Log.Message("jobs");
                 tamee.jobs = new Pawn_JobTracker(tamee);
             }
-
+            Log.Message("intializing Work");
             tamee.workSettings.EnableAndInitialize();
             tamee.workSettings.DisableAll();
             List<WorkTypeDef> workTypes = new List<WorkTypeDef>();
@@ -128,11 +128,18 @@ namespace ProjectK9
             }
             Log.Message("Trying to add new work types");
             foreach (WorkTypeDef workType in workTypes)
+            {
                 tamee.workSettings.SetPriority(workType, 4);
+            }
         }
 
         public static void InitBasicPet(TameablePawn tamee)
         {
+            if (tamee.health == null)
+            {
+                Log.Message("health");
+                tamee.health = new Pawn_HealthTracker(tamee);
+            }
             if (tamee.pather == null)
             {
                 Log.Message("pather");
@@ -228,6 +235,11 @@ namespace ProjectK9
 
         public static void CreateTameableMood(TameablePawn tamee)
         {
+            if (tamee.needs == null)
+            {
+                Log.Message("needs");
+                tamee.needs = new Pawn_NeedsTracker(tamee);
+            }
             if ((tamee.needs != null) && (tamee.needs.mood == null))
             {
                 Log.Message("mood");

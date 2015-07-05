@@ -9,7 +9,7 @@ using RimWorld;
 
 namespace ProjectK9
 {
-    public class WorkGiver_TamerTame : WorkGiver
+    public class WorkGiver_TamerTame : WorkGiver_Scanner
     {
         public WorkGiver_TamerTame()
         {

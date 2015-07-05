@@ -23,7 +23,7 @@ namespace ProjectK9.AI
             {
                 yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.InteractionCell).FailOnDespawnedOrForbidden<Toil>(TargetIndex.A);
                 yield return Toils_Ingest.TakeMealFromDispenser(TargetIndex.A, pawn);
-                yield return Toils_Ingest.CarryIngestibleToChewSpot().FailOnDestroyedOrForbidden<Toil>(TargetIndex.A);
+                yield return Toils_Ingest.CarryIngestibleToChewSpot(pawn).FailOnDestroyedOrForbidden<Toil>(TargetIndex.A);
                 yield return Toils_Ingest.PlaceItemForIngestion(TargetIndex.A);
                 if (pawn.Faction != null)
                 {

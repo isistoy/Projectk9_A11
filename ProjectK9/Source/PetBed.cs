@@ -44,7 +44,9 @@ namespace ProjectK9
                 for (int i = 0; i < list.Count; i++)
                 {
                     TameablePawn pet = list[i] as TameablePawn;
-                    if (((pet != null) && (pet.jobs.curJob != null)) && ((pet.jobs.curJob.def == RestAIUtility_Animal.GetSleepJobDef()) && (pet.jobs.curJob.targetA.Thing == this)))
+                    if (((pet != null) && (pet.jobs.curJob != null)) 
+                        && ((pet.jobs.curJob.def == JobDefOf.LayDown)
+                        && (pet.jobs.curJob.targetA.Thing == this)))
                     {
                         return pet;
                     }
@@ -55,7 +57,7 @@ namespace ProjectK9
 
         public override void DrawGUIOverlay()
         {
-            if (((Find.CameraMap.CurrentZoom == CameraZoomRange.Closest) && (((this.owner == null) || !((TameablePawn)this.owner).InPetBed()) || (((TameablePawn)this.owner).CurrentPetBed().owner != this.owner))))
+            if (((Find.CameraMap.CurrentZoom == CameraZoomRange.Closest) && (((this.owner == null) || !this.owner.InBed()) || (this.owner.CurrentBed().owner != this.owner))))
             {
                 string nickname;
                 if (this.owner != null)
@@ -87,7 +89,6 @@ namespace ProjectK9
             if (this.owner == null)
                 this.owner = PetBedHolder;
         }
-
         public override void ExposeData()
         {
             base.ExposeData();

@@ -9,11 +9,10 @@ using RimWorld;
 
 namespace ProjectK9.AI
 {
-    class JobGiver_GetRestForAnimal : ThinkNode_JobGiver
+    public class JobGiver_GetRestForAnimal : ThinkNode_JobGiver
     {
         public override float GetPriority(Pawn pawn)
         {
-
             if (pawn.needs.rest.CurLevel < 0.50f)
             {
                 return 8f;
@@ -27,7 +26,7 @@ namespace ProjectK9.AI
 
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
-            JobDef restJobDef = RestAIUtility_Animal.GetSleepJobDef();
+            JobDef restJobDef = JobDefOf.LayDown;
             TameablePawn pet = pawn as TameablePawn;
             if ((pet.jobs.curJob == null) || ((pet.jobs.curJob.def != restJobDef) && pet.Awake()))
             {
@@ -39,46 +38,15 @@ namespace ProjectK9.AI
                         Building_Bed bedFor = pawn.ownership.ownedBed;
 
                         if (bedFor == null)
-                            bedFor = findUnownedBed(pawn);
-
-                        if ((bedFor != null) && (bedFor.owner != pawn))
-                        {
-                            // If it's owned by the HolderPawn, then we need to remove that, or else the game is going to try and
-                            // make it unclaim the bed and then it'll error out.
-                            if (bedFor.owner == PetBed.PetBedHolder)
-                            {
-                                bedFor.owner = null;
-                            }
-                        }
+                            bedFor = RestAIUtility_Animal.FindUnownedBed(pawn);
+                        
                         if (bedFor != null)
-                            return new Job(restJobDef, bedFor);
+                            return new Job(restJobDef, bedFor);                            
                     }
                     return new Job(restJobDef, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
-                    //return new Job(JobDefOf.LayDown, GenCellFinder.RandomStandableClosewalkCellNear(pawn.Position, 4));
                 }
             }
             return null;
-        }
-
-        private Building_Bed findUnownedBed(Pawn pawn)
-        {
-            TraverseParms petBedParms = TraverseParms.For(pawn);
-            ThingRequest petBedRequest = ThingRequest.ForDef(DefDatabase<ThingDef>.GetNamed("PetBed"));
-            Predicate<Thing> petBedPredicate = t =>
-            {
-                PetBed bed = t as PetBed;
-                if (!pawn.CanReserveAndReach(t, PathEndMode.OnCell, Danger.Some, 1))
-                {
-                    return false;
-                }
-                if (bed.owner == PetBed.PetBedHolder)
-                {
-                    return true;
-                }
-                return false;
-
-            };
-            return GenClosest.ClosestThingReachable(pawn.Position, petBedRequest, PathEndMode.InteractionCell, petBedParms, 9999f, petBedPredicate) as PetBed;
         }
     }
 }

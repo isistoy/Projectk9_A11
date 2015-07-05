@@ -14,11 +14,17 @@
   </JobDef>
 
 	<JobDef>
-		<defName>SleepForAnimals</defName>
-		<driverClass>ProjectK9.AI.JobDriver_SleepForAnimals</driverClass>
-		<reportString>Sleeping.</reportString>
+		<defName>LayDown</defName>
+		<driverClass>ProjectK9.AI.JobDriver_Laydown</driverClass>
+		<reportString>Lying down.</reportString>
     <canCheckOverrideOnDamage>true</canCheckOverrideOnDamage>
 	</JobDef>
+
+  <JobDef>
+    <defName>RescueForAnimals</defName>
+    <driverClass>ProjectK9.AI.JobDriver_TakeToBedAnimal</driverClass>
+    <reportString>Rescuing TargetA.</reportString>
+  </JobDef>
 
   <JobDef>
     <defName>HaulForPets</defName>

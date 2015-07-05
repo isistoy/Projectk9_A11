@@ -28,7 +28,7 @@
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(3,4)</drawSize>
     </graphicData>
-		<AltitudeLayer>FloorEmplacement</AltitudeLayer>
+		<AltitudeLayer>Waist</AltitudeLayer>
 		<statBases>
 			<MaxHitPoints>150</MaxHitPoints>
 			<Flammability>1.0</Flammability>
@@ -45,7 +45,7 @@
 		</stuffCategories>
 		<costStuffCount>25</costStuffCount>
 		<building>
-			<Bed_ShowSleeperBody>False</Bed_ShowSleeperBody>
+			<Bed_ShowSleeperBody>True</Bed_ShowSleeperBody>
 			<Bed_HealTickInterval>2100</Bed_HealTickInterval>
       <claimable>true</claimable>
       <deconstructible>true</deconstructible>
@@ -57,6 +57,6 @@
 		<DesignationCategory>Furniture</DesignationCategory>
 		<Passability>PassThroughOnly</Passability>
 		<DrawGUIOverlay>True</DrawGUIOverlay>
-		<designationHotKey>B</designationHotKey>
+		<designationHotKey>Z</designationHotKey>
   </ThingDef>
 </Buildings>

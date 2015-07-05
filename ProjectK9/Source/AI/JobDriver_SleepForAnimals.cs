@@ -12,13 +12,18 @@ namespace ProjectK9.AI
     class JobDriver_SleepForAnimals : JobDriver_LayDown
     {
         private bool sleepingInt;
-        private bool layingDownInt;
+        private bool layingInt;
 
         public new bool Asleep
         {
             get
             {
-                return this.sleepingInt;
+                if (pawn is TameablePawn)
+                {
+                    return this.sleepingInt;
+                }
+                else
+                    return base.Asleep;
             }
         }
 
@@ -30,37 +35,54 @@ namespace ProjectK9.AI
         {
             get
             {
-                return (!this.layingDownInt ? PawnPosture.Standing : PawnPosture.LayingAny);
+                if (pawn is TameablePawn)
+                {
+                    return (!this.layingInt ? PawnPosture.Standing : PawnPosture.LayingAny);
+                }
+                else
+                {
+                    return base.Posture;
+                }
             }
         }
 
         protected override IEnumerable<Toil> MakeNewToils()
         {
-            if (pawn.jobs.curJob.targetA.HasThing)
+            if (pawn is TameablePawn)
             {
-                this.FailOnDespawned<JobDriver_LayDown>(TargetIndex.A);
-                this.FailOn<JobDriver_LayDown>(() => { return ((Building_Bed)pawn.CurJob.GetTarget(TargetIndex.A).Thing).IsBurning();});
-                this.FailOnNonMedicalBedNotOwned<JobDriver_LayDown>(TargetIndex.A, TargetIndex.None);
-                //this.FailOn<JobDriver_LayDown>(() => { return pawn.health.CanUseMedicalBed; }); //&& ((Building_Bed)TargetThingA).Medical;
-                this.FailOn<JobDriver_LayDown>(() => { return ((((TameablePawn)pawn).IsColonyPet && !CurJob.ignoreForbidden) && !pawn.Downed) && TargetThingA.IsForbidden(pawn); });
+                if (pawn.jobs.curJob.targetA.HasThing)
+                {
+                    this.FailOnDespawned<JobDriver_LayDown>(TargetIndex.A);
+                    this.FailOn<JobDriver_LayDown>(() => { return ((Building_Bed)pawn.CurJob.GetTarget(TargetIndex.A).Thing).IsBurning(); });
+                    this.FailOnNonMedicalBedNotOwned<JobDriver_LayDown>(TargetIndex.A, TargetIndex.None);
+                    //this.FailOn<JobDriver_LayDown>(() => { return pawn.health.CanUseMedicalBed; }); //&& ((Building_Bed)TargetThingA).Medical;
+                    this.FailOn<JobDriver_LayDown>(() => { return ((((TameablePawn)pawn).IsColonyPet && !CurJob.ignoreForbidden) && !pawn.Downed) && TargetThingA.IsForbidden(pawn); });
 
-                yield return Toils_Bed.ClaimBedIfNonMedical(TargetIndex.A, TargetIndex.None);
-                yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
+                    yield return Toils_Bed.ClaimBedIfNonMedical(TargetIndex.A, TargetIndex.None);
+                    yield return Toils_Reserve.Reserve(TargetIndex.A, 1);
+                }
+
+                yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
+                Toil sleep = new Toil();
+                sleep.tickAction = new Action(tickAction);
+                sleep.defaultCompleteMode = ToilCompleteMode.Never;
+                yield return sleep;
             }
-
-            yield return Toils_Goto.GotoCell(TargetIndex.A, PathEndMode.OnCell);
-
-            Toil sleep = new Toil();
-            sleep.tickAction = new Action(tickAction);
-            sleep.defaultCompleteMode = ToilCompleteMode.Never;
-            yield return sleep;
-
+            else
+            {
+                IEnumerator<Toil> toils = base.MakeNewToils().GetEnumerator();
+                while (toils.MoveNext())
+                {
+                    yield return toils.Current;
+                }
+                toils.Dispose();
+            }
         }
 
         private void tickAction()
         {
             Building_Bed building_Bed = (Building_Bed)pawn.jobs.curJob.GetTarget(TargetIndex.A).Thing;
-            this.layingDownInt = true;
+            this.layingInt = true;
             if (!this.sleepingInt)
             {
                 if (pawn.needs.rest.CurLevel < 0.55f)
@@ -108,7 +130,7 @@ namespace ProjectK9.AI
                     MoteThrower.ThrowDrift(pawn.Position, ThingDefOf.Mote_HealingCross);
                 }
             }
-            if (((building_Bed != null) && !building_Bed.Medical) && (building_Bed.owner != pawn))
+            if (((building_Bed != null) /*&& !building_Bed.Medical*/) && (building_Bed.owner != pawn))
             {
                 if (pawn.Downed)
                 {

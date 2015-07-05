@@ -144,7 +144,51 @@ namespace ProjectK9
 
         public override IEnumerable<FloatMenuOption> GetExtraFloatMenuOptionsFor(IntVec3 sq)
         {
-            yield return new FloatMenuOption("testaction", new Action(() => { }));
+            // using (List<Thing>.Enumerator thingEnum = sq.GetThingList().GetEnumerator())
+            //{
+            //    while (thingEnum.MoveNext())
+            //    {
+            //        Thing thing = thingEnum.Current;
+            //        if (thing is Pawn)
+            //        {
+            //            Pawn p = thing as Pawn;
+            //            if (p.Downed)
+            //            {
+            //                if (p.kindDef.allowedWorkTypeDefs.Contains(WorkTypeDefOf.Doctor) && droid.health.capacities.CapableOf(PawnCapacityDefOf.Manipulation))
+            //                {
+            //                    if (!p.HostileTo(Faction.OfColony) && (p.def.race.intelligence >= Intelligence.Humanlike))
+            //                    {
+            //                        if (iteratorVariable2 == null)
+            //                        {
+            //                            iteratorVariable2 = delegate
+            //                            {
+            //                                Building_Bed targetB = (from b in Find.ListerBuildings.AllBuildingsColonistOfClass<Building_Bed>()
+            //                                                        where (((b.Medical || (b.owner == p)) || (b.owner == null)) && (b.CurOccupant == null)) && !b.ForPrisoners
+            //                                                        orderby (b.def.building != null) ? ((IEnumerable<Building_Bed>)b.def.building.bed_medicalBonusFactor) : ((IEnumerable<Building_Bed>)0f) descending
+            //                                                        select b).FirstOrDefault<Building_Bed>();
+            //                                if (targetB != null)
+            //                                {
+            //                                    Job newJob = new Job(JobDefOf.Rescue, p, targetB)
+            //                                    {
+            //                                        maxNumToCarry = 1
+            //                                    };
+            //                                    droid.jobs.StartJob(newJob, JobCondition.InterruptForced, null, false, true);
+            //                                }
+            //                                else
+            //                                {
+            //                                    Messages.Message("DroidRescueNoMedicalBedsAvailable".Translate(), MessageSound.RejectInput);
+            //                                }
+            //                            };
+            //                        }
+            //                        yield return new FloatMenuOption("Rescue".Translate(new object[] { p.LabelCap }), iteratorVariable2, MenuOptionPriority.Medium, null, null);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    } 
+            //}
+            yield break;
+            //yield return new FloatMenuOption("testaction", new Action(() => { }));
         }
 
         public override void SetFaction(Faction newFaction)
@@ -229,24 +273,6 @@ namespace ProjectK9
         public bool IsDesignatedToBeTamed()
         {
             return getTamingDesignationOnSelf() != null;
-        }
-
-        public bool InPetBed()
-        {
-            return (CurrentPetBed() != null);
-        }
-        
-        public PetBed CurrentPetBed()
-        {
-            if ((this.CurJob != null) && (this.CurJob.def == RestAIUtility_Animal.GetSleepJobDef()))
-            {
-                PetBed thing = this.jobs.curJob.targetA.Thing as PetBed;
-                if ((thing != null) && (thing.CurPetOccupant == this))
-                {
-                    return thing;
-                }
-            }
-            return null;
         }
 
         private void removePawnTamingDesignation()

@@ -238,7 +238,6 @@ namespace ProjectK9
                 typeof(Pawn_NeedsTracker).
                     GetMethod("AddNeed", BindingFlags.NonPublic | BindingFlags.Instance).
                     Invoke(tamee.needs, new object[] { DefDatabase<NeedDef>.GetNamed("Mood", true) });
-
             }
         }
 

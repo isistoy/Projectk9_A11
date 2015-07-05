@@ -3,7 +3,6 @@
 <PawnKindDefs>
   <PawnKindDef Name="AnimalBase" Abstract="True">
     <manhunterOnDamageChance>0.025</manhunterOnDamageChance>
-    <uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
   </PawnKindDef>
   
 	<PawnKindDef ParentName="AnimalBase">

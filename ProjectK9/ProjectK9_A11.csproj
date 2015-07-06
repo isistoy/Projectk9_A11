@@ -223,6 +223,9 @@
     <Content Include="Textures\Things\Pawn\Animal\Shep_side.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Textures\Things\Pawn\Animal\UI\IconAnimal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Textures\Things\Pawn\Animal\Wolf_back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

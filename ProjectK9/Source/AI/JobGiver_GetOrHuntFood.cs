@@ -92,7 +92,7 @@ namespace ProjectK9.AI
                     {
                         targetA = closestPrey,
                         maxNumMeleeAttacks = 4,
-                        checkOverrideOnExpire = true,
+                        //checkOverrideOnExpire = true,
                         killIncappedTarget = true,
                         expiryInterval = 500
                     };

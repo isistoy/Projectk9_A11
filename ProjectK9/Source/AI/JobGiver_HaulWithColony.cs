@@ -35,7 +35,9 @@ namespace ProjectK9.AI
                             ThingRequest haulThingReq = ThingRequest.ForGroup(ThingRequestGroup.HaulableAlways);
                             Predicate<Thing> haulThingPredicate = t =>
                             {
-                                if (!t.IsForbidden(pet.Faction) && !t.IsForbidden(Faction.OfColony))
+                                if (!t.IsForbidden(pet.Faction) 
+                                    && !t.IsForbidden(Faction.OfColony) 
+                                    && ReservationUtility.CanReserveAndReach(pawn, t, PathEndMode.OnCell, Danger.Some))
                                     return true;
                                 return false;
                             };

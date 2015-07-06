@@ -48,7 +48,7 @@ namespace ProjectK9.AI
                     {
                         EndJobWith(JobCondition.Succeeded);
                     }
-                    else if (actor.natives.TryMeleeAttack(t))
+                    if (actor.natives.TryMeleeAttack(t))
                     {
                         this.numMeleeAttacksLanded++;
                         if (numMeleeAttacksLanded >= curJob.maxNumMeleeAttacks)
@@ -59,14 +59,15 @@ namespace ProjectK9.AI
                 }
             };
             followAndAttack.defaultCompleteMode = ToilCompleteMode.Never;
-            followAndAttack.FailOnDespawned<Toil>(TargetIndex.A);
+            followAndAttack.EndOnDespawned(TargetIndex.A, JobCondition.Succeeded);
+            followAndAttack.FailOn(hunterIsKilled);
             yield return followAndAttack;
         }
 
 
         private bool hunterIsKilled()
         {
-            return pawn.Dead || pawn.Downed || pawn.HitPoints == 0;
+            return pawn.Dead || pawn.HitPoints == 0;
         }
     }
 }

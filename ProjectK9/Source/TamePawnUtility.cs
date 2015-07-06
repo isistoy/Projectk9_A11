@@ -280,10 +280,10 @@ namespace ProjectK9
             tamee.story.childhood = childStory;
             tamee.story.adulthood = adultStory;
             Log.Message("adding resilient trait");
-            tamee.story.traits.GainTrait(new Trait(DefDatabase<TraitDef>.GetNamed("Resilient")));
-            Log.Message("name");
+            tamee.story.traits.GainTrait(new Trait(DefDatabase<TraitDef>.GetNamed("Resilient")));            
             tamee.story.name = tamee.Name = generatePetName();
             tamee.story.name.ResolveMissingPieces();
+            Log.Message(string.Concat("name is ", tamee.Name));
         }
 
         private static PawnName generatePetName()
